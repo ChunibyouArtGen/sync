@@ -8,10 +8,18 @@ from .Image import Image
 
 # @image_class("computed")
 class ComputedImage(Image):
-    def __init__(self, data_manager, inputs, model_id):
-        self.data_manager = data_manager
-        self.inputs = inputs
-        self.model_id = model_id
+    def __init__(self, data_manager, **params):
+        assert 'inputs' in params
+        assert 'model_id' in params
+
+        super().__init__(data_manager, params)
 
     def get_definition(self):
-        return {"inputs": self.inputs, "model_id": self.model_id}
+        return {
+            "inputs": self.params['inputs'],
+            "model_id": self.params['model_id']
+        }
+
+    @staticmethod
+    def get_type():
+        return 'computed'

@@ -1,7 +1,6 @@
 image_classes = {}
 
 
-def image_class(name):
-    def wrapper(cls):
-        image_classes[name] = cls
-        return cls
+def register_image_class(cls):
+    image_classes[cls.get_type()] = cls
+    return cls

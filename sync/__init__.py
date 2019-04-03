@@ -1,3 +1,3 @@
-from .logging import init_logger
+from .logging import init_logging
 
-init_logger()
+__all__ = ['init_logging']

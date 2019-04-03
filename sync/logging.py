@@ -1,19 +1,27 @@
 import logging
 import os
+import colorlog
 
 logger = logging.getLogger()
 
 
-def init_logger(level=logging.DEBUG, path=None):
+def init_logging(level=logging.INFO, path=None):
     if path is None:
         path = os.path.join(os.getcwd(), "log.txt")
 
     logger.setLevel(logging.DEBUG)
     # create file handler which logs even debug messages
     fh = None
-    formatter = logging.Formatter(
-        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-    )  # add the handlers to the logger
+    formatter = colorlog.ColoredFormatter(
+        "%(log_color)s%(levelname)s:%(name)s:%(message)s",
+        log_colors={
+            "DEBUG": "blue",
+            "INFO": "green",
+            "WARNING": "yellow",
+            "ERROR": "red",
+            "CRITICAL": "red,bg_white",
+        },
+    )
     try:
         fh = logging.FileHandler(path)
         fh.setLevel(logging.DEBUG)
