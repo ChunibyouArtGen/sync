@@ -64,6 +64,9 @@ class LayerImage(Image):
 
         for tile_key in tiles:
             self.send_tile_update(tile_key)
+        
+        return len(tiles) > 0
+            
 
     def parse(self, data):
         return data

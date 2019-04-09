@@ -6,6 +6,7 @@ import random
 import json
 from .channel import Channel, handler_functions, handler
 from .images import image_classes
+from abc import abstractmethod
 
 logger = logging.getLogger(__name__)
 
@@ -14,14 +15,27 @@ class DataManager:
     def __init__(self, ws):
         self.images = {}
         self.reverse = {}
+        self.dependencies = {}
         self.channel = Channel(ws, self)
-
+        
     def get_new_uuid(self):
         n = random.randrange(10000)
         while n in self.images:
             n = random.randrange(10000)
         logger.debug("Issued id {} for new image".format(n))
         return n
+
+    def add_dependency(self, source, dependent):
+        if source not in self.dependencies:
+            self.dependencies[source] = []
+        self.dependencies[source].append(dependent)
+
+
+    def recompute_dependency(self, source):
+        for dependency in self.dependencies[source]:
+            self.send_recompute(dependency)
+
+
 
     def register_image(self, image, uuid=None):
         if uuid is None:
@@ -61,7 +75,7 @@ class DataManager:
         image = Cls(self, image_dict['params'])
 
         self.register_image(image, uuid=image_dict["uuid"])
-        logger.info(f"Loaded image {image_dict['uuid']} successfully")
+        logger.info("Loaded image {} successfully".format(image_dict['uuid']))
 
     async def send_tile_update(self, image, key, tile_data):
         logger.info("Sending tile update...")
@@ -77,13 +91,27 @@ class DataManager:
         image = self.reverse[uuid]
         image.update_tile_data(key, tile_data)
 
+    async def send_recompute(self, image):
+        logger.info("Sending recompute command...")
+        uuid = self.reverse[image]
+        message_data = {"uuid": uuid}
+
+        await self.channel.send_message("Recompute", message_data)
+
+    @abstractmethod
+    @handler("Recompute")
+    async def recv_recompute(self, uuid):
+        logger.debug("Scheduling recompute for {}".format(uuid))
+        
 
     ## Control functions
-
+    @abstractmethod
     async def watch_layers(self):
+        pass
         while True:
             logger.debug("Scanning layer images...")
             for _, image in self.images.items():
                 image.update()
+                    
 
             await asyncio.sleep(2)

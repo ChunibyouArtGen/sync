@@ -19,7 +19,7 @@ class Channel:
 
 
     async def send_message(self, request, data):
-        logger.info(f"Sending message {request}")
+        logger.info("Sending message {}".format(request))
         message = {"request": request, "data": data}
         await self.ws.send(bson.dumps(message))
 
