@@ -1,7 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from abc import ABC, abstractmethod,abstractclassmethod
-
+import logging
+logger = logging.getLogger(__name__)
 
 class Image(ABC):
     @abstractmethod
@@ -10,8 +11,12 @@ class Image(ABC):
         self.data_manager = data_manager
         
         for param in self.get_param_list():
-            assert param in params
-        
+            try:
+                assert param in params
+            except:
+                logger.critical("Missing param {} for type {}".format(param, self.get_type()))
+                raise        
+
         self.params = params
 
     @abstractmethod

@@ -2,25 +2,25 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 from .Image import Image
-from ..data_manager import DataManager
+import asyncio
 
 # from .image_registry import image_class
 
 
 # @image_class("layer")
 class LayerImage(Image):
-    def __init__(self, data_manager: DataManager, params):
+    def __init__(self, data_manager, params):
         super().__init__(data_manager, params)
         self.data = np.zeros(
-            (params['x'] * params['w'], params['y'] * params['w'], 3))
+            (params['x_count'] * params['w'], params['y_count'] * params['w'], 3))
 
     def get_param_list(self):
         return [
             "layer_name",
             "x0",
             "y0",
-            "x",
-            "y",
+            "x_count",
+            "y_count",
             "w",
         ]
 
@@ -31,26 +31,27 @@ class LayerImage(Image):
     def get_tile_key(self, x, y):
         x_pos = (x - self.params['x0']) / self.params['w']
         y_pos = (y - self.params['y0']) / self.params['w']
-        assert 0 <= x_pos < self.params['x']
-        assert 0 <= y_pos < self.params['y']
+        assert 0 <= x_pos < self.params['x_count']
+        assert 0 <= y_pos < self.params['y_count']
 
-        return x_pos + y_pos * self.params['y']
+        return x_pos + y_pos * self.params['y_count']
 
     def get_tile_coords(self, tile):
-        x = tile % self.params['y']
-        y = tile // self.params['y']
+        x = tile % self.params['y_count']
+        y = tile // self.params['y_count']
         x_pos = self.params['x0'] + x * self.params['w']
         y_pos = self.params['y0'] + y * self.params['w']
-        assert 0 <= x_pos < self.params['x'] * self.params['w']
-        assert 0 <= y_pos < self.params['y'] * self.params['w']
+        assert 0 <= x_pos < self.params['x_count'] * self.params['w']
+        assert 0 <= y_pos < self.params['y_count'] * self.params['w']
 
         return x_pos, y_pos
 
     def send_tile_update(self, tile_key):
         x0, y0 = self.get_tile_coords(tile_key)
         data = self.data[x0:x0 + self.params['w'], y0:y0 + self.params['w']]
-        self.data_manager.send_tile_update(self, tile_key,
-                                           self.serialize(data))
+        asyncio.ensure_future(
+            self.data_manager.send_tile_update(self, tile_key,
+                                               self.serialize(data)))
 
     def send_updates(self, new_data):
         diff = new_data - self.data
@@ -64,9 +65,8 @@ class LayerImage(Image):
 
         for tile_key in tiles:
             self.send_tile_update(tile_key)
-        
+
         return len(tiles) > 0
-            
 
     def parse(self, data):
         return data
@@ -76,5 +76,5 @@ class LayerImage(Image):
 
     def handle_update(self, tile_key, data):
         x0, y0 = self.get_tile_coords(tile_key)
-        self.data[x0:x0 + self.params['w'], y0:y0 + self.params[
-            'w']] = self.parse(data)
+        self.data[x0:x0 + self.params['w'], y0:y0 +
+                  self.params['w']] = self.parse(data)

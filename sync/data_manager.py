@@ -23,7 +23,7 @@ class DataManager:
         while n in self.images:
             n = random.randrange(10000)
         logger.debug("Issued id {} for new image".format(n))
-        return n
+        return str(n)
 
     def add_dependency(self, source, dependent):
         if source not in self.dependencies:
@@ -64,6 +64,7 @@ class DataManager:
     
     @handler("RegisterImage")
     async def recv_image_definition(self, image_dict):
+        print(image_classes)
         logger.info("Recieved remote image...")
         logger.debug(json.dumps(image_dict))
         if image_dict["uuid"] in self.images:

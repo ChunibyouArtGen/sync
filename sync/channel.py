@@ -29,9 +29,9 @@ class Channel:
         request = r['request']
         data = r["data"]
         if request == "RegisterImage":
-            self.data_manager.recv_image_definition(data)
+            await self.data_manager.recv_image_definition(data)
         elif request == "UpdateTileData":
-            self.data_manager.recv_tile_update(data)
+            await self.data_manager.recv_tile_update(data)
         # elif message["request"] == "RegisterImage":
         #    self.data_manager.update_tile()
 
