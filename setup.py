@@ -5,7 +5,7 @@ setupdict = {
     "version": "0.0.1",
     "packages": find_packages(),
     "include_package_data": True,
-    "install_requires": ["websockets", "bson", 'colorlog', 'numpy', 'pandas'],
+    "install_requires": ["websockets", "bson", 'colorlog', 'numpy', 'pandas', 'numpy'],
 }
 if __name__ == "__main__":
     setup(**setupdict)

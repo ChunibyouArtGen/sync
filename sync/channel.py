@@ -1,6 +1,6 @@
-import json as bson
+import bson
 import logging
-
+logging.getLogger('bson').setLevel(logging.WARNING)
 logger = logging.getLogger(__name__)
 
 handler_functions = {}
@@ -25,16 +25,14 @@ class Channel:
 
     async def process_message(self, message):
         r = bson.loads(message)
-        logger.info("Got message {}".format(r))
+        logger.info("Got message {}".format(r['request']))
         request = r['request']
         data = r["data"]
         if request == "RegisterImage":
             await self.data_manager.recv_image_definition(data)
         elif request == "UpdateTileData":
             await self.data_manager.recv_tile_update(data)
-        # elif message["request"] == "RegisterImage":
-        #    self.data_manager.update_tile()
-
+        
     async def listen(self):
         logger.info("Listening for updates...")
         while True:

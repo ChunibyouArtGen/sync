@@ -23,7 +23,6 @@ class ComputedImage(LayerImage):
     def get_type():
         return 'computed'
 
-    @abstractmethod
     def recv_computed_image(self, data):
         """
         Receive an updated image from the task runner.

@@ -5,11 +5,12 @@ import logging
 logger = logging.getLogger(__name__)
 
 class Image(ABC):
-    @abstractmethod
     def __init__(self, data_manager, params):
+        self.params = params
         self.data = None
         self.data_manager = data_manager
-        
+        data_manager.register_image(self)
+
         for param in self.get_param_list():
             try:
                 assert param in params
@@ -17,7 +18,6 @@ class Image(ABC):
                 logger.critical("Missing param {} for type {}".format(param, self.get_type()))
                 raise        
 
-        self.params = params
 
     @abstractmethod
     def get_param_list(self):
@@ -37,3 +37,6 @@ class Image(ABC):
     @abstractclassmethod
     def get_type(cls):
         pass
+    
+    def get_params(self):
+        return self.params
