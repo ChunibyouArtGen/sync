@@ -1,25 +1,24 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from abc import ABC, abstractmethod, abstractclassmethod
+import logging
+logger = logging.getLogger(__name__)
 
 
 class Image(ABC):
-    @abstractmethod
     def __init__(self, data_manager, params):
-        """
-        This method stores the data manager and parameters as internal variables.
-        This method also handles validates the passed params, to ensure they contain 
-        all the necessary parameters (i.e what get_param_list returns).
-
-        Build on top of this in subclasses. 
-        """
+        self.params = params
         self.data = None
         self.data_manager = data_manager
+        data_manager.register_image(self)
 
         for param in self.get_param_list():
-            assert param in params
-
-        self.params = params
+            try:
+                assert param in params
+            except:
+                logger.critical("Missing param {} for type {}".format(
+                    param, self.get_type()))
+                raise
 
     @abstractmethod
     def get_param_list(self):
@@ -49,3 +48,6 @@ class Image(ABC):
     @abstractclassmethod
     def get_type(cls):
         pass
+
+    def get_params(self):
+        return self.params
