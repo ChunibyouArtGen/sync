@@ -56,7 +56,7 @@ class DataManager:
             logger.warn("Image already exists (or uuid collision)...")
             return
 
-        image_dict["data_manager"] = self  # inject the data manager
+        #image_dict["data_manager"] = self  # inject the data manager
         Cls = image_classes[image_dict['type']]
         image = Cls(self, image_dict['params'])
 
