@@ -38,7 +38,7 @@ class DataManager:
 
 
 
-    def register_image(self, image, uuid=None, update_remote=True):
+    async def register_image(self, image, uuid=None, update_remote=True):
         if uuid is None:
             uuid = self.get_new_uuid()
         logger.info("Registering new image with uuid {}".format(uuid))
@@ -47,7 +47,7 @@ class DataManager:
         self.dependencies[image] = []
         if update_remote:
             logger.info("Sending to remote...")
-            asyncio.ensure_future(self.send_image(image))
+            await self.send_image(image)
         else:
             logger.warning("Not informing remote!")
         return uuid
@@ -82,7 +82,7 @@ class DataManager:
         Cls = image_classes[image_dict['type']]
         image = Cls(self, image_dict['params'])
 
-        self.register_image(image, uuid=image_dict["uuid"],update_remote=False)
+        await self.register_image(image, uuid=image_dict["uuid"],update_remote=False)
         logger.info("Loaded image {} successfully".format(image_dict['uuid']))
 
 

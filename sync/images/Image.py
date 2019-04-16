@@ -3,6 +3,7 @@
 from abc import ABC, abstractmethod, abstractclassmethod
 import logging
 logger = logging.getLogger(__name__)
+import asyncio
 
 
 class Image(ABC):
@@ -10,7 +11,7 @@ class Image(ABC):
         self.params = params
         self.data = None
         self.data_manager = data_manager
-        # data_manager.register_image(self)
+        asyncio.ensure_future(data_manager.register_image(self))
 
         for param in self.get_param_list():
             try:
