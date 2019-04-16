@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from .LayerImage import LayerImage
+import numpy as np
+
 from abc import abstractmethod
 # from .image_registry import image_class
 
@@ -22,6 +24,9 @@ class ComputedImage(LayerImage):
     @staticmethod
     def get_type():
         return 'computed'
+
+    def get_image(self):
+        return self.data
 
     def recv_computed_image(self, data):
         """
