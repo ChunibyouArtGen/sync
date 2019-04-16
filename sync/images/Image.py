@@ -10,7 +10,7 @@ class Image(ABC):
         self.params = params
         self.data = None
         self.data_manager = data_manager
-        data_manager.register_image(self)
+        # data_manager.register_image(self)
 
         for param in self.get_param_list():
             try:
@@ -51,3 +51,6 @@ class Image(ABC):
 
     def get_params(self):
         return self.params
+
+    def register(self):
+        self.data_manager.register_image(self)

@@ -20,7 +20,7 @@ def get_client(host='localhost', port='8765'):
 
 
 class Client:
-    def __init__(self, ):
+    def __init__(self):
         self.asyncio_loop = None
 
     def get_data_manager(self):

@@ -26,8 +26,8 @@ class LayerImage(Image):
             "w",
         ]
 
-    @staticmethod
-    def get_type():
+    @classmethod
+    def get_type(cls):
         return 'layer'
 
     def get_tile_key(self, x, y):
