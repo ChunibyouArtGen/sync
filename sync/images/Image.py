@@ -11,11 +11,17 @@ class Image(ABC):
         self.params = params
         self.data = None
         self.data_manager = data_manager
-        asyncio.ensure_future(data_manager.register_image(self))
-
+        
         for param in self.get_param_list():
             try:
                 assert param in params
+                try:
+                    self.params[param] = int(params[param])
+                except:
+                    try:
+                        self.params[param] = float(params[param])
+                    except:
+                        pass
             except:
                 logger.critical("Missing param {} for type {}".format(
                     param, self.get_type()))
@@ -53,5 +59,5 @@ class Image(ABC):
     def get_params(self):
         return self.params
 
-    def register(self):
-        self.data_manager.register_image(self)
+    async def register_self(self):
+        await self.data_manager.register_image(self)

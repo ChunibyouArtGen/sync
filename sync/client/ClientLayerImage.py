@@ -3,7 +3,8 @@ from ..images import register_image_class
 from .utils import get_node_object, grab_image
 import logging
 logger = logging.getLogger(__name__)
-
+import numpy as np
+from skimage.io import imsave
 
 @register_image_class
 class ClientLayerImage(LayerImage):
@@ -21,6 +22,8 @@ class ClientLayerImage(LayerImage):
                               self.params['x_count'] * self.params['w'],
                               self.params['y_count'] * self.params['w'])
 
+        imsave('/home/hybrid/.local/share/krita/pykrita/client/{}.png'.format(1000), np.moveaxis(new_data,0,-1))        
+        
         return self.update_data(new_data)
 
     def handle_update(self, tile_key, data):

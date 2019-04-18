@@ -81,8 +81,12 @@ class DataManager:
         #image_dict["data_manager"] = self  # inject the data manager
         Cls = image_classes[image_dict['type']]
         image = Cls(self, image_dict['params'])
-
-        await self.register_image(image, uuid=image_dict["uuid"],update_remote=False)
+        uuid = image_dict['uuid']
+        self.images[uuid] = image
+        self.reverse[image] = uuid
+        self.dependencies[image] = []
+        
+        #await self.register_image(image, uuid=image_dict["uuid"],update_remote=False)
         logger.info("Loaded image {} successfully".format(image_dict['uuid']))
 
 
@@ -97,7 +101,7 @@ class DataManager:
     @handler("UpdateTileData")
     async def recv_tile_update(self, data):
         logger.debug("Updating tile {} in image {}".format(data['tile_key'], data['uuid']))
-        image = self.reverse[data['uuid']]
+        image = self.images[data['uuid']]
         image.update_tile_data(data['tile_key'], data['tile_data'])
 
 

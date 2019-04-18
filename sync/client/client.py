@@ -27,21 +27,22 @@ class Client:
         return self.data_manager
 
     async def connect(self, host, port):
-        ws = await websockets.connect(host, port)
+        ws = await websockets.connect('ws://{}:{}'.format(host, port))
         self.data_manager = ClientDataManager(ws)
         logger.info("Client init complete")
         await asyncio.gather(self.data_manager.channel.listen(),
                              self.data_manager.watch_layers())
 
     def start_thread(self):
-        t = Thread(target=self.start, name='celestiaprime')
+        t = Thread(target=self.start, args=['localhost','8765'], name='celestiaprime')
         t.start()
 
     def run_coroutine(self, cor):
-        self.asyncio_loop.ensure_future(cor)
+        asyncio.ensure_future(cor, loop=self.asyncio_loop)
 
     def start(self, host, port):
         self.asyncio_loop = asyncio.new_event_loop()
         asyncio.set_event_loop(self.asyncio_loop)
+        logger.warn("Async loop started in in new thread")
         asyncio.ensure_future(self.connect(host, port))
         asyncio.get_event_loop().run_forever()
