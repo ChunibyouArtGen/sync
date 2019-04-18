@@ -1,5 +1,6 @@
-import bson
+#import bson
 import logging
+import pickle
 logging.getLogger('bson').setLevel(logging.WARNING)
 logger = logging.getLogger(__name__)
 
@@ -21,10 +22,13 @@ class Channel:
     async def send_message(self, request, data):
         logger.info("Sending message {}".format(request))
         message = {"request": request, "data": data}
-        await self.ws.send(bson.dumps(message))
+        data = pickle.dumps(message)
+        #data = bson.dumps(message)
+        await self.ws.send(data)
 
     async def process_message(self, message):
-        r = bson.loads(message)
+        #r = bson.loads(message)
+        r = pickle.loads(message)
         logger.info("Got message {}".format(r['request']))
         request = r['request']
         data = r["data"]

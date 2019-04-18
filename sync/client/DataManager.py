@@ -9,10 +9,10 @@ class ClientDataManager(DataManager):
         while True:
             logger.debug("Scanning layer images...")
             for uuid, image in self.images.items():
-                if image.scan():
+                if await image.scan():
                     self.recompute_dependencies(image)
  
-            await asyncio.sleep(2)
+            await asyncio.sleep(10)
 
     async def recv_recompute(self, uuid):
         logger.debug("Scheduling recompute for {}".format(uuid))

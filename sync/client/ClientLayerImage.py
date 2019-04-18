@@ -5,13 +5,14 @@ import logging
 logger = logging.getLogger(__name__)
 import numpy as np
 from skimage.io import imsave
+import asyncio
 
 @register_image_class
 class ClientLayerImage(LayerImage):
     def __init__(self, data_manager, params):
         super().__init__(data_manager, params)
 
-    def scan(self):
+    async def scan(self):
         logger.debug("Scanning image on layer {}".format(
             self.params['layer_name']))
         # Scan Krita for updates
@@ -24,7 +25,7 @@ class ClientLayerImage(LayerImage):
 
         imsave('/home/hybrid/.local/share/krita/pykrita/client/{}.png'.format(1000), np.moveaxis(new_data,0,-1))        
         
-        return self.update_data(new_data)
+        return await self.update_data(new_data)
 
     def handle_update(self, tile_key, data):
         # Don't do anything, since this class is input-only

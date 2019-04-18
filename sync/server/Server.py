@@ -9,7 +9,7 @@ logger = logging.getLogger()
 
 
 class Server():
-    def __init__(self, log_level=logging.DEBUG):
+    def __init__(self, log_level=logging.INFO):
         init_logging(level=log_level)
         self.data_manager = None
 
@@ -27,6 +27,6 @@ class Server():
 
     def start(self, host="localhost", port=8765):
         start_server = websockets.serve(self.handle_message, host, port)
-        logger.debug("Starting server...")
+        logger.info("Starting server...")
         asyncio.get_event_loop().run_until_complete(start_server)
         asyncio.get_event_loop().run_forever()

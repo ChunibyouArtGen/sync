@@ -21,7 +21,7 @@ def grab_image(node, x, y, w, h):
     h	number of rows to read
     """
     imageData = node.pixelData(x, y, w, h)
-    data = np.frombuffer(imageData, dtype=np.ubyte)
+    data = np.frombuffer(imageData, dtype=np.uint8)
     new_data = data.reshape((4, w,h))
     return new_data[:3,:,:]
 

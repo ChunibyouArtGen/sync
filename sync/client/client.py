@@ -11,9 +11,9 @@ logger = logging.getLogger(__name__)
 client_obj = None
 
 
-def get_client(host='localhost', port='8765'):
+def get_client(host='localhost', port='8765', reset=False):
     global client_obj
-    if not client_obj:
+    if not client_obj or reset == True:
         client_obj = Client()
         client_obj.start_thread()
     return client_obj
