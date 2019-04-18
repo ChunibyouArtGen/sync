@@ -23,7 +23,7 @@ class ClientLayerImage(LayerImage):
                               self.params['x_count'] * self.params['w'],
                               self.params['y_count'] * self.params['w'])
 
-        imsave('/home/hybrid/.local/share/krita/pykrita/client/{}.png'.format(1000), np.moveaxis(new_data,0,-1))        
+        imsave('/home/hybrid/.local/share/krita/pykrita/client/{}.png'.format(1000), new_data)        
         
         return await self.update_data(new_data)
 

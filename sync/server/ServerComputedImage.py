@@ -10,13 +10,10 @@ class ServerComputedImage(ComputedImage):
         super().__init__(data_manager, params)
 
 
-    def recv_computed_image(self, data):
+    def handle_computed_image(self, data):
         """
         Receive an updated image from the task runner.
         This function should synchronize with the other side, but does not need to handle any further compute dependencies
         """
         logger.info("ComputedImage recieved computed data. Processing...")
-        self.data = data
-        for tile in range(self.params['x_count']*self.params['y_count']):
-            self.send_tile_update(tile)
-        logger.info("ComputedImage recieved computed data. Processing...")
+        self.update_data(data)

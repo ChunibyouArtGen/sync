@@ -1,5 +1,6 @@
 from .DataManager import DataManager
 from sync import init_logging
+from .taskmanager import TaskManager
 
 import asyncio
 import websockets
@@ -12,6 +13,7 @@ class Server():
     def __init__(self, log_level=logging.INFO):
         init_logging(level=log_level)
         self.data_manager = None
+        self.taskmanager = None
 
     async def handle_message(self, ws, path):
         logger.info("Running handler...")
@@ -28,5 +30,6 @@ class Server():
     def start(self, host="localhost", port=8765):
         start_server = websockets.serve(self.handle_message, host, port)
         logger.info("Starting server...")
-        asyncio.get_event_loop().run_until_complete(start_server)
+        loop = asyncio.gather(start_server)
+        asyncio.get_event_loop().run_until_complete(loop)
         asyncio.get_event_loop().run_forever()

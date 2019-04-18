@@ -22,8 +22,8 @@ def grab_image(node, x, y, w, h):
     """
     imageData = node.pixelData(x, y, w, h)
     data = np.frombuffer(imageData, dtype=np.uint8)
-    new_data = data.reshape((4, w,h))
-    return new_data[:3,:,:]
+    new_data = data.reshape((w,h,4))
+    return new_data[:,:, :3]
 
 
 def getColorModel(node):

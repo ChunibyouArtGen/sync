@@ -40,9 +40,12 @@ class Client:
     def run_coroutine(self, cor):
         asyncio.ensure_future(cor, loop=self.asyncio_loop)
 
+    async def run(self, host, port):
+        logger.info("Worker thread started")
+        await self.connect(host, port)
+
     def start(self, host, port):
         self.asyncio_loop = asyncio.new_event_loop()
         asyncio.set_event_loop(self.asyncio_loop)
-        logger.warn("Async loop started in in new thread")
-        asyncio.ensure_future(self.connect(host, port))
+        asyncio.ensure_future(self.run(host,port))
         asyncio.get_event_loop().run_forever()

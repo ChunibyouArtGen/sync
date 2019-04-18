@@ -28,7 +28,7 @@ class ComputedImage(LayerImage):
     def get_image(self):
         return self.data
 
-    def recv_computed_image(self, data):
+    def handle_computed_image(self, data):
         """
         Receive an updated image from the task runner.
         This function should synchronize with the other side, but does not need to handle any further compute dependencies

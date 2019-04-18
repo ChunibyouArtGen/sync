@@ -14,8 +14,9 @@ logger = logging.getLogger(__name__)
 class LayerImage(Image):
     def __init__(self, data_manager, params):
         super().__init__(data_manager, params)
-        self.data = np.ones((3, params['x_count'] * params['w'],
-                              params['y_count'] * params['w']), dtype=np.uint8)
+        self.data = np.ones((params['x_count'] * params['w'],
+                             params['y_count'] * params['w'], 3),
+                            dtype=np.uint8)
 
     def get_param_list(self):
         return [
@@ -38,38 +39,43 @@ class LayerImage(Image):
             assert 0 <= x_pos < self.params['x_count']
             assert 0 <= y_pos < self.params['y_count']
         except Exception as e:
-            logger.error("Tile out of bounds, got pos {},{}".format(x_pos, y_pos))
+            logger.error("Tile out of bounds, got pos {},{}".format(
+                x_pos, y_pos))
             logger.error(self.params)
             logger.exception(e)
 
-        return x_pos + y_pos * self.params['y_count']
+        return x_pos + y_pos * self.params['x_count']
 
     def get_tile_coords(self, tile):
-        x = tile % self.params['y_count']
-        y = tile // self.params['y_count']
-        x_pos = self.params['x0'] + x * self.params['w']
-        y_pos = self.params['y0'] + y * self.params['w']
+        x = tile % self.params['x_count']
+        y = tile // self.params['x_count']
+        x_pos = self.params['x0'] + (x * self.params['w'])
+        y_pos = self.params['y0'] + (y * self.params['w'])
         try:
-            assert 0 <= x_pos < (self.params['x0'] + self.params['x_count'] * self.params['w'])
-            assert 0 <= y_pos < (self.params['y0'] + self.params['y_count'] * self.params['w'])
+            assert 0 <= x_pos < (self.params['x0'] +
+                                 self.params['x_count'] * self.params['w'])
+            assert 0 <= y_pos < (self.params['y0'] +
+                                 self.params['y_count'] * self.params['w'])
         except Exception as e:
-            logger.error("Tile {} out of bounds, got coords {},{}".format(tile, x_pos, y_pos))
+            logger.error("Tile {} out of bounds, got coords {},{}".format(
+                tile, x_pos, y_pos))
             logger.error(self.params)
             logger.exception(e)
         return x_pos, y_pos
 
     async def send_tile_update(self, tile_key):
         x0, y0 = self.get_tile_coords(tile_key)
-        data = self.data[:, x0:(x0 + self.params['w']), y0:(
-            y0 + self.params['w'])]
-        
-        await self.data_manager.send_tile_update(self, tile_key,
-                                               self.serialize_tile_data(data))
-    
+        x = x0 + self.params['w']
+        y = y0 + self.params['w']
+        data = self.data[x0:x, y0:y, :]
+
+        await self.data_manager.send_tile_update(self, tile_key, data)
+
     def update_tile_data(self, tile_key, data):
         x0, y0 = self.get_tile_coords(tile_key)
-        self.data[:, x0:(x0 + self.params['w']), y0:(
-            y0 + self.params['w'])] = self.parse_tile_data(data)
+        x = x0 + self.params['w']
+        y = y0 + self.params['w']
+        self.data[x0:x, y0:y, :] = data
 
     async def update_data(self, new_data):
         logger.info("Start diff...")
@@ -77,25 +83,25 @@ class LayerImage(Image):
         print(diff.sum().sum())
         diff = np.absolute(diff).sum(0)
         I, J = diff.shape
-        
+
         self.data = new_data
-        
+
         x = []
         y = []
         for i in range(I):
             for j in range(J):
-                if diff[i,j] != 0:
-                    x.append(i)  
-                    y.append(j)  
-        
+                if diff[i, j] != 0:
+                    x.append(i)
+                    y.append(j)
+
         x = np.array(x)
         y = np.array(y)
         x = x // self.params['w']
         y = y // self.params['w']
-        tiles = x + (y * self.params['y_count'])
-        
+        tiles = x + (y * self.params['x_count'])
+
         tiles = set(tiles)
-        
+
         logger.info("Detected {} changed tiles. Sending updates...".format(
             len(tiles)))
         for tile_key in tiles:
@@ -106,13 +112,5 @@ class LayerImage(Image):
 
         return len(tiles) > 0
 
-    def parse_tile_data(self, data):
-        return data
-        #return pickle.loads(data).copy()
-
-    def serialize_tile_data(self, data):
-        return data
-        #return pickle.dumps(data)
-        
     def get_image(self):
         return self.data
