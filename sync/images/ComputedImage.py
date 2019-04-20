@@ -5,6 +5,7 @@ from .LayerImage import LayerImage
 import numpy as np
 
 from abc import abstractmethod
+from copy import deepcopy
 # from .image_registry import image_class
 import logging
 logger = logging.getLogger(__name__)
@@ -19,7 +20,7 @@ class ComputedImage(LayerImage):
                 source = data_manager.images[uuid]
                 self.slots[slot] = source
             except:
-                logger.warn("Failed to decode input {}:{}, leaving as-is".format(slot, uuid))
+                logger.warn("Input {}:{} is not a valid uuid, leaving as-is".format(slot, uuid))
                 self.slots[slot] = uuid
                 
 
@@ -36,7 +37,11 @@ class ComputedImage(LayerImage):
     def get_slots(self):
         return self.slots
     
-    async def register_self(self):
-        super().register_self()
-        for slot, image in self.params['inputs'].items():
-            self.data_manager.add_dependency(source=image, dependent=self)
+    
+    def get_params(self):
+        params = self.params.copy()
+        print(params)
+        for slot, image in params['inputs'].items():
+            params['inputs'][slot] = self.data_manager.reverse[image]
+        
+        return params        

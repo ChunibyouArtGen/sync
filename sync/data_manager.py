@@ -75,6 +75,7 @@ class DataManager:
         self.images[uuid] = image
         self.reverse[image] = uuid
         
+        
         #await self.register_image(image, uuid=image_dict["uuid"],update_remote=False)
         logger.info("Loaded image {} successfully".format(image_dict['uuid']))
 

@@ -45,13 +45,6 @@ class Image(ABC):
     def get_image(self):
         pass
 
-    @abstractmethod
-    def scan(self):
-        """
-        Update the image. Typically called by the DataManager or TaskRunner.
-        """
-        pass
-
     @abstractclassmethod
     def get_type(cls):
         pass

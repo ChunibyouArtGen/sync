@@ -10,10 +10,11 @@ class ServerComputedImage(ComputedImage):
         super().__init__(data_manager, params)
 
 
-    def handle_computed_image(self, data):
-        """
-        Receive an updated image from the task runner.
-        This function should synchronize with the other side, but does not need to handle any further compute dependencies
-        """
-        logger.info("ComputedImage recieved computed data. Processing...")
-        self.update_data(data)
+    async def register_self(self):
+        super().register_self()
+        for slot, image in self.params['inputs'].items():
+            self.data_manager.add_dependency(source=image, dependent=self)
+
+
+    def handle_update(self, data):
+        self.data = data

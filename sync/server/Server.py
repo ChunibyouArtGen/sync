@@ -1,4 +1,4 @@
-from .DataManager import DataManager
+from .DataManager import ServerDataManager
 from sync import init_logging
 from .taskmanager import TaskManager
 
@@ -17,7 +17,7 @@ class Server():
     async def handle_message(self, ws, path):
         logger.info("Running handler...")
         if self.data_manager is None:
-            self.data_manager = DataManager(ws)
+            self.data_manager = ServerDataManager(ws)
             logger.info("Server init complete")
 
         while True:

@@ -28,8 +28,8 @@ class ServerDataManager(DataManager):
 
     def recompute_dependencies(self, source):
         for dependency in self.dependencies[source]:
-            self.taskmanager.schedule_compute(dependency)
-    
+            asyncio.ensure_future(self.taskmanager.compute_debounce(dependency))
+            
     
     async def register_image(self, image, uuid=None, update_remote=True):
         super().register_image(image, uuid, update_remote)
@@ -37,8 +37,9 @@ class ServerDataManager(DataManager):
     
 
     async def recv_tile_update(self, data):
-        logger.debug("Updating tile {} in image {}".format(data['tile_key'], data['uuid']))
+        logger.info("Updating tile {} in image {}".format(data['tile_key'], data['uuid']))
         image = self.images[data['uuid']]
         image.update_tile_data(data['tile_key'], data['tile_data'])
-        await self.taskmanager.schedule_compute(image)
-    
+        self.recompute_dependencies(image)
+        
+        

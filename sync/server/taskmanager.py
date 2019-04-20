@@ -32,7 +32,7 @@ class TaskManager:
         
     async def schedule_compute(self, image):
         logger.info('Sending compute request to executor')
-        future = self.executor.submit(self.compute, args=[image])
+        future = self.executor.submit(self.compute, image)
 
         def callback(future:Future):
             data = future.result()
@@ -44,19 +44,16 @@ class TaskManager:
     
     async def compute_debounce(self, image):
         try:
-            
-            if self.tasks[image]:
+            if image in self.tasks:
                 status = self.tasks[image].cancel() # Cancel other executions of this function
                 if status == False:
                     logger.warn('Computation cancel failed. The task is (probably) already running.')
 
             await asyncio.sleep(5)  # Give other executions a chance to cancel this this one
-            
             self.tasks[image] = asyncio.ensure_future(self.schedule_compute(image)) # Defer to the actual function
-
         except:
             logger.warn('Compute scheduling aborted')
-            raise
+            
 
 
 
