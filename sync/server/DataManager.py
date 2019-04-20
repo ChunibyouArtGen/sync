@@ -30,16 +30,10 @@ class ServerDataManager(DataManager):
         for dependency in self.dependencies[source]:
             asyncio.ensure_future(self.taskmanager.compute_debounce(dependency))
             
-    
-    async def register_image(self, image, uuid=None, update_remote=True):
-        super().register_image(image, uuid, update_remote)
-        self.dependencies[image] = []
-    
 
     async def recv_tile_update(self, data):
         logger.info("Updating tile {} in image {}".format(data['tile_key'], data['uuid']))
         image = self.images[data['uuid']]
         image.update_tile_data(data['tile_key'], data['tile_data'])
         self.recompute_dependencies(image)
-        
         

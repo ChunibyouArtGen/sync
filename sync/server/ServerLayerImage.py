@@ -15,9 +15,6 @@ class ServerLayerImage(LayerImage):
         # Do nothing
         pass
 
-    def handle_update(self, tile_key, data):
-        # Again, do nothing
-        pass
     
     def update_tile_data(self, tile_key, data):
         super().update_tile_data(tile_key, data)

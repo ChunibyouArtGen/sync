@@ -27,9 +27,6 @@ class ClientLayerImage(LayerImage):
         
         return await self.update_data(new_data)
 
-    def handle_update(self, tile_key, data):
-        # Don't do anything, since this class is input-only
-        pass
-
+    
     def get_image(self):
         return self.data

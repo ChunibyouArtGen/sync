@@ -2,6 +2,9 @@ from sync.images import ComputedImage
 from sync.images import register_image_class
 from .utils import get_node_object
 
+import logging
+logger = logging.getLogger(__name__)
+
 @register_image_class
 class ClientComputedImage(ComputedImage):
     def __init__(self, data_manager, params):
@@ -10,10 +13,16 @@ class ClientComputedImage(ComputedImage):
             self.krita_node = get_node_object(params['layer_name'])
 
 
-    def handle_update(self, tile_key, data):
+    def update_tile_data(self, tile_key, data):
         # Write to krita
         if self.krita_node:
-            self.writekritadatablargg()
+            x0 = self.params['x0']
+            y0 = self.params['y0']
+            x = self.params['w'] * self.params['x_count']
+            y = self.params['w'] * self.params['y_count']
+            self.krita_node.setPixelData(self.data.tobytes(), x0, y0, x, y)
+        else:
+            logger.warn('Not rendering!')
     
     async def scan(self):
         pass

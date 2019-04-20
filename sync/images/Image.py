@@ -37,10 +37,7 @@ class Image(ABC):
         """
         return []
 
-    @abstractmethod
-    def handle_update(self, tile_key, data):
-        pass
-
+    
     @abstractmethod
     def get_image(self):
         pass

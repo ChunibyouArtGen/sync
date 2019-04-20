@@ -17,6 +17,7 @@ class DataManager:
         self.images = {}
         self.reverse = {}
         self.channel = Channel(ws, self)
+        self.dependencies = {}
         
     def get_new_uuid(self):
         n = random.randrange(10000)
@@ -74,7 +75,7 @@ class DataManager:
         uuid = image_dict['uuid']
         self.images[uuid] = image
         self.reverse[image] = uuid
-        
+        self.dependencies[image] = []
         
         #await self.register_image(image, uuid=image_dict["uuid"],update_remote=False)
         logger.info("Loaded image {} successfully".format(image_dict['uuid']))

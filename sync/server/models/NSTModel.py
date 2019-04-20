@@ -3,4 +3,4 @@ class NSTModel:
         pass
     
     def run(self, inputs):
-        pass
+        return inputs['content'].get_image()
