@@ -6,7 +6,8 @@ import numpy as np
 
 from abc import abstractmethod
 # from .image_registry import image_class
-
+import logging
+logger = logging.getLogger(__name__)
 
 # @image_class("computed")
 class ComputedImage(LayerImage):
@@ -14,9 +15,13 @@ class ComputedImage(LayerImage):
         super().__init__(data_manager, params)
         self.slots = {}
         for slot, uuid in params['inputs'].items():
-            source = data_manager.images[uuid]
-            self.slots[slot] = source
-            data_manager.add_dependency(source=source, dependent=self)
+            try:
+                source = data_manager.images[uuid]
+                self.slots[slot] = source
+            except:
+                logger.warn("Failed to decode input {}:{}, leaving as-is".format(slot, uuid))
+                self.slots[slot] = uuid
+                
 
     def get_param_list(self):
         return ["inputs","model_id"] + super().get_param_list()
@@ -28,9 +33,10 @@ class ComputedImage(LayerImage):
     def get_image(self):
         return self.data
 
-    def handle_computed_image(self, data):
-        """
-        Receive an updated image from the task runner.
-        This function should synchronize with the other side, but does not need to handle any further compute dependencies
-        """
-        pass
+    def get_slots(self):
+        return self.slots
+    
+    async def register_self(self):
+        super().register_self()
+        for slot, image in self.params['inputs'].items():
+            self.data_manager.add_dependency(source=image, dependent=self)

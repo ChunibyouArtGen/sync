@@ -13,7 +13,6 @@ class Server():
     def __init__(self, log_level=logging.INFO):
         init_logging(level=log_level)
         self.data_manager = None
-        self.taskmanager = None
 
     async def handle_message(self, ws, path):
         logger.info("Running handler...")

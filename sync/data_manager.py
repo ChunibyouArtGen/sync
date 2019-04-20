@@ -16,7 +16,6 @@ class DataManager:
     def __init__(self, ws):
         self.images = {}
         self.reverse = {}
-        self.dependencies = {}
         self.channel = Channel(ws, self)
         
     def get_new_uuid(self):
@@ -26,15 +25,7 @@ class DataManager:
         logger.debug("Issued id {} for new image".format(n))
         return str(n)
 
-    def add_dependency(self, source, dependent):
-        if source not in self.dependencies:
-            self.dependencies[source] = []
-        self.dependencies[source].append(dependent)
 
-
-    def recompute_dependencies(self, source):
-        for dependency in self.dependencies[source]:
-            self.send_recompute(dependency)
 
 
 
@@ -44,10 +35,9 @@ class DataManager:
         logger.info("Registering new image with uuid {}".format(uuid))
         self.images[uuid] = image
         self.reverse[image] = uuid
-        self.dependencies[image] = []
         if update_remote:
             logger.info("Sending to remote...")
-            await self.send_image(image)
+            asyncio.ensure_future(self.send_image(image))
         else:
             logger.warning("Not informing remote!")
         return uuid
@@ -84,7 +74,6 @@ class DataManager:
         uuid = image_dict['uuid']
         self.images[uuid] = image
         self.reverse[image] = uuid
-        self.dependencies[image] = []
         
         #await self.register_image(image, uuid=image_dict["uuid"],update_remote=False)
         logger.info("Loaded image {} successfully".format(image_dict['uuid']))
@@ -116,6 +105,7 @@ class DataManager:
     @handler("Recompute")
     async def recv_recompute(self, uuid):
         logger.debug("Scheduling recompute for {}".format(uuid))
+        logger.error("Unimplemented!")
         
 
     ## Control functions

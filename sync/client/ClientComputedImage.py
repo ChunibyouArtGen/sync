@@ -14,3 +14,7 @@ class ClientComputedImage(ComputedImage):
         # Write to krita
         if self.krita_node:
             self.writekritadatablargg()
+    
+    async def scan(self):
+        pass
+    

@@ -78,10 +78,10 @@ class LayerImage(Image):
         self.data[x0:x, y0:y, :] = data
 
     async def update_data(self, new_data):
-        logger.info("Start diff...")
+        logger.debug("Start diff for layer {}...".format(self.params['layer']))
         diff = new_data - self.data
         print(diff.sum().sum())
-        diff = np.absolute(diff).sum(0)
+        diff = np.absolute(diff).sum(-1)
         I, J = diff.shape
 
         self.data = new_data
@@ -102,8 +102,8 @@ class LayerImage(Image):
 
         tiles = set(tiles)
 
-        logger.info("Detected {} changed tiles. Sending updates...".format(
-            len(tiles)))
+        logger.info("Detected {} changed tiles in layer {}. Sending updates...".format(
+            len(tiles), self.params['layer']))
         for tile_key in tiles:
             await self.send_tile_update(tile_key)
             await asyncio.sleep(0.1)
