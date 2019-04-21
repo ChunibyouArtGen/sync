@@ -14,8 +14,8 @@ logger = logging.getLogger(__name__)
 class LayerImage(Image):
     def __init__(self, data_manager, params):
         super().__init__(data_manager, params)
-        self.data = np.ones((params['x_count'] * params['w'],
-                             params['y_count'] * params['w'], 3),
+        self.data = np.full((params['x_count'] * params['w'],
+                             params['y_count'] * params['w'], 3), 254,
                             dtype=np.uint8)
 
     def get_param_list(self):
@@ -84,7 +84,6 @@ class LayerImage(Image):
         diff = np.absolute(diff).sum(-1)
         I, J = diff.shape
 
-        self.data = new_data
 
         x = []
         y = []
@@ -102,13 +101,14 @@ class LayerImage(Image):
 
         tiles = set(tiles)
 
+        self.data = new_data
+
         logger.info("Detected {} changed tiles in layer {}. Sending updates...".format(
             len(tiles), self.params['layer_name']))
         for tile_key in tiles:
             await self.send_tile_update(tile_key)
             await asyncio.sleep(0.1)
 
-        self.data = new_data
 
         return len(tiles) > 0
 

@@ -6,11 +6,11 @@ import torch.nn as nn
 import torch.utils.data as data
 from PIL import Image
 from PIL import ImageFile
-from tensorboardX import SummaryWriter
+#from tensorboardX import SummaryWriter
 from torchvision import transforms
 from tqdm import tqdm
 
-import net
+from .net import decoder, vgg, Net
 from sampler import InfiniteSamplerWrapper
 
 cudnn.benchmark = True
@@ -84,14 +84,14 @@ if not os.path.exists(args.save_dir):
 
 if not os.path.exists(args.log_dir):
     os.mkdir(args.log_dir)
-writer = SummaryWriter(log_dir=args.log_dir)
+#writer = SummaryWriter(log_dir=args.log_dir)
 
-decoder = net.decoder
-vgg = net.vgg
+decoder =  decoder
+vgg =  vgg
 
 vgg.load_state_dict(torch.load(args.vgg))
 vgg = nn.Sequential(*list(vgg.children())[:31])
-network = net.Net(vgg, decoder)
+network =  Net(vgg, decoder)
 network.train()
 network.to(device)
 
@@ -125,14 +125,14 @@ for i in tqdm(range(args.max_iter)):
     loss.backward()
     optimizer.step()
 
-    writer.add_scalar('loss_content', loss_c.item(), i + 1)
-    writer.add_scalar('loss_style', loss_s.item(), i + 1)
+    #writer.add_scalar('loss_content', loss_c.item(), i + 1)
+    #writer.add_scalar('loss_style', loss_s.item(), i + 1)
 
     if (i + 1) % args.save_model_interval == 0 or (i + 1) == args.max_iter:
-        state_dict = net.decoder.state_dict()
+        state_dict =  decoder.state_dict()
         for key in state_dict.keys():
             state_dict[key] = state_dict[key].to(torch.device('cpu'))
         torch.save(state_dict,
                    '{:s}/decoder_iter_{:d}.pth.tar'.format(args.save_dir,
                                                            i + 1))
-writer.close()
+#writer.close()

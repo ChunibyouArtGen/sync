@@ -15,12 +15,11 @@ from os.path import splitext
 
 
 from tqdm import tqdm
-from tensorboardX import SummaryWriter
+#from tensorboardX import SummaryWriter
 
-import net
-from function import adaptive_instance_normalization
-from function import coral
-from sampler import InfiniteSamplerWrapper
+from .net import decoder, vgg, Net
+from .function import adaptive_instance_normalization, coral
+from .sampler import InfiniteSamplerWrapper
 import numpy as np 
 
 
@@ -37,11 +36,11 @@ class RealTimeArbitararyNstWithAdaIn:
 		self.crop = False
 		self.preserve_color=preserve_color
 		self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-		self.decoder_path = 'models/decoder.pth'
-		self.vgg_normalised_path = 'models/vgg_normalised.pth'
+		self.decoder_path = os.path.join(os.path.dirname(__file__), 'models','decoder.pth')
+		self.vgg_normalised_path = os.path.join(os.path.dirname(__file__), 'models','vgg_normalised.pth')
 
-		self.decoder=net.decoder
-		self.vgg=net.vgg
+		self.decoder= decoder
+		self.vgg= vgg
 		self.decoder.eval()
 		self.vgg.eval()
 
@@ -64,7 +63,7 @@ class RealTimeArbitararyNstWithAdaIn:
 		transform = transforms.Compose(transform_list)
 		return transform
 
-	def run(self,content_img,style_img,alpha=1.0):
+	def compute(self,content_img,style_img,alpha=1.0):
 		
 		''' Style Transfer Algorithm.Takes Style Image (numpy array with shape (h,w,3)) & Content Image
 			with shape (numpy array with shape (h,w,3)) & return output image as a numpy array of shape (3,h,h)
@@ -91,13 +90,16 @@ class RealTimeArbitararyNstWithAdaIn:
 		#save_image(output, output_name)	
 		return(output.numpy()[0]) #shape (3, 512, 512)
 	
+	def run(self, slots):
+		return self.compute(content_img=slots['content'].get_image(),style_img=slots['style'].get_image())
 
 # Runnning Testing & Training
 
+if __name__ == '__main__':
+	adain=RealTimeArbitararyNstWithAdaIn(output_img='/home/ashik/Desktop/',preserve_color=False)
 
-adain=RealTimeArbitararyNstWithAdaIn(output_img='/home/ashik/Desktop/',preserve_color=False)
-
-content_img = np.asarray(Image.open('/home/ashik/Desktop/hbp.jpg'))
-style_img =  np.asarray(Image.open('/home/ashik/Desktop/jap.jpg'))
-print(style_img.shape)
-res=adain.run(content_img,style_img)
+	content_img = np.asarray(Image.open('/home/ashik/Desktop/hbp.jpg'))
+	style_img =  np.asarray(Image.open('/home/ashik/Desktop/jap.jpg'))
+	print(style_img.shape)
+	res=adain.compute(content_img,style_img)
+	
