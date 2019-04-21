@@ -11,7 +11,7 @@ class ClientDataManager(DataManager):
             for uuid, image in self.images.items():
                 await image.scan()
                 
-            await asyncio.sleep(5)
+            await asyncio.sleep(5000)
 
     async def recv_recompute(self, uuid):
         logger.debug("Scheduling recompute for {}".format(uuid))

@@ -23,9 +23,10 @@ class ClientComputedImage(ComputedImage):
             y0 = self.params['y0']
             x = self.params['w'] * self.params['x_count']
             y = self.params['w'] * self.params['y_count']
-            image = np.ones((x,y,4))*254
-            image[:,:,:3] = self.data
-            self.krita_node.setPixelData(image.tobytes(), x0, y0, x, y)
+            #image = np.ones((x,y,4))*254
+            #image[:,:,:3] = self.data
+            image=data
+            self.krita_node.setPixelData(image.ravel().tobytes(), x0, y0, x, y)
             imsave("~/Pictures/output.png", data)
         else:
             logger.warn('Not rendering!')
