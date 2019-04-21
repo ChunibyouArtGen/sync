@@ -14,7 +14,7 @@ class ClientComputedImage(ComputedImage):
 
 
     def update_tile_data(self, tile_key, data):
-        # Write to krita
+        
         if self.krita_node:
             x0 = self.params['x0']
             y0 = self.params['y0']

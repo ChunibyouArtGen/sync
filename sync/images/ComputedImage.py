@@ -25,7 +25,7 @@ class ComputedImage(LayerImage):
                 
 
     def get_param_list(self):
-        return ["inputs","model_id"] + super().get_param_list()
+        return ["inputs","model_key"] + super().get_param_list()
 
     @staticmethod
     def get_type():

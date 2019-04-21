@@ -1,7 +1,7 @@
 from sync.data_manager import DataManager
 import logging
 import asyncio
-from .taskmanager import TaskManager
+from .compute import TaskManager 
 from .ServerComputedImage import ServerComputedImage
 from .ServerLayerImage import ServerLayerImage
 

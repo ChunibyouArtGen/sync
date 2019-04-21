@@ -1,13 +1,13 @@
 import logging
 from concurrent.futures import ThreadPoolExecutor, Future
-from .models import NSTModel
+from .models import NSTModel, AdaInModel
 import asyncio
 logger = logging.getLogger(__name__)
 
 
 class TaskManager:
     def __init__(self, data_manager):
-        self.models = {'nst': NSTModel()}
+        self.models = {'nst': NSTModel(), 'adain': AdaInModel()} 
         self.executor = ThreadPoolExecutor()
         self.data_manager = data_manager
         self.tasks = {}
@@ -15,7 +15,7 @@ class TaskManager:
 
     def compute(self, image):
         logger.info('Computing...')
-        model_id = image.params['model_id']
+        model_key = image.params['model_key']
         inputs = {}
         input_slots = image.get_slots()
 
@@ -25,7 +25,7 @@ class TaskManager:
             except:
                 inputs[slot] = image
 
-        image_data = self.models[model_id].run(inputs)
+        image_data = self.models[model_key].run(inputs)
         logger.info('Done!')
         return image_data
         #image.update_data(image_data)
@@ -33,7 +33,7 @@ class TaskManager:
     async def schedule_compute(self, image):
         logger.info("scheduling delayed compute...")
         try:
-            await asyncio.sleep(2)  # Give other executions a chance to cancel this this one
+            await asyncio.sleep(1)  # Give other executions a chance to cancel this this one
             logger.info('Computing...')
             
             data = await self.loop.run_in_executor(self.executor, self.compute, image)
