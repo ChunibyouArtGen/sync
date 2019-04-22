@@ -9,6 +9,7 @@ from torchvision.utils import save_image
 
 from PIL import Image
 from PIL import ImageFile
+from skimage import img_as_ubyte
 
 from os.path import basename
 from os.path import splitext
@@ -22,6 +23,8 @@ from .function import adaptive_instance_normalization, coral
 from .sampler import InfiniteSamplerWrapper
 import numpy as np 
 
+import logging
+logger = logging.getLogger(__name__)
 
 
 class RealTimeArbitararyNstWithAdaIn:
@@ -91,15 +94,16 @@ class RealTimeArbitararyNstWithAdaIn:
 		return(output.numpy()[0]) #shape (3, 512, 512)
 	
 	def run(self, slots):
-		return self.compute(content_img=slots['content'].get_image(),style_img=slots['style'].get_image())
-
-# Runnning Testing & Training
-
-if __name__ == '__main__':
-	adain=RealTimeArbitararyNstWithAdaIn(output_img='/home/ashik/Desktop/',preserve_color=False)
-
-	content_img = np.asarray(Image.open('/home/ashik/Desktop/hbp.jpg'))
-	style_img =  np.asarray(Image.open('/home/ashik/Desktop/jap.jpg'))
-	print(style_img.shape)
-	res=adain.compute(content_img,style_img)
-	
+		try:
+			res = self.compute(content_img=slots['content'],style_img=slots['style'])
+		except Exception as e:
+			logger.error('Failed to compute!')
+			logger.exception(e)
+			raise
+		res = np.moveaxis(res, 0,-1)
+		if (res>1).any() or (res<1).any():
+			np.clip(res,-1,1,res)
+			logger.warning('Failed to convert to int. Clipping image!')
+			
+		res = img_as_ubyte(res, force_copy=True)
+		return res
