@@ -20,11 +20,12 @@ class Channel:
 
 
     async def send_message(self, request, data):
-        logger.info("Sending message {}".format(request))
+        logger.info("Sending message {}..".format(request))
         message = {"request": request, "data": data}
         data = pickle.dumps(message)
         #data = bson.dumps(message)
         await self.ws.send(data)
+        logger.info("Message {} sent!".format(request))
 
     async def process_message(self, message):
         #r = bson.loads(message)

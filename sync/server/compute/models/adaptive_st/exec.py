@@ -24,13 +24,15 @@ from .sampler import InfiniteSamplerWrapper
 import numpy as np 
 
 import logging
+from skimage.transform import resize
+
 logger = logging.getLogger(__name__)
 
 
 class RealTimeArbitararyNstWithAdaIn:
 	''' Real Time Arbitrary Style Transfer with Adaptive Instance Normalization '''
 
-	def __init__(self,content_size=512,style_size=512,output_img=None,alpha=1.0,preserve_color=True,):
+	def __init__(self,content_size=512,style_size=512,output_img=None,alpha=1.0,preserve_color=False):
 
 		self.content_size = content_size	# New (minimum) size for the style image,keeping the original size if set to 0
 		self.style_size = style_size		# New (minimum) size for the style image,keeping the original size if set to 0
@@ -97,13 +99,23 @@ class RealTimeArbitararyNstWithAdaIn:
 		try:
 			res = self.compute(content_img=slots['content'],style_img=slots['style'])
 		except Exception as e:
-			logger.error('Failed to compute!')
+			logger.critical('Failed to compute!')
+			data = {
+				'slots': slots,
+				'locals': locals(),
+				'globals': globals()
+			}
+			import pickle 
+			pickle.dump(data, '~/Documents/data.pickle')
 			logger.exception(e)
+			import ipdb; ipdb.set_trace()
 			raise
 		res = np.moveaxis(res, 0,-1)
 		if (res>1).any() or (res<1).any():
 			np.clip(res,-1,1,res)
 			logger.warning('Failed to convert to int. Clipping image!')
-			
+		res = resize(res, slots['content'].shape)
+		print("resizing to shape {}".format(slots['content'].shape))
 		res = img_as_ubyte(res, force_copy=True)
 		return res
+		

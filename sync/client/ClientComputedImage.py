@@ -19,11 +19,11 @@ class ClientComputedImage(ComputedImage):
 
         logger.info("Writing data to krita...")
         if self.krita_node:
-            x0 = self.params['x0']
-            y0 = self.params['y0']
-            x = self.params['w'] * self.params['x_count']
-            y = self.params['w'] * self.params['y_count']
-            alpha = np.full((x,y,1), 254)
+            x0,y0 = self.get_tile_coords(tile_key)
+            w = self.params['w']
+            x,y = x0+w, y0+w
+            alpha = np.full((self.params['w'],self.params['w'],1), 254, dtype=np.uint8)
+            
             image = np.concatenate((data,alpha),axis=-1).astype(np.uint8)
             
             self.krita_node.setPixelData(image.tobytes(), x0, y0, x, y)

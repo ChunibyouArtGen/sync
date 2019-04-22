@@ -110,14 +110,4 @@ class DataManager:
         logger.error("Unimplemented!")
         
 
-    ## Control functions
-    @abstractmethod
-    async def watch_layers(self):
-        pass
-        while True:
-            logger.debug("Scanning layer images...")
-            for _, image in self.images.items():
-                image.update()
-                    
-
-            await asyncio.sleep(2)
+    

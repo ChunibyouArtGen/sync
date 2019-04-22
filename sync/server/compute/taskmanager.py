@@ -19,8 +19,11 @@ class TaskManager:
         model_key = image.params['model_key']
         logger.info('Computing with model {}...'.format(model_key))
         print(self.models[model_key])
-        
+        logger.info('Content shape: {}, dtype:{}'.format(inputs['content'].shape,inputs['content'].dtype))
+        logger.info('Style shape: {}, dtype:{}'.format(inputs['style'].shape,inputs['style'].dtype))
         image_data = self.models[model_key].run(inputs)
+        logger.info('Output shape: {}, dtype:{}'.format(image_data.shape,image_data.dtype))
+
         logger.info('Done computing!')
         return image_data
         #image.update_data(image_data)
@@ -51,17 +54,10 @@ class TaskManager:
             logger.exception(e)
             raise
         
-        try:
-            logger.info("Handling computed data...")
-            if (data == image.get_image()).all():
-                logger.error("Computed data is the same as stored data!")
-                #import ipdb 
-                #ipdb.set_trace()
-            await asyncio.shield(image.update_data(data))
+        
+        await asyncio.shield(image.update_data(data))
 
-        except asyncio.CancelledError:
-            logger.error('Compute aborted during data handling!')            
-    
+        
     
 
     

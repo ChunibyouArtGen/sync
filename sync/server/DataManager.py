@@ -36,4 +36,5 @@ class ServerDataManager(DataManager):
         image = self.images[data['uuid']]
         image.update_tile_data(data['tile_key'], data['tile_data'])
         self.recompute_dependencies(image)
-        
+    
+    
