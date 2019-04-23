@@ -21,7 +21,11 @@ class NeuralStyleTransfer:
 
 	def __init__(self):
 		self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")	
-
+		self.content_transform = transforms.Compose([
+			transforms.ToTensor(),
+			transforms.Lambda(lambda x: x.mul(255))
+		])
+		
 	def run(self,content_img_arr,saved_style_model_path):
 
 		'''
@@ -30,11 +34,8 @@ class NeuralStyleTransfer:
 		'''
 		
 		content_image=Image.fromarray(np.uint8(content_img_arr))
-		content_transform = transforms.Compose([
-			transforms.ToTensor(),
-			transforms.Lambda(lambda x: x.mul(255))
-		])
-		content_image = content_transform(content_image)
+		
+		content_image = self.content_transform(content_image)
 		content_image = content_image.unsqueeze(0).to(self.device)
 
 		with torch.no_grad():
@@ -49,12 +50,11 @@ class NeuralStyleTransfer:
 			output = style_model(content_image).cpu()
 		return(output.numpy()[0])
 
-
 '''
 # Testing model
 
 nst=NeuralStyleTransfer()
-content_img_arr = np.asarray(Image.open(<ADD IMAGE>))
+content_img_arr = np.asarray(Image.open('<IMAGE PATH>'))
 res=nst.run(content_img_arr,'/Models/candy.pth')
 print(res)
 '''
