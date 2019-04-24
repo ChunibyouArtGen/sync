@@ -23,7 +23,7 @@ To run the provided `demo` action, do the following:
 1. Open a new doc.
 2. Create three layers: `content`, `style`, and `output`. Place your content and style images in the corrosponding layers.
 3. Run the `demo` action at `scripts->actions->demo`.
-4. Watch as the magic happens.
+4. Watch as the magic happens
 
 
 ## Requests
@@ -39,4 +39,3 @@ All requests follow the general structure:
 
 The data parameter depends on the request type.
 Pickle is used to efficiently encode data for transmission.
-"# plugin_framework" ; git init; git add -A ; git commit -m "first commit"; git remote add origin https://github.com/spadaval/plugin_framework.git; git push -u origin master
