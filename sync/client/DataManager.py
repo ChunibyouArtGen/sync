@@ -13,9 +13,10 @@ class ClientDataManager(DataManager):
                 await image.scan()
             
             document = Krita.activeDocument()
-            node = document.rootNode()
-            for node in node.childNodes():
-                node.setVisible(True)
+            if document is not None:
+                node = document.rootNode()
+                for node in node.childNodes():
+                    node.setVisible(True)
 
 
             await asyncio.sleep(5)
