@@ -8,7 +8,7 @@ import logging
 logger = logging.getLogger()
 
 
-class Server():
+class Server:
     def __init__(self, log_level=logging.INFO):
         init_logging(level=log_level)
         self.data_manager = None

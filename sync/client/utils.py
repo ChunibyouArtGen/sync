@@ -22,14 +22,12 @@ def grab_image(node, x, y, w, h):
     """
     imageData = node.pixelData(x, y, w, h)
     data = np.frombuffer(imageData, dtype=np.uint8)
-    new_data = data.reshape((w,h,4))
-    return new_data[:,:, :3]
+    new_data = data.reshape((w, h, 4))
+    return new_data[:, :, :3]
 
 
 def getColorModel(node):
     return node.colorModel()
-
-
 
 
 def get_numpy_to_image(numpyImage):
@@ -60,5 +58,5 @@ def get_node_object(layer_name):
     for node in node.childNodes():
         if node.name() == layer_name:
             return node
-    
+
     return None

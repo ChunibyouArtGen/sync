@@ -2,7 +2,6 @@ import torch
 from PIL import Image
 
 
-
 def save_image(filename, data):
     img = data.clone().clamp(0, 255).numpy()
     img = img.transpose(1, 2, 0).astype("uint8")

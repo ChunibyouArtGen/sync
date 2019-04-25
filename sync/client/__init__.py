@@ -12,4 +12,4 @@ logger = logging.getLogger(__name__)
 
 init_logging()
 
-__all__ = ['ClientComputedImage', 'ClientLayerImage', 'Client', 'get_client']
+__all__ = ["ClientComputedImage", "ClientLayerImage", "Client", "get_client"]

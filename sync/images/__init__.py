@@ -1,7 +1,8 @@
 from .image_registry import image_classes, register_image_class
 from .image import Image
 from .computed_image import ComputedImage
-from .layer_image import LayerImage 
+from .layer_image import LayerImage
+
 
 def load_image_definition(image_dict, data_manager):
     cls = image_classes[image_dict["type"]]
@@ -9,5 +10,9 @@ def load_image_definition(image_dict, data_manager):
 
 
 __all__ = [
-    "image_classes", "ComputedImage", "LayerImage", 'register_image_class', 'Image'
+    "image_classes",
+    "ComputedImage",
+    "LayerImage",
+    "register_image_class",
+    "Image",
 ]

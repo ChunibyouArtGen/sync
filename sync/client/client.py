@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 client_obj = None
 
 
-def get_client(host='localhost', port='8765', reset=False):
+def get_client(host="localhost", port="8765", reset=False):
     global client_obj
     if not client_obj or reset == True:
         client_obj = Client()
@@ -27,14 +27,15 @@ class Client:
         return self.data_manager
 
     async def connect(self, host, port):
-        ws = await websockets.connect('ws://{}:{}'.format(host, port))
+        ws = await websockets.connect("ws://{}:{}".format(host, port))
         self.data_manager = ClientDataManager(ws)
         logger.info("Client init complete")
-        await asyncio.gather(self.data_manager.channel.listen(),
-                             self.data_manager.watch_layers())
+        await asyncio.gather(
+            self.data_manager.channel.listen(), self.data_manager.watch_layers()
+        )
 
     def start_thread(self):
-        t = Thread(target=self.start, args=['localhost','8765'], name='celestiaprime')
+        t = Thread(target=self.start, args=["localhost", "8765"], name="celestiaprime")
         t.start()
 
     def run_coroutine(self, cor):
@@ -47,5 +48,5 @@ class Client:
     def start(self, host, port):
         self.asyncio_loop = asyncio.new_event_loop()
         asyncio.set_event_loop(self.asyncio_loop)
-        asyncio.ensure_future(self.run(host,port))
+        asyncio.ensure_future(self.run(host, port))
         asyncio.get_event_loop().run_forever()

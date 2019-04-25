@@ -9,6 +9,6 @@ def register_model(uuid):
     return wrapper
 
 
-@register_model('copy')
+@register_model("copy")
 def copy(inputs):
     return inputs[0]

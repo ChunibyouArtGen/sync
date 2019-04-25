@@ -4,19 +4,17 @@ from skimage.io import imsave
 import random
 import numpy as np
 
+
 @register_image_class
 class ServerLayerImage(LayerImage):
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.key = random.randint(1,1000)
+        self.key = random.randint(1, 1000)
 
     def scan(self):
         # Do nothing
         pass
 
-    
     def update_tile_data(self, tile_key, data):
         super().update_tile_data(tile_key, data)
-        imsave('{}.png'.format(self.key), self.data)        
-    
+        imsave("{}.png".format(self.key), self.data)

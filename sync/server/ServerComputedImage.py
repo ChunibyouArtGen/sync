@@ -4,6 +4,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 @register_image_class
 class ServerComputedImage(ComputedImage):
     def __init__(self, data_manager, params):
@@ -11,5 +12,9 @@ class ServerComputedImage(ComputedImage):
 
         for slot, image in self.slots.items():
             if isinstance(image, str):
-                logger.warn("not connecting string parameter {}:{} as a dependency".format(slot, image))
+                logger.warn(
+                    "not connecting string parameter {}:{} as a dependency".format(
+                        slot, image
+                    )
+                )
             self.data_manager.add_dependency(source=image, dependent=self)

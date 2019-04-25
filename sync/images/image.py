@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from abc import ABC, abstractmethod, abstractclassmethod
 import logging
+
 logger = logging.getLogger(__name__)
 import asyncio
 
@@ -11,7 +12,7 @@ class Image(ABC):
         self.params = params
         self.data = None
         self.data_manager = data_manager
-        
+
         for param in self.get_param_list():
             try:
                 assert param in params
@@ -23,8 +24,9 @@ class Image(ABC):
                     except:
                         pass
             except:
-                logger.critical("Missing param {} for type {}".format(
-                    param, self.get_type()))
+                logger.critical(
+                    "Missing param {} for type {}".format(param, self.get_type())
+                )
                 raise
 
     @abstractmethod
@@ -37,7 +39,6 @@ class Image(ABC):
         """
         return []
 
-    
     @abstractmethod
     def get_image(self):
         pass
