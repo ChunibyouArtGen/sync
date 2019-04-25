@@ -18,7 +18,7 @@ class ServerDataManager(DataManager):
     async def recv_recompute(self, uuid):
         logger.debug("Scheduling recompute for {}".format(uuid))
         image = self.images[uuid]
-        self.taskmanager.schedule_compute(image)
+        self.taskmanager.compute_debounce(image)
 
     def add_dependency(self, source, dependent):
         if source not in self.dependencies:

@@ -5,6 +5,7 @@ from .image import Image
 import asyncio
 import logging
 import pickle
+from sync.utils import get_changed_tiles
 
 logger = logging.getLogger(__name__)
 
@@ -81,27 +82,9 @@ class LayerImage(Image):
 
     async def update_data(self, new_data):
         logger.debug("Start diff for layer {}...".format(self.params["layer_name"]))
-        diff = new_data - self.data
-        print(diff.sum().sum())
-        diff = np.absolute(diff).sum(-1)
-        I, J = diff.shape
 
-        x = []
-        y = []
-        for i in range(I):
-            for j in range(J):
-                if diff[i, j] != 0:
-                    x.append(i)
-                    y.append(j)
-
-        x = np.array(x)
-        y = np.array(y)
-        x = x // self.params["w"]
-        y = y // self.params["w"]
-        tiles = x + (y * self.params["x_count"])
-
-        tiles = set(tiles)
-
+        tiles = get_changed_tiles(self.data, new_data, self.params)
+         
         self.data = new_data
 
         logger.info(
@@ -110,8 +93,7 @@ class LayerImage(Image):
             )
         )
         for tile_key in tiles:
-            await self.send_tile_update(tile_key)
-            await asyncio.sleep(0.1)
+            asyncio.ensure_future(self.send_tile_update(tile_key))
 
         return len(tiles) > 0
 
