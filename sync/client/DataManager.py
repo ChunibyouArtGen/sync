@@ -23,3 +23,8 @@ class ClientDataManager(DataManager):
         )
         image = self.images[data["uuid"]]
         image.update_tile_data(data["tile_key"], data["tile_data"])
+
+    async def register_image(self, image, *args):
+        uuid = await super().register_image(image, *args)
+        asyncio.ensure_future(image.scan())
+        return uuid

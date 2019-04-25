@@ -35,7 +35,7 @@ class TaskManager:
         assert isinstance(image, ServerComputedImage)
         logger.info("scheduling delayed compute...")
         try:
-            await asyncio.sleep(5)
+            await asyncio.sleep(2)
             # Give other executions a chance to cancel this this one
 
             logger.info('Computing...')
