@@ -38,8 +38,8 @@ def grabImage(node, x, y, w, h):
     w	row length to read
     h	number of rows to read
     """
-    imageData = node.pixelData(x, y, w, h)
-    return imageData
+    img = node.pixelData(x, y, w, h)
+    return np.flip(np.roll(img,1,axis=-1),axis=-1)
 
 
 def getColorModel(node):

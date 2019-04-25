@@ -16,18 +16,16 @@ class ClientComputedImage(ComputedImage):
 
     def update_tile_data(self, tile_key, data):
         super().update_tile_data(tile_key,data)
-
-        logger.info("Writing data to krita...")
         if self.krita_node:
             x0,y0 = self.get_tile_coords(tile_key)
             w = self.params['w']
-            x,y = x0+w, y0+w
             alpha = np.full((self.params['w'],self.params['w'],1), 254, dtype=np.uint8)
             
             image = np.concatenate((data,alpha),axis=-1).astype(np.uint8)
+            image = np.flip(np.roll(image,1,axis=-1),axis=-1)
             
-            self.krita_node.setPixelData(image.tobytes(), x0, y0, x, y)
-            imsave("~/Pictures/output.png", data)
+            self.krita_node.setPixelData(image.tobytes(), y0, x0, w, w)
+            imsave("~/Pictures/celestia/output.png", self.data)
         else:
             logger.warn('Not rendering!')
     

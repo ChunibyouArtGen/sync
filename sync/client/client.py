@@ -38,7 +38,7 @@ class Client:
         t.start()
 
     def run_coroutine(self, cor):
-        asyncio.ensure_future(cor, loop=self.asyncio_loop)
+        asyncio.run_coroutine_threadsafe(cor, loop=self.asyncio_loop)
 
     async def run(self, host, port):
         logger.info("Worker thread started")

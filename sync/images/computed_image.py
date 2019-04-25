@@ -1,13 +1,15 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from .LayerImage import LayerImage
+from .layer_image import LayerImage
 import numpy as np
 
 from abc import abstractmethod
 from copy import deepcopy
 # from .image_registry import image_class
 import logging
+from sync.images import Image
+
 logger = logging.getLogger(__name__)
 
 # @image_class("computed")
@@ -40,8 +42,9 @@ class ComputedImage(LayerImage):
     
     def get_params(self):
         params = self.params.copy()
-        print(params)
-        for slot, image in params['inputs'].items():
-            params['inputs'][slot] = self.data_manager.reverse[image]
         
+        for slot, image in params['inputs'].items():
+            if isinstance(params['inputs'][slot], Image):
+                params['inputs'][slot] = self.data_manager.reverse[image]
+        print(params)
         return params        

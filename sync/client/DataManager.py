@@ -17,7 +17,7 @@ class ClientDataManager(DataManager):
         logger.debug("Scheduling recompute for {}".format(uuid))
         
     async def recv_tile_update(self, data):
-        logger.debug("Updating tile {} in image {}".format(data['tile_key'], data['uuid']))
+        logger.info("Updating tile {} in image {}".format(data['tile_key'], data['uuid']))
         image = self.images[data['uuid']]
         image.update_tile_data(data['tile_key'], data['tile_data'])
         

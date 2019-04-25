@@ -1,13 +1,26 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import numpy as np
-from .Image import Image
+from .image import Image
 import asyncio
 import logging
 import pickle
 logger = logging.getLogger(__name__)
-
+from concurrent.futures import ThreadPoolExecutor
+import asyncio
+from sync.utils import get_changed_tiles_sync
 # from .image_registry import image_class
+
+
+executor = None
+
+async def get_changed_tiles(loop, *args):
+    global executor
+    if executor is None:
+        executor = ThreadPoolExecutor()
+    
+    return await loop.run_in_executor(executor, get_changed_tiles_sync, *args)
+
 
 
 # @image_class("layer")
@@ -79,39 +92,23 @@ class LayerImage(Image):
         self.data[x0:x, y0:y, :] = data
 
     async def update_data(self, new_data):
+        old_data = self.data
+        self.data = new_data
         logger.debug("Start diff for layer {}...".format(
             self.params['layer_name']))
-        diff = new_data - self.data
-        print(diff.sum().sum())
-        diff = np.absolute(diff).sum(-1)
-        I, J = diff.shape
 
-        x = []
-        y = []
-        for i in range(I):
-            for j in range(J):
-                if diff[i, j] != 0:
-                    x.append(i)
-                    y.append(j)
+        loop = asyncio.get_event_loop()
 
-        x = np.array(x)
-        y = np.array(y)
-        x = x // self.params['w']
-        y = y // self.params['w']
-        tiles = x + (y * self.params['x_count'])
-
-        tiles = set(tiles)
-
-        self.data = new_data
+        changed_tiles = await get_changed_tiles(loop, old_data, new_data, self.params['x_count'], self.params['w'])
 
         logger.info(
             "Detected {} changed tiles in layer {}. Sending updates...".format(
-                len(tiles), self.params['layer_name']))
-        for tile_key in tiles:
-            await self.send_tile_update(tile_key)
-            await asyncio.sleep(0.1)
-
-        return len(tiles) > 0
+                len(changed_tiles), self.params['layer_name']))
+            
+        futures = [asyncio.ensure_future(self.send_tile_update(tile_key)) for tile_key in changed_tiles]
+        
+        await asyncio.gather(*futures)
+        return len(changed_tiles)
 
     def get_image(self):
         return self.data
