@@ -1,13 +1,13 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import asyncio
+import json
 import logging
 import random
-import json
-from .channel import Channel, handler_functions, handler
-from .images import image_classes
 from abc import abstractmethod
-import asyncio
+
+from .channel import Channel, handler, handler_functions
+from .images import image_classes
 
 logger = logging.getLogger(__name__)
 

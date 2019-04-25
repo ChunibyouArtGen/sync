@@ -1,6 +1,6 @@
-from sync.images import ComputedImage
-from sync.images import register_image_class
 import logging
+
+from sync.images import ComputedImage, register_image_class
 
 logger = logging.getLogger(__name__)
 

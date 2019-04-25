@@ -1,7 +1,8 @@
-from sync.server.compute.models.adaptive_st import AdaInModel
-from skimage.io import imread, imsave
-from skimage import img_as_ubyte
 import numpy as np
+
+from skimage import img_as_ubyte
+from skimage.io import imread, imsave
+from sync.server.compute.models.adaptive_st import AdaInModel
 
 adain = AdaInModel(output_img="/home/ashik/Desktop/", preserve_color=False)
 

@@ -1,10 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from abc import ABC, abstractmethod, abstractclassmethod
+import asyncio
 import logging
+from abc import ABC, abstractclassmethod, abstractmethod
 
 logger = logging.getLogger(__name__)
-import asyncio
 
 
 class Image(ABC):

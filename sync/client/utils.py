@@ -1,6 +1,7 @@
-import logging
-import numpy as np
 import base64
+import logging
+
+import numpy as np
 
 logger = logging.getLogger(__name__)
 

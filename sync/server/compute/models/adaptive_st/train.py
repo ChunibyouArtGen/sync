@@ -1,18 +1,17 @@
 import argparse
 import os
+
 import torch
 import torch.backends.cudnn as cudnn
 import torch.nn as nn
 import torch.utils.data as data
-from PIL import Image
-from PIL import ImageFile
-
+from PIL import Image, ImageFile
+from sampler import InfiniteSamplerWrapper
 # from tensorboardX import SummaryWriter
 from torchvision import transforms
 from tqdm import tqdm
 
-from .net import decoder, vgg, Net
-from sampler import InfiniteSamplerWrapper
+from .net import Net, decoder, vgg
 
 cudnn.benchmark = True
 Image.MAX_IMAGE_PIXELS = None  # Disable DecompressionBombError

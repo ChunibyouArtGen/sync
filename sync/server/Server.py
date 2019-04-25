@@ -1,9 +1,11 @@
-from .DataManager import ServerDataManager
+import asyncio
+import logging
+
+import websockets
+
 from sync import init_logging
 
-import asyncio
-import websockets
-import logging
+from .DataManager import ServerDataManager
 
 logger = logging.getLogger()
 

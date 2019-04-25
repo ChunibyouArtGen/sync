@@ -1,11 +1,14 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-import numpy as np
-from .image import Image
 import asyncio
 import logging
 import pickle
+
+import numpy as np
+
 from sync.utils import get_changed_tiles
+
+from .image import Image
 
 logger = logging.getLogger(__name__)
 
@@ -84,14 +87,14 @@ class LayerImage(Image):
         logger.debug("Start diff for layer {}...".format(self.params["layer_name"]))
 
         tiles = get_changed_tiles(self.data, new_data, self.params)
-         
-        self.data = new_data
 
-        logger.info(
-            "Detected {} changed tiles in layer {}. Sending updates...".format(
-                len(tiles), self.params["layer_name"]
+        self.data = new_data
+        if len(tiles) != 0:
+            logger.info(
+                "Detected {} changed tiles in layer {}. Sending updates...".format(
+                    len(tiles), self.params["layer_name"]
+                )
             )
-        )
         for tile_key in tiles:
             asyncio.ensure_future(self.send_tile_update(tile_key))
 

@@ -1,6 +1,7 @@
-from sync.data_manager import DataManager
-import logging
 import asyncio
+import logging
+
+from sync.data_manager import DataManager
 
 logger = logging.getLogger(__name__)
 
@@ -11,16 +12,14 @@ class ClientDataManager(DataManager):
             logger.debug("Scanning layer images...")
             for uuid, image in self.images.items():
                 await image.scan()
-            
-            document = Krita.activeDocument()
-            if document is not None:
-                node = document.rootNode()
-                for node in node.childNodes():
-                    node.setVisible(True)
 
+                state = image.krita_node.visible()
+                image.krita_node.setVisible(not state)
+                image.krita_node.setVisible(state)
+                image.krita_node.setVisible(not state)
+                image.krita_node.setVisible(state)
 
-            await asyncio.sleep(5)
-
+            await asyncio.sleep(1)
 
     async def recv_recompute(self, uuid):
         logger.debug("Scheduling recompute for {}".format(uuid))

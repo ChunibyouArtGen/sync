@@ -1,31 +1,26 @@
+import logging
 import os
+from os.path import basename, splitext
+
+import numpy as np
 
 import torch
 import torch.backends.cudnn as cudnn
 import torch.nn as nn
+from PIL import Image, ImageFile
+from skimage import img_as_ubyte
+from skimage.transform import resize
 from torchvision import transforms
 from torchvision.utils import save_image
-
-
-from PIL import Image
-from PIL import ImageFile
-from skimage import img_as_ubyte
-
-from os.path import basename
-from os.path import splitext
-
-
 from tqdm import tqdm
+
+from .function import adaptive_instance_normalization, coral
+from .net import Net, decoder, vgg
+from .sampler import InfiniteSamplerWrapper
 
 # from tensorboardX import SummaryWriter
 
-from .net import decoder, vgg, Net
-from .function import adaptive_instance_normalization, coral
-from .sampler import InfiniteSamplerWrapper
-import numpy as np
 
-import logging
-from skimage.transform import resize
 
 logger = logging.getLogger(__name__)
 

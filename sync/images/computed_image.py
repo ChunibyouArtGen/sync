@@ -1,14 +1,15 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from sync.images import Image
-from .layer_image import LayerImage
-import numpy as np
-
+# from .image_registry import image_class
+import logging
 from abc import abstractmethod
 from copy import deepcopy
 
-# from .image_registry import image_class
-import logging
+import numpy as np
+
+from .image import Image
+
+from .layer_image import LayerImage
 
 logger = logging.getLogger(__name__)
 

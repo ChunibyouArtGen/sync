@@ -1,6 +1,8 @@
-from sync.data_manager import DataManager
-import logging
 import asyncio
+import logging
+
+from sync.data_manager import DataManager
+
 from .compute import TaskManager
 from .ServerComputedImage import ServerComputedImage
 from .ServerLayerImage import ServerLayerImage

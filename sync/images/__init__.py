@@ -1,6 +1,5 @@
+from .computed_image import ComputedImage, Image
 from .image_registry import image_classes, register_image_class
-from .image import Image
-from .computed_image import ComputedImage
 from .layer_image import LayerImage
 
 

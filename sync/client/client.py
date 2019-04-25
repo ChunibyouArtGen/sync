@@ -1,10 +1,12 @@
-import websockets
 import asyncio
+import logging
+from threading import Thread
+
+import websockets
+
 from .ClientComputedImage import ClientComputedImage
 from .ClientLayerImage import ClientLayerImage
 from .DataManager import ClientDataManager
-import logging
-from threading import Thread
 
 logger = logging.getLogger(__name__)
 
