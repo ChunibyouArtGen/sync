@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-
-from .LayerImage import LayerImage
+from sync.images import Image
+from .layer_image import LayerImage
 import numpy as np
 
 from abc import abstractmethod
@@ -42,6 +42,8 @@ class ComputedImage(LayerImage):
         params = self.params.copy()
         print(params)
         for slot, image in params['inputs'].items():
-            params['inputs'][slot] = self.data_manager.reverse[image]
+            if isinstance(params['inputs'][slot], Image):
+                params['inputs'][slot] = self.data_manager.reverse[image]
+        print(params)
         
         return params        

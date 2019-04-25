@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import numpy as np
-from .Image import Image
+from .image import Image
 import asyncio
 import logging
 import pickle
