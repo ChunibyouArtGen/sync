@@ -17,4 +17,4 @@ class ServerLayerImage(LayerImage):
 
     def update_tile_data(self, tile_key, data):
         super().update_tile_data(tile_key, data)
-        imsave("{}.png".format(self.key), self.data)
+        imsave("{}.png".format(self.key), self.params['layer_name'])

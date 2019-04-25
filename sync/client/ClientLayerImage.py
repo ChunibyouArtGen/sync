@@ -15,7 +15,8 @@ class ClientLayerImage(LayerImage):
         super().__init__(data_manager, params)
 
     async def scan(self):
-        logger.debug("Scanning image on layer {}".format(self.params["layer_name"]))
+        logger.debug("Scanning image on layer {}".format(
+            self.params["layer_name"]))
         # Scan Krita for updates
         self.krita_node = get_node_object(self.params["layer_name"])
 
@@ -28,7 +29,7 @@ class ClientLayerImage(LayerImage):
         )
 
         imsave(
-            "/home/hybrid/.local/share/krita/pykrita/client/{}.png".format(1000),
+            "~/Pictures/celestia/output.png",
             new_data,
         )
 
