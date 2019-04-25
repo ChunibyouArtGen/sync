@@ -11,8 +11,15 @@ class ClientDataManager(DataManager):
             logger.debug("Scanning layer images...")
             for uuid, image in self.images.items():
                 await image.scan()
+            
+            document = Krita.activeDocument()
+            node = document.rootNode()
+            for node in node.childNodes():
+                node.setVisible(True)
+
 
             await asyncio.sleep(5)
+
 
     async def recv_recompute(self, uuid):
         logger.debug("Scheduling recompute for {}".format(uuid))

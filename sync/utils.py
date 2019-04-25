@@ -7,8 +7,8 @@ def get_changed_tiles(old_data, new_data, params):
 
     x = []
     y = []
-    for i in range(I):
-        for j in range(J):
+    for i in range(0,I,15):
+        for j in range(0,J,15):
             if diff[i, j] != 0:
                 x.append(i)
                 y.append(j)
