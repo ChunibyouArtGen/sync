@@ -95,19 +95,3 @@ class DataManager:
         image = self.images[data['uuid']]
         image.update_tile_data(data['tile_key'], data['tile_data'])
 
-
-    async def send_recompute(self, image):
-        logger.info("Sending recompute command...")
-        uuid = self.reverse[image]
-        message_data = {"uuid": uuid}
-
-        await self.channel.send_message("Recompute", message_data)
-
-    @abstractmethod
-    @handler("Recompute")
-    async def recv_recompute(self, uuid):
-        logger.debug("Scheduling recompute for {}".format(uuid))
-        logger.error("Unimplemented!")
-        
-
-    

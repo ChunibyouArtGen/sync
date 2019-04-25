@@ -20,4 +20,7 @@ class ClientDataManager(DataManager):
         logger.info("Updating tile {} in image {}".format(data['tile_key'], data['uuid']))
         image = self.images[data['uuid']]
         image.update_tile_data(data['tile_key'], data['tile_data'])
-        
+    
+    async def register_image(self, image, *args):
+        super().register_image(image, *args)
+        await image.scan()
