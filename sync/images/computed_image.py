@@ -43,10 +43,8 @@ class ComputedImage(LayerImage):
 
     def get_params(self):
         params = self.params.copy()
-        print(params)
         for slot, image in params["inputs"].items():
             if isinstance(params["inputs"][slot], Image):
                 params["inputs"][slot] = self.data_manager.reverse[image]
-        print(params)
-
+        
         return params

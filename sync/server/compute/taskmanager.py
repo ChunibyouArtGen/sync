@@ -20,7 +20,7 @@ class TaskManager:
         assert isinstance(image, ServerComputedImage)
         model_key = image.params["model_key"]
         logger.info("Computing with model {}...".format(model_key))
-        print(self.models[model_key])
+        logger.info(self.models[model_key])
         logger.info(
             "Content shape: {}, dtype:{}".format(
                 inputs["content"].shape, inputs["content"].dtype

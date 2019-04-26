@@ -125,6 +125,6 @@ class RealTimeArbitararyNstWithAdaIn:
             np.clip(res, -1, 1, res)
             logger.warning("Failed to convert to int. Clipping image!")
         res = resize(res, slots["content"].shape)
-        print("resizing to shape {}".format(slots["content"].shape))
+        logger.info("resizing to shape {}".format(slots["content"].shape))
         res = img_as_ubyte(res, force_copy=True)
         return res
