@@ -8,10 +8,10 @@ from copy import deepcopy
 import numpy as np
 
 from .image import Image
-
 from .layer_image import LayerImage
 
 logger = logging.getLogger(__name__)
+
 
 # @image_class("computed")
 class ComputedImage(LayerImage):
@@ -24,8 +24,8 @@ class ComputedImage(LayerImage):
                 self.slots[slot] = source
             except:
                 logger.warn(
-                    "Input {}:{} is not a valid uuid, leaving as-is".format(slot, uuid)
-                )
+                    "Input {}:{} is not a valid uuid, leaving as-is".format(
+                        slot, uuid))
                 self.slots[slot] = uuid
 
     def get_param_list(self):
