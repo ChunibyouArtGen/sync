@@ -14,8 +14,8 @@ def get_changed_tiles(old_data, new_data, params):
                 x.append(i)
                 y.append(j)
 
-    x = np.array(x) - params['x0']
-    y = np.array(y) - params['y0']
+    x = np.array(x)
+    y = np.array(y)
     x = x // params["w"]
     y = y // params["w"]
     tiles = x + (y * params["x_count"])

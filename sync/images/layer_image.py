@@ -70,17 +70,25 @@ class LayerImage(Image):
         return x_pos, y_pos
 
     async def send_tile_update(self, tile_key):
-        x0, y0 = self.get_tile_coords(tile_key)
+        x_n = tile_key % self.params["x_count"]
+        y_n = tile_key // self.params["x_count"]
+        x0 = x_n * self.params["w"]
+        y0 = y_n * self.params["w"]
         x = x0 + self.params["w"]
         y = y0 + self.params["w"]
+        
         data = self.data[x0:x, y0:y, :]
 
         await self.data_manager.send_tile_update(self, tile_key, data)
 
     def update_tile_data(self, tile_key, data):
-        x0, y0 = self.get_tile_coords(tile_key)
+        x_n = tile_key % self.params["x_count"]
+        y_n = tile_key // self.params["x_count"]
+        x0 = x_n * self.params["w"]
+        y0 = y_n * self.params["w"]
         x = x0 + self.params["w"]
         y = y0 + self.params["w"]
+        
         self.data[x0:x, y0:y, :] = data
 
     async def update_data(self, new_data):
