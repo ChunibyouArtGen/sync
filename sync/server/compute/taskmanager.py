@@ -3,14 +3,14 @@ import logging
 from concurrent.futures import Future, ThreadPoolExecutor
 
 from ..ServerComputedImage import ServerComputedImage
-from .models import AdaInModel, NSTModel
-
+from .models import AdaInModel, PassthroughModel, FastNST
+ 
 logger = logging.getLogger(__name__)
 
 
 class TaskManager:
     def __init__(self, data_manager):
-        self.models = {"nst": NSTModel(), "adain": AdaInModel()}
+        self.models = {"passthrough": PassthroughModel(), "adain": AdaInModel(),'fastnst': FastNST()} 
         self.executor = ThreadPoolExecutor()
         self.data_manager = data_manager
         self.tasks = {}

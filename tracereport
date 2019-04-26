@@ -1,0 +1,1997 @@
+
+calling relationships:
+
+*** /home/hybrid/.local/lib/python3.5/site-packages/skimage/_shared/utils.py ***
+  --> /home/hybrid/.local/lib/python3.5/site-packages/skimage/util/dtype.py
+    utils.convert_to_float -> dtype.img_as_float
+  --> /usr/lib64/python3.5/site-packages/numpy/core/fromnumeric.py
+    utils.safe_as_int -> fromnumeric.round_
+  --> /usr/lib64/python3.5/site-packages/numpy/core/numeric.py
+    utils.safe_as_int -> numeric.asarray
+  --> /usr/lib64/python3.5/site-packages/numpy/testing/_private/utils.py
+    utils.safe_as_int -> utils.assert_allclose
+
+*** /home/hybrid/.local/lib/python3.5/site-packages/skimage/color/colorconv.py ***
+  --> /home/hybrid/.local/lib/python3.5/site-packages/skimage/util/dtype.py
+    colorconv._prepare_colorarray -> dtype.img_as_float
+  --> /usr/lib64/python3.5/site-packages/numpy/core/numeric.py
+    colorconv._prepare_colorarray -> numeric.asanyarray
+    colorconv.rgb2gray -> colorconv._prepare_colorarray
+
+*** /home/hybrid/.local/lib/python3.5/site-packages/skimage/exposure/exposure.py ***
+  --> /home/hybrid/.local/lib/python3.5/site-packages/skimage/color/colorconv.py
+    exposure.is_low_contrast -> colorconv.rgb2gray
+  --> /home/hybrid/.local/lib/python3.5/site-packages/skimage/util/dtype.py
+    exposure.is_low_contrast -> dtype.dtype_limits
+  --> /usr/lib64/python3.5/site-packages/numpy/core/numeric.py
+    exposure.is_low_contrast -> numeric.asanyarray
+  --> /usr/lib64/python3.5/site-packages/numpy/lib/function_base.py
+    exposure.is_low_contrast -> function_base.percentile
+
+*** /home/hybrid/.local/lib/python3.5/site-packages/skimage/io/_io.py ***
+  --> /home/hybrid/.local/lib/python3.5/site-packages/skimage/exposure/exposure.py
+    _io.imsave -> exposure.is_low_contrast
+  --> /home/hybrid/.local/lib/python3.5/site-packages/skimage/io/manage_plugins.py
+    _io.imsave -> manage_plugins.call_plugin
+
+*** /home/hybrid/.local/lib/python3.5/site-packages/skimage/io/manage_plugins.py ***
+  --> /usr/lib/python3.5/site-packages/imageio/core/format.py
+    manage_plugins.call_plugin -> format._BaseReaderWriter.__del__
+  --> /usr/lib/python3.5/site-packages/imageio/core/functions.py
+    manage_plugins.call_plugin -> functions.imwrite
+
+*** /home/hybrid/.local/lib/python3.5/site-packages/skimage/transform/_geometric.py ***
+    _geometric.AffineTransform.__init__ -> _geometric.<genexpr>
+  --> /usr/lib64/python3.5/site-packages/numpy/lib/twodim_base.py
+    _geometric.AffineTransform.__init__ -> twodim_base.eye
+    _geometric.ProjectiveTransform.estimate -> _geometric._center_and_normalize_points
+  --> /usr/lib64/python3.5/site-packages/numpy/linalg/linalg.py
+    _geometric.ProjectiveTransform.estimate -> linalg.inv
+    _geometric.ProjectiveTransform.estimate -> linalg.svd
+  --> /usr/lib64/python3.5/site-packages/numpy/core/fromnumeric.py
+    _geometric._center_and_normalize_points -> fromnumeric.mean
+    _geometric._center_and_normalize_points -> fromnumeric.sum
+  --> /usr/lib64/python3.5/site-packages/numpy/core/numeric.py
+    _geometric._center_and_normalize_points -> numeric.ones
+  --> /usr/lib64/python3.5/site-packages/numpy/core/shape_base.py
+    _geometric._center_and_normalize_points -> shape_base.vstack
+
+*** /home/hybrid/.local/lib/python3.5/site-packages/skimage/transform/_warps.py ***
+  --> /usr/lib64/python3.5/site-packages/numpy/core/_methods.py
+    _warps._clip_warp_output -> _methods._amax
+    _warps._clip_warp_output -> _methods._amin
+  --> /usr/lib64/python3.5/site-packages/numpy/core/fromnumeric.py
+    _warps._clip_warp_output -> fromnumeric.clip
+  --> /home/hybrid/.local/lib/python3.5/site-packages/skimage/transform/_geometric.py
+    _warps.resize -> _geometric.AffineTransform.__init__
+    _warps.resize -> _geometric.ProjectiveTransform.estimate
+    _warps.resize -> _warps.warp
+  --> /usr/lib64/python3.5/site-packages/numpy/core/numeric.py
+    _warps.resize -> numeric.asarray
+  --> /usr/lib64/python3.5/site-packages/scipy/ndimage/filters.py
+    _warps.resize -> filters.gaussian_filter
+  --> /home/hybrid/.local/lib/python3.5/site-packages/skimage/_shared/utils.py
+    _warps.warp -> utils.convert_to_float
+    _warps.warp -> utils.safe_as_int
+    _warps.warp -> _warps._clip_warp_output
+  --> /usr/lib64/python3.5/site-packages/numpy/core/numeric.py
+    _warps.warp -> numeric.asarray
+    _warps.warp -> numeric.ascontiguousarray
+  --> /usr/lib64/python3.5/site-packages/numpy/lib/shape_base.py
+    _warps.warp -> shape_base.dstack
+
+*** /home/hybrid/.local/lib/python3.5/site-packages/skimage/util/dtype.py ***
+    dtype._dtype_itemsize -> dtype.<genexpr>
+    dtype.convert -> dtype._dtype_itemsize
+    dtype.convert -> dtype.prec_loss
+  --> /usr/lib64/python3.5/site-packages/numpy/core/fromnumeric.py
+    dtype.convert -> fromnumeric.amax
+    dtype.convert -> fromnumeric.amin
+    dtype.convert -> fromnumeric.clip
+  --> /usr/lib64/python3.5/site-packages/numpy/core/getlimits.py
+    dtype.convert -> getlimits.iinfo.__init__
+    dtype.convert -> getlimits.max
+    dtype.convert -> getlimits.min
+  --> /usr/lib64/python3.5/site-packages/numpy/core/numeric.py
+    dtype.convert -> numeric.asarray
+  --> /usr/lib64/python3.5/site-packages/numpy/core/numerictypes.py
+    dtype.convert -> numerictypes.issubdtype
+    dtype.img_as_float -> dtype.convert
+    dtype.img_as_ubyte -> dtype.convert
+  --> /usr/lib64/python3.5/site-packages/numpy/core/_dtype.py
+    dtype.prec_loss -> _dtype.__str__
+  --> /usr/lib64/python3.5/warnings.py
+    dtype.prec_loss -> warnings.showwarning
+
+*** /home/hybrid/.local/lib/python3.5/site-packages/torchvision/transforms/functional.py ***
+    functional.resize -> functional._is_pil_image
+  --> /usr/lib64/python3.5/site-packages/PIL/Image.py
+    functional.resize -> Image.Image.resize
+    functional.resize -> Image.size
+    functional.to_tensor -> functional._is_pil_image
+    functional.to_tensor -> Image.Image.tobytes
+    functional.to_tensor -> Image.size
+
+*** /home/hybrid/.local/lib/python3.5/site-packages/torchvision/transforms/transforms.py ***
+    transforms.Compose.__call__ -> transforms.Resize.__call__
+    transforms.Compose.__call__ -> transforms.ToTensor.__call__
+  --> /usr/lib64/python3.5/site-packages/PIL/Image.py
+    transforms.Compose.__call__ -> Image.Image.__del__
+  --> /home/hybrid/.local/lib/python3.5/site-packages/torchvision/transforms/functional.py
+    transforms.Resize.__call__ -> functional.resize
+    transforms.ToTensor.__call__ -> functional.to_tensor
+
+*** /home/hybrid/Projects/celestiaprime/sync/sync/channel.py ***
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/data_manager.py
+    channel.Channel.process_message -> data_manager.recv_image_definition
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/server/DataManager.py
+    channel.Channel.process_message -> DataManager.ServerDataManager.recv_tile_update
+  --> /usr/lib64/python3.5/logging/__init__.py
+    channel.Channel.process_message -> __init__.Logger.info
+    channel.Channel.send_message -> __init__.Logger.info
+  --> /usr/lib64/python3.5/site-packages/websockets/protocol.py
+    channel.Channel.send_message -> protocol.WebSocketCommonProtocol.send
+
+*** /home/hybrid/Projects/celestiaprime/sync/sync/data_manager.py ***
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/channel.py
+    data_manager.DataManager.__init__ -> channel.Channel.__init__
+    data_manager.DataManager.send_tile_update -> channel.Channel.send_message
+  --> /usr/lib64/python3.5/logging/__init__.py
+    data_manager.DataManager.send_tile_update -> __init__.Logger.info
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/server/ServerComputedImage.py
+    data_manager.recv_image_definition -> ServerComputedImage.ServerComputedImage.__init__
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/server/ServerLayerImage.py
+    data_manager.recv_image_definition -> ServerLayerImage.ServerLayerImage.__init__
+  --> /usr/lib64/python3.5/logging/__init__.py
+    data_manager.recv_image_definition -> __init__.Logger.info
+
+*** /home/hybrid/Projects/celestiaprime/sync/sync/images/computed_image.py ***
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/images/layer_image.py
+    computed_image.ComputedImage.__init__ -> layer_image.LayerImage.__init__
+    computed_image.ComputedImage.get_param_list -> layer_image.LayerImage.get_param_list
+
+*** /home/hybrid/Projects/celestiaprime/sync/sync/images/image.py ***
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/images/computed_image.py
+    image.Image.__init__ -> computed_image.ComputedImage.get_param_list
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/images/layer_image.py
+    image.Image.__init__ -> layer_image.LayerImage.get_param_list
+
+*** /home/hybrid/Projects/celestiaprime/sync/sync/images/layer_image.py ***
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/images/image.py
+    layer_image.LayerImage.__init__ -> image.Image.__init__
+  --> /usr/lib64/python3.5/site-packages/numpy/core/numeric.py
+    layer_image.LayerImage.__init__ -> numeric.full
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/data_manager.py
+    layer_image.LayerImage.send_tile_update -> data_manager.DataManager.send_tile_update
+    layer_image.LayerImage.send_tile_update -> layer_image.LayerImage.get_tile_coords
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/utils.py
+    layer_image.LayerImage.update_data -> utils.get_changed_tiles
+  --> /usr/lib64/python3.5/asyncio/tasks.py
+    layer_image.LayerImage.update_data -> tasks.ensure_future
+  --> /usr/lib64/python3.5/logging/__init__.py
+    layer_image.LayerImage.update_data -> __init__.Logger.debug
+    layer_image.LayerImage.update_data -> __init__.Logger.info
+    layer_image.LayerImage.update_tile_data -> layer_image.LayerImage.get_tile_coords
+
+*** /home/hybrid/Projects/celestiaprime/sync/sync/server/DataManager.py ***
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/data_manager.py
+    DataManager.ServerDataManager.__init__ -> data_manager.DataManager.__init__
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/server/compute/taskmanager.py
+    DataManager.ServerDataManager.__init__ -> taskmanager.TaskManager.__init__
+  --> /usr/lib64/python3.5/logging/__init__.py
+    DataManager.ServerDataManager.__init__ -> __init__.Logger.info
+  --> /usr/lib64/python3.5/asyncio/tasks.py
+    DataManager.ServerDataManager.recompute_dependencies -> tasks.ensure_future
+    DataManager.ServerDataManager.recv_tile_update -> DataManager.ServerDataManager.recompute_dependencies
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/server/ServerLayerImage.py
+    DataManager.ServerDataManager.recv_tile_update -> ServerLayerImage.ServerLayerImage.update_tile_data
+  --> /usr/lib64/python3.5/logging/__init__.py
+    DataManager.ServerDataManager.recv_tile_update -> __init__.Logger.info
+
+*** /home/hybrid/Projects/celestiaprime/sync/sync/server/Server.py ***
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/channel.py
+    Server.Server.handle_message -> channel.Channel.process_message
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/server/DataManager.py
+    Server.Server.handle_message -> DataManager.ServerDataManager.__init__
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    Server.Server.handle_message -> futures.Future.__del__
+  --> /usr/lib64/python3.5/logging/__init__.py
+    Server.Server.handle_message -> __init__.Logger.info
+  --> /usr/lib64/python3.5/site-packages/websockets/protocol.py
+    Server.Server.handle_message -> protocol.WebSocketCommonProtocol.recv
+  --> /usr/lib64/python3.5/asyncio/base_events.py
+    Server.Server.start -> base_events.BaseEventLoop.run_forever
+    Server.Server.start -> base_events.BaseEventLoop.run_until_complete
+  --> /usr/lib64/python3.5/asyncio/events.py
+    Server.Server.start -> events.get_event_loop
+  --> /usr/lib64/python3.5/asyncio/tasks.py
+    Server.Server.start -> tasks.gather
+  --> /usr/lib64/python3.5/logging/__init__.py
+    Server.Server.start -> __init__.Logger.info
+  --> /usr/lib64/python3.5/site-packages/websockets/server.py
+    Server.Server.start -> server.Serve.__init__
+
+*** /home/hybrid/Projects/celestiaprime/sync/sync/server/ServerComputedImage.py ***
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/images/computed_image.py
+    ServerComputedImage.ServerComputedImage.__init__ -> computed_image.ComputedImage.__init__
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/server/DataManager.py
+    ServerComputedImage.ServerComputedImage.__init__ -> DataManager.ServerDataManager.add_dependency
+
+*** /home/hybrid/Projects/celestiaprime/sync/sync/server/ServerLayerImage.py ***
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/images/layer_image.py
+    ServerLayerImage.ServerLayerImage.__init__ -> layer_image.LayerImage.__init__
+  --> /usr/lib64/python3.5/random.py
+    ServerLayerImage.ServerLayerImage.__init__ -> random.Random.randint
+  --> /home/hybrid/.local/lib/python3.5/site-packages/skimage/io/_io.py
+    ServerLayerImage.ServerLayerImage.update_tile_data -> _io.imsave
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/images/layer_image.py
+    ServerLayerImage.ServerLayerImage.update_tile_data -> layer_image.LayerImage.update_tile_data
+
+*** /home/hybrid/Projects/celestiaprime/sync/sync/server/compute/models/adaptive_st/exec.py ***
+  --> /usr/lib64/python3.5/posixpath.py
+    exec.RealTimeArbitararyNstWithAdaIn.__init__ -> posixpath.dirname
+    exec.RealTimeArbitararyNstWithAdaIn.__init__ -> posixpath.join
+  --> /usr/lib64/python3.5/site-packages/torch/cuda/__init__.py
+    exec.RealTimeArbitararyNstWithAdaIn.__init__ -> __init__.is_available
+  --> /usr/lib64/python3.5/site-packages/torch/nn/modules/container.py
+    exec.RealTimeArbitararyNstWithAdaIn.__init__ -> container.Sequential.__init__
+  --> /usr/lib64/python3.5/site-packages/torch/nn/modules/module.py
+    exec.RealTimeArbitararyNstWithAdaIn.__init__ -> module.Module.children
+    exec.RealTimeArbitararyNstWithAdaIn.__init__ -> module.Module.eval
+    exec.RealTimeArbitararyNstWithAdaIn.__init__ -> module.Module.load_state_dict
+    exec.RealTimeArbitararyNstWithAdaIn.__init__ -> module.Module.to
+  --> /usr/lib64/python3.5/site-packages/torch/serialization.py
+    exec.RealTimeArbitararyNstWithAdaIn.__init__ -> serialization.load
+  --> /home/hybrid/.local/lib/python3.5/site-packages/torchvision/transforms/transforms.py
+    exec.RealTimeArbitararyNstWithAdaIn.compute -> transforms.Compose.__call__
+    exec.RealTimeArbitararyNstWithAdaIn.compute -> exec.RealTimeArbitararyNstWithAdaIn.test_transform
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/server/compute/models/adaptive_st/function.py
+    exec.RealTimeArbitararyNstWithAdaIn.compute -> function.adaptive_instance_normalization
+  --> /usr/lib64/python3.5/site-packages/PIL/Image.py
+    exec.RealTimeArbitararyNstWithAdaIn.compute -> Image.Image.__del__
+    exec.RealTimeArbitararyNstWithAdaIn.compute -> Image.fromarray
+  --> /usr/lib64/python3.5/site-packages/torch/autograd/grad_mode.py
+    exec.RealTimeArbitararyNstWithAdaIn.compute -> grad_mode.no_grad.__enter__
+    exec.RealTimeArbitararyNstWithAdaIn.compute -> grad_mode.no_grad.__exit__
+  --> /usr/lib64/python3.5/site-packages/torch/nn/modules/module.py
+    exec.RealTimeArbitararyNstWithAdaIn.compute -> module.Module.__call__
+  --> /home/hybrid/.local/lib/python3.5/site-packages/skimage/transform/_warps.py
+    exec.RealTimeArbitararyNstWithAdaIn.run -> _warps.resize
+  --> /home/hybrid/.local/lib/python3.5/site-packages/skimage/util/dtype.py
+    exec.RealTimeArbitararyNstWithAdaIn.run -> dtype.img_as_ubyte
+    exec.RealTimeArbitararyNstWithAdaIn.run -> exec.RealTimeArbitararyNstWithAdaIn.compute
+  --> /usr/lib64/python3.5/logging/__init__.py
+    exec.RealTimeArbitararyNstWithAdaIn.run -> __init__.Logger.info
+    exec.RealTimeArbitararyNstWithAdaIn.run -> __init__.Logger.warning
+  --> /usr/lib64/python3.5/site-packages/numpy/core/_methods.py
+    exec.RealTimeArbitararyNstWithAdaIn.run -> _methods._any
+  --> /usr/lib64/python3.5/site-packages/numpy/core/fromnumeric.py
+    exec.RealTimeArbitararyNstWithAdaIn.run -> fromnumeric.clip
+  --> /usr/lib64/python3.5/site-packages/numpy/core/numeric.py
+    exec.RealTimeArbitararyNstWithAdaIn.run -> numeric.moveaxis
+  --> /home/hybrid/.local/lib/python3.5/site-packages/torchvision/transforms/transforms.py
+    exec.RealTimeArbitararyNstWithAdaIn.test_transform -> transforms.Compose.__init__
+    exec.RealTimeArbitararyNstWithAdaIn.test_transform -> transforms.Resize.__init__
+
+*** /home/hybrid/Projects/celestiaprime/sync/sync/server/compute/models/adaptive_st/function.py ***
+    function.adaptive_instance_normalization -> function.calc_mean_std
+
+*** /home/hybrid/Projects/celestiaprime/sync/sync/server/compute/taskmanager.py ***
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/server/compute/models/NSTModel.py
+    taskmanager.TaskManager.__init__ -> NSTModel.NSTModel.__init__
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/server/compute/models/adaptive_st/exec.py
+    taskmanager.TaskManager.__init__ -> exec.RealTimeArbitararyNstWithAdaIn.__init__
+  --> /usr/lib64/python3.5/asyncio/events.py
+    taskmanager.TaskManager.__init__ -> events.get_event_loop
+  --> /usr/lib64/python3.5/concurrent/futures/thread.py
+    taskmanager.TaskManager.__init__ -> thread.ThreadPoolExecutor.__init__
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/server/compute/models/adaptive_st/exec.py
+    taskmanager.TaskManager.compute -> exec.RealTimeArbitararyNstWithAdaIn.run
+  --> /usr/lib64/python3.5/logging/__init__.py
+    taskmanager.TaskManager.compute -> __init__.Logger.info
+  --> /usr/lib64/python3.5/site-packages/numpy/core/_dtype.py
+    taskmanager.TaskManager.compute -> _dtype.__str__
+  --> /usr/lib64/python3.5/asyncio/tasks.py
+    taskmanager.TaskManager.compute_debounce -> tasks.Task.cancel
+    taskmanager.TaskManager.compute_debounce -> tasks.ensure_future
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/images/computed_image.py
+    taskmanager.TaskManager.schedule_compute -> computed_image.ComputedImage.get_slots
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/images/layer_image.py
+    taskmanager.TaskManager.schedule_compute -> layer_image.LayerImage.get_image
+  --> /usr/lib64/python3.5/asyncio/base_events.py
+    taskmanager.TaskManager.schedule_compute -> base_events.BaseEventLoop.run_in_executor
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    taskmanager.TaskManager.schedule_compute -> futures.Future.__iter__
+  --> /usr/lib64/python3.5/asyncio/tasks.py
+    taskmanager.TaskManager.schedule_compute -> tasks.shield
+    taskmanager.TaskManager.schedule_compute -> tasks.sleep
+  --> /usr/lib64/python3.5/logging/__init__.py
+    taskmanager.TaskManager.schedule_compute -> __init__.Logger.info
+    taskmanager.TaskManager.schedule_compute -> __init__.Logger.warn
+
+*** /home/hybrid/Projects/celestiaprime/sync/sync/utils.py ***
+  --> /usr/lib64/python3.5/site-packages/numpy/core/_methods.py
+    utils.get_changed_tiles -> _methods._sum
+
+*** /usr/lib/python3.5/site-packages/colorlog/colorlog.py ***
+  --> /usr/lib/python3.5/site-packages/colorlog/escape_codes.py
+    colorlog.ColoredFormatter.color -> escape_codes.parse_colors
+    colorlog.ColoredFormatter.format -> colorlog.ColoredFormatter.color
+    colorlog.ColoredFormatter.format -> colorlog.ColoredRecord.__init__
+  --> /usr/lib64/python3.5/logging/__init__.py
+    colorlog.ColoredFormatter.format -> __init__.Formatter.format
+
+*** /usr/lib/python3.5/site-packages/colorlog/escape_codes.py ***
+    escape_codes.parse_colors -> escape_codes.<genexpr>
+
+*** /usr/lib/python3.5/site-packages/imageio/core/format.py ***
+  --> /usr/lib/python3.5/site-packages/imageio/plugins/pillow.py
+    format.Format.can_write -> pillow.PillowFormat._can_write
+    format.Format.get_writer -> format._BaseReaderWriter.__init__
+    format.Format.get_writer -> format.modes
+  --> /usr/lib/python3.5/site-packages/imageio/core/request.py
+    format.Format.get_writer -> request.mode
+    format.FormatManager.search_write_format -> format.Format.can_write
+    format.FormatManager.search_write_format -> format.FormatManager.__iter__
+    format.FormatManager.search_write_format -> format.extensions
+    format.FormatManager.search_write_format -> format.modes
+    format.FormatManager.search_write_format -> request.extension
+    format.FormatManager.search_write_format -> request.mode
+    format.Writer.append_data -> format._BaseReaderWriter._checkClosed
+  --> /usr/lib/python3.5/site-packages/imageio/core/util.py
+    format.Writer.append_data -> util.asarray
+  --> /usr/lib/python3.5/site-packages/imageio/plugins/pillow.py
+    format.Writer.append_data -> pillow.Writer._append_data
+    format._BaseReaderWriter.__del__ -> format._BaseReaderWriter.close
+    format._BaseReaderWriter.__enter__ -> format._BaseReaderWriter._checkClosed
+    format._BaseReaderWriter.__exit__ -> format._BaseReaderWriter.close
+    format._BaseReaderWriter.__init__ -> format.request
+  --> /usr/lib/python3.5/site-packages/imageio/core/request.py
+    format._BaseReaderWriter.__init__ -> request.kwargs
+  --> /usr/lib/python3.5/site-packages/imageio/plugins/pillow.py
+    format._BaseReaderWriter.__init__ -> pillow.Writer._open
+    format._BaseReaderWriter._checkClosed -> format.closed
+    format._BaseReaderWriter.close -> format.request
+  --> /usr/lib/python3.5/site-packages/imageio/core/request.py
+    format._BaseReaderWriter.close -> request.Request.finish
+  --> /usr/lib/python3.5/site-packages/imageio/plugins/pillow.py
+    format._BaseReaderWriter.close -> pillow.Writer._close
+
+*** /usr/lib/python3.5/site-packages/imageio/core/functions.py ***
+  --> /usr/lib/python3.5/site-packages/imageio/core/format.py
+    functions.get_writer -> format.Format.get_writer
+    functions.get_writer -> format.FormatManager.search_write_format
+  --> /usr/lib/python3.5/site-packages/imageio/core/request.py
+    functions.get_writer -> request.Request.__init__
+  --> /usr/lib/python3.5/site-packages/imageio/core/format.py
+    functions.imwrite -> format.Writer.append_data
+    functions.imwrite -> format._BaseReaderWriter.__enter__
+    functions.imwrite -> format._BaseReaderWriter.__exit__
+    functions.imwrite -> format.request
+    functions.imwrite -> functions.get_writer
+  --> /usr/lib/python3.5/site-packages/imageio/core/request.py
+    functions.imwrite -> request.Request.get_result
+  --> /usr/lib64/python3.5/site-packages/numpy/core/numeric.py
+    functions.imwrite -> numeric.asanyarray
+  --> /usr/lib64/python3.5/site-packages/numpy/core/numerictypes.py
+    functions.imwrite -> numerictypes.issubdtype
+
+*** /usr/lib/python3.5/site-packages/imageio/core/request.py ***
+    request.Request.__init__ -> request.Request._parse_uri
+    request.Request._parse_uri -> request.mode
+  --> /usr/lib64/python3.5/genericpath.py
+    request.Request._parse_uri -> genericpath.exists
+  --> /usr/lib64/python3.5/posixpath.py
+    request.Request._parse_uri -> posixpath.abspath
+    request.Request._parse_uri -> posixpath.dirname
+    request.Request.finish -> request.mode
+    request.Request.get_file -> request.filename
+    request.Request.get_file -> request.mode
+
+*** /usr/lib/python3.5/site-packages/imageio/core/util.py ***
+  --> /usr/lib64/python3.5/site-packages/numpy/core/_dtype.py
+    util.image_as_uint -> _dtype.__str__
+
+*** /usr/lib/python3.5/site-packages/imageio/plugins/pillow.py ***
+  --> /usr/lib/python3.5/site-packages/imageio/core/format.py
+    pillow.PillowFormat._can_write -> format.extensions
+    pillow.PillowFormat._can_write -> format.modes
+  --> /usr/lib/python3.5/site-packages/imageio/core/request.py
+    pillow.PillowFormat._can_write -> request.extension
+    pillow.PillowFormat._can_write -> request.mode
+    pillow.PillowFormat._can_write -> pillow.PillowFormat._init_pillow
+    pillow.PillowFormat._can_write -> pillow.plugin_id
+    pillow.PillowFormat._init_pillow -> pillow.plugin_id
+  --> /usr/lib64/python3.5/site-packages/PIL/Image.py
+    pillow.PillowFormat._init_pillow -> Image.preinit
+  --> <frozen importlib._bootstrap>
+    pillow.PillowFormat._init_pillow -> <frozen importlib._handle_fromlist
+  --> /usr/lib/python3.5/site-packages/imageio/core/format.py
+    pillow.Writer._append_data -> format.format
+  --> /usr/lib/python3.5/site-packages/imageio/core/util.py
+    pillow.Writer._append_data -> util.image_as_uint
+    pillow.Writer._append_data -> pillow.Writer._append_data
+    pillow.Writer._append_data -> pillow.ndarray_to_pil
+    pillow.Writer._append_data -> pillow.plugin_id
+    pillow.Writer._append_data -> pillow.save_pillow_close
+  --> /usr/lib64/python3.5/site-packages/PIL/Image.py
+    pillow.Writer._append_data -> Image.Image.__del__
+    pillow.Writer._append_data -> Image.Image.save
+  --> /usr/lib64/python3.5/site-packages/numpy/core/_dtype.py
+    pillow.Writer._append_data -> _dtype.__str__
+  --> /usr/lib/python3.5/site-packages/imageio/core/format.py
+    pillow.Writer._open -> format.format
+    pillow.Writer._open -> format.request
+  --> /usr/lib/python3.5/site-packages/imageio/core/request.py
+    pillow.Writer._open -> request.Request.get_file
+    pillow.Writer._open -> pillow.PillowFormat._init_pillow
+    pillow.Writer._open -> pillow.Writer._open
+    pillow.Writer._open -> pillow.plugin_id
+  --> /usr/lib/python3.5/site-packages/imageio/core/util.py
+    pillow.ndarray_to_pil -> util.image_as_uint
+  --> /usr/lib64/python3.5/site-packages/PIL/Image.py
+    pillow.ndarray_to_pil -> Image.fromarray
+  --> <frozen importlib._bootstrap>
+    pillow.ndarray_to_pil -> <frozen importlib._handle_fromlist
+
+*** /usr/lib64/python3.5/_collections_abc.py ***
+  --> /usr/lib64/python3.5/os.py
+    _collections_abc.Mapping.get -> os._Environ.__getitem__
+  --> /usr/lib64/python3.5/site-packages/websockets/http.py
+    _collections_abc.Mapping.get -> http.Headers.__getitem__
+    _collections_abc.MutableMapping.setdefault -> http.Headers.__getitem__
+    _collections_abc.MutableMapping.setdefault -> http.Headers.__setitem__
+
+*** /usr/lib64/python3.5/_weakrefset.py ***
+    _weakrefset.WeakSet.__iter__ -> _weakrefset._IterationGuard.__enter__
+    _weakrefset.WeakSet.__iter__ -> _weakrefset._IterationGuard.__exit__
+    _weakrefset.WeakSet.__iter__ -> _weakrefset._IterationGuard.__init__
+    _weakrefset._IterationGuard.__exit__ -> _weakrefset.WeakSet._commit_removals
+
+*** /usr/lib64/python3.5/abc.py ***
+  --> /usr/lib64/python3.5/_weakrefset.py
+    abc.ABCMeta.__instancecheck__ -> _weakrefset.WeakSet.__contains__
+    abc.ABCMeta.__instancecheck__ -> abc.ABCMeta.__subclasscheck__
+  --> /usr/lib64/python3.5/_collections_abc.py
+    abc.ABCMeta.__subclasscheck__ -> _collections_abc.__subclasshook__
+  --> /usr/lib64/python3.5/_weakrefset.py
+    abc.ABCMeta.__subclasscheck__ -> _weakrefset.WeakSet.__contains__
+    abc.ABCMeta.__subclasscheck__ -> _weakrefset.WeakSet.__init__
+    abc.ABCMeta.__subclasscheck__ -> _weakrefset.WeakSet.__iter__
+    abc.ABCMeta.__subclasscheck__ -> _weakrefset.WeakSet.add
+    abc.ABCMeta.__subclasscheck__ -> abc.ABCMeta.__subclasscheck__
+  --> /usr/lib64/python3.5/typing.py
+    abc.ABCMeta.__subclasscheck__ -> typing.GenericMeta.__eq__
+    abc.ABCMeta.__subclasscheck__ -> typing.GenericMeta.__subclasscheck__
+    abc.ABCMeta.__subclasscheck__ -> typing.__extrahook__
+    abc.ABCMeta.__subclasscheck__ -> typing._abc_negative_cache
+    abc.ABCMeta.__subclasscheck__ -> typing._abc_negative_cache_version
+  --> /usr/lib64/python3.5/_weakrefset.py
+    abc.__new__ -> _weakrefset.WeakSet.__init__
+    abc.__new__ -> abc.<setcomp>
+
+*** /usr/lib64/python3.5/asyncio/base_events.py ***
+  --> /usr/lib64/python3.5/_collections_abc.py
+    base_events.BaseEventLoop.__init__ -> _collections_abc.Mapping.get
+    base_events.BaseEventLoop.__init__ -> base_events.BaseEventLoop.set_debug
+  --> /usr/lib64/python3.5/asyncio/events.py
+    base_events.BaseEventLoop._call_soon -> events.Handle.__init__
+    base_events.BaseEventLoop._create_server_getaddrinfo -> base_events._ensure_resolved
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    base_events.BaseEventLoop._create_server_getaddrinfo -> futures.Future.__iter__
+  --> /usr/lib64/python3.5/_weakrefset.py
+    base_events.BaseEventLoop._run_once -> _weakrefset._remove
+    base_events.BaseEventLoop._run_once -> base_events.BaseEventLoop.time
+  --> /usr/lib64/python3.5/asyncio/events.py
+    base_events.BaseEventLoop._run_once -> events.Handle._run
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    base_events.BaseEventLoop._run_once -> futures.Future.__del__
+  --> /usr/lib64/python3.5/asyncio/selector_events.py
+    base_events.BaseEventLoop._run_once -> selector_events.BaseSelectorEventLoop._process_events
+  --> /usr/lib64/python3.5/asyncio/tasks.py
+    base_events.BaseEventLoop._run_once -> tasks.Task.__del__
+  --> /usr/lib64/python3.5/selectors.py
+    base_events.BaseEventLoop._run_once -> selectors.EpollSelector.select
+    base_events.BaseEventLoop.call_at -> base_events.BaseEventLoop._check_closed
+  --> /usr/lib64/python3.5/asyncio/events.py
+    base_events.BaseEventLoop.call_at -> events.TimerHandle.__init__
+    base_events.BaseEventLoop.call_at -> events.TimerHandle.__lt__
+    base_events.BaseEventLoop.call_later -> base_events.BaseEventLoop.call_at
+    base_events.BaseEventLoop.call_later -> base_events.BaseEventLoop.time
+    base_events.BaseEventLoop.call_soon -> base_events.BaseEventLoop._call_soon
+    base_events.BaseEventLoop.call_soon -> base_events.BaseEventLoop._check_closed
+    base_events.BaseEventLoop.call_soon_threadsafe -> base_events.BaseEventLoop._call_soon
+    base_events.BaseEventLoop.call_soon_threadsafe -> base_events.BaseEventLoop._check_closed
+  --> /usr/lib64/python3.5/asyncio/selector_events.py
+    base_events.BaseEventLoop.call_soon_threadsafe -> selector_events.BaseSelectorEventLoop._write_to_self
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    base_events.BaseEventLoop.create_future -> futures.Future.__init__
+    base_events.BaseEventLoop.create_server -> base_events.<listcomp>
+    base_events.BaseEventLoop.create_server -> base_events.Server.__init__
+    base_events.BaseEventLoop.create_server -> futures.Future.__iter__
+  --> /usr/lib64/python3.5/asyncio/selector_events.py
+    base_events.BaseEventLoop.create_server -> selector_events.BaseSelectorEventLoop._start_serving
+  --> /usr/lib64/python3.5/asyncio/tasks.py
+    base_events.BaseEventLoop.create_server -> tasks.gather
+  --> /usr/lib64/python3.5/socket.py
+    base_events.BaseEventLoop.create_server -> socket.socket.__init__
+    base_events.BaseEventLoop.create_task -> base_events.BaseEventLoop._check_closed
+  --> /usr/lib64/python3.5/asyncio/tasks.py
+    base_events.BaseEventLoop.create_task -> tasks.Task.__init__
+    base_events.BaseEventLoop.getaddrinfo -> base_events.BaseEventLoop.run_in_executor
+    base_events.BaseEventLoop.run_forever -> base_events.BaseEventLoop._check_closed
+    base_events.BaseEventLoop.run_forever -> base_events.BaseEventLoop._run_once
+    base_events.BaseEventLoop.run_forever -> base_events.BaseEventLoop._set_coroutine_wrapper
+    base_events.BaseEventLoop.run_forever -> base_events.BaseEventLoop.is_running
+  --> /usr/lib64/python3.5/asyncio/events.py
+    base_events.BaseEventLoop.run_forever -> events._get_running_loop
+    base_events.BaseEventLoop.run_forever -> events._set_running_loop
+    base_events.BaseEventLoop.run_in_executor -> base_events.BaseEventLoop._check_closed
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    base_events.BaseEventLoop.run_in_executor -> futures.wrap_future
+  --> /usr/lib64/python3.5/concurrent/futures/thread.py
+    base_events.BaseEventLoop.run_in_executor -> thread.ThreadPoolExecutor.__init__
+    base_events.BaseEventLoop.run_in_executor -> thread.ThreadPoolExecutor.submit
+    base_events.BaseEventLoop.run_until_complete -> base_events.BaseEventLoop._check_closed
+    base_events.BaseEventLoop.run_until_complete -> base_events.BaseEventLoop.run_forever
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    base_events.BaseEventLoop.run_until_complete -> futures.Future.add_done_callback
+    base_events.BaseEventLoop.run_until_complete -> futures.Future.done
+    base_events.BaseEventLoop.run_until_complete -> futures.Future.remove_done_callback
+    base_events.BaseEventLoop.run_until_complete -> futures.Future.result
+    base_events.BaseEventLoop.run_until_complete -> futures.isfuture
+  --> /usr/lib64/python3.5/asyncio/tasks.py
+    base_events.BaseEventLoop.run_until_complete -> tasks.ensure_future
+    base_events.BaseEventLoop.set_debug -> base_events.BaseEventLoop.is_running
+    base_events._ensure_resolved -> base_events.BaseEventLoop.getaddrinfo
+    base_events._ensure_resolved -> base_events._ipaddr_info
+    base_events._run_until_complete_cb -> base_events.BaseEventLoop.stop
+
+*** /usr/lib64/python3.5/asyncio/coroutines.py ***
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    coroutines.WebSocketServerProtocol.coro -> futures.isfuture
+  --> /usr/lib64/python3.5/inspect.py
+    coroutines.WebSocketServerProtocol.coro -> inspect.isgenerator
+  --> /usr/lib64/python3.5/site-packages/websockets/server.py
+    coroutines.WebSocketServerProtocol.coro -> server.process_request
+    coroutines.WebSocketServerProtocol.coro -> server.write_http_response
+  --> /usr/lib64/python3.5/abc.py
+    coroutines.iscoroutine -> abc.ABCMeta.__instancecheck__
+
+*** /usr/lib64/python3.5/asyncio/events.py ***
+    events.BaseDefaultEventLoopPolicy.get_event_loop -> events.BaseDefaultEventLoopPolicy.new_event_loop
+  --> /usr/lib64/python3.5/asyncio/unix_events.py
+    events.BaseDefaultEventLoopPolicy.get_event_loop -> unix_events._UnixDefaultEventLoopPolicy.set_event_loop
+  --> /usr/lib64/python3.5/threading.py
+    events.BaseDefaultEventLoopPolicy.get_event_loop -> threading.current_thread
+  --> /usr/lib64/python3.5/asyncio/unix_events.py
+    events.BaseDefaultEventLoopPolicy.new_event_loop -> unix_events._UnixSelectorEventLoop.__init__
+  --> /usr/lib64/python3.5/asyncio/base_events.py
+    events.Handle.__init__ -> base_events.BaseEventLoop.get_debug
+    events.Handle._run -> base_events._run_until_complete_cb
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    events.Handle._run -> futures._call_check_cancel
+    events.Handle._run -> futures._set_result_unless_cancelled
+    events.Handle._run -> futures._set_state
+  --> /usr/lib64/python3.5/asyncio/selector_events.py
+    events.Handle._run -> selector_events.BaseSelectorEventLoop._accept_connection
+    events.Handle._run -> selector_events.BaseSelectorEventLoop._add_reader
+    events.Handle._run -> selector_events.BaseSelectorEventLoop._read_from_self
+    events.Handle._run -> selector_events._SelectorSocketTransport._read_ready
+    events.Handle._run -> selector_events._SelectorTransport._call_connection_lost
+  --> /usr/lib64/python3.5/asyncio/tasks.py
+    events.Handle._run -> tasks.Task._step
+    events.Handle._run -> tasks.Task._wakeup
+    events.Handle._run -> tasks._done_callback
+    events.Handle._run -> tasks._on_completion
+    events.Handle._run -> tasks._release_waiter
+  --> /usr/lib64/python3.5/site-packages/websockets/server.py
+    events.Handle._run -> server.WebSocketServerProtocol.connection_made
+  --> /usr/lib64/python3.5/asyncio/base_events.py
+    events.Handle.cancel -> base_events.BaseEventLoop.get_debug
+    events.TimerHandle.__init__ -> events.Handle.__init__
+    events.TimerHandle.cancel -> base_events.BaseEventLoop._timer_handle_cancelled
+    events.TimerHandle.cancel -> events.Handle.cancel
+  --> /usr/lib64/python3.5/asyncio/unix_events.py
+    events._init_event_loop_policy -> unix_events._UnixDefaultEventLoopPolicy.__init__
+  --> <frozen importlib._bootstrap>
+    events._init_event_loop_policy -> <frozen importlib._handle_fromlist
+    events.get_event_loop -> events.BaseDefaultEventLoopPolicy.get_event_loop
+    events.get_event_loop -> events._get_running_loop
+    events.get_event_loop -> events.get_event_loop_policy
+    events.get_event_loop_policy -> events._init_event_loop_policy
+
+*** /usr/lib64/python3.5/asyncio/futures.py ***
+  --> /usr/lib64/python3.5/asyncio/base_events.py
+    futures.Future.__init__ -> base_events.BaseEventLoop.get_debug
+    futures.Future.__iter__ -> futures.Future.done
+    futures.Future.__iter__ -> futures.Future.result
+    futures.Future._schedule_callbacks -> base_events.BaseEventLoop.call_soon
+    futures.Future.cancel -> futures.Future._schedule_callbacks
+    futures.Future.remove_done_callback -> futures.<listcomp>
+    futures.Future.set_exception -> futures.Future._schedule_callbacks
+    futures.Future.set_result -> futures.Future._schedule_callbacks
+    futures._call_check_cancel -> futures.Future.cancelled
+    futures._call_set_state -> base_events.BaseEventLoop.call_soon_threadsafe
+    futures._chain_future -> futures.Future.add_done_callback
+    futures._chain_future -> futures.isfuture
+  --> /usr/lib64/python3.5/concurrent/futures/_base.py
+    futures._chain_future -> _base.Future.add_done_callback
+    futures._copy_future_state -> futures.Future.cancelled
+    futures._copy_future_state -> futures.Future.done
+    futures._copy_future_state -> futures.Future.set_result
+    futures._copy_future_state -> _base.Future.cancelled
+    futures._copy_future_state -> _base.Future.done
+    futures._copy_future_state -> _base.Future.exception
+    futures._copy_future_state -> _base.Future.result
+    futures._set_result_unless_cancelled -> futures.Future.cancelled
+    futures._set_result_unless_cancelled -> futures.Future.set_result
+    futures._set_state -> futures._copy_future_state
+    futures._set_state -> futures.isfuture
+  --> /usr/lib64/python3.5/asyncio/base_events.py
+    futures.wrap_future -> base_events.BaseEventLoop.create_future
+    futures.wrap_future -> futures._chain_future
+    futures.wrap_future -> futures.isfuture
+
+*** /usr/lib64/python3.5/asyncio/locks.py ***
+    locks.Lock.acquire -> locks.<genexpr>
+    locks.Lock.release -> locks.Lock._wake_up_first
+    locks._ContextManager.__exit__ -> locks.Lock.release
+    locks._ContextManagerMixin.__iter__ -> locks.Lock.acquire
+    locks._ContextManagerMixin.__iter__ -> locks._ContextManager.__init__
+
+*** /usr/lib64/python3.5/asyncio/selector_events.py ***
+  --> /usr/lib64/python3.5/asyncio/base_events.py
+    selector_events.BaseSelectorEventLoop.__init__ -> base_events.BaseEventLoop.__init__
+    selector_events.BaseSelectorEventLoop.__init__ -> selector_events.BaseSelectorEventLoop._make_self_pipe
+  --> /usr/lib64/python3.5/logging/__init__.py
+    selector_events.BaseSelectorEventLoop.__init__ -> __init__.Logger.debug
+  --> /usr/lib64/python3.5/selectors.py
+    selector_events.BaseSelectorEventLoop.__init__ -> selectors.EpollSelector.__init__
+  --> /usr/lib64/python3.5/weakref.py
+    selector_events.BaseSelectorEventLoop.__init__ -> weakref.WeakValueDictionary.__init__
+  --> /usr/lib64/python3.5/asyncio/base_events.py
+    selector_events.BaseSelectorEventLoop._accept_connection -> base_events.BaseEventLoop.create_task
+  --> /usr/lib64/python3.5/socket.py
+    selector_events.BaseSelectorEventLoop._accept_connection -> socket.socket.accept
+  --> /usr/lib64/python3.5/asyncio/base_events.py
+    selector_events.BaseSelectorEventLoop._accept_connection2 -> base_events.BaseEventLoop.create_future
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    selector_events.BaseSelectorEventLoop._accept_connection2 -> futures.Future.__iter__
+    selector_events.BaseSelectorEventLoop._accept_connection2 -> selector_events.BaseSelectorEventLoop._make_socket_transport
+  --> /usr/lib64/python3.5/site-packages/websockets/server.py
+    selector_events.BaseSelectorEventLoop._accept_connection2 -> server.<lambda>
+  --> /usr/lib64/python3.5/asyncio/base_events.py
+    selector_events.BaseSelectorEventLoop._add_reader -> base_events.BaseEventLoop._check_closed
+  --> /usr/lib64/python3.5/asyncio/events.py
+    selector_events.BaseSelectorEventLoop._add_reader -> events.Handle.__init__
+  --> /usr/lib64/python3.5/selectors.py
+    selector_events.BaseSelectorEventLoop._add_reader -> selectors.BaseSelector.get_key
+    selector_events.BaseSelectorEventLoop._add_reader -> selectors.EpollSelector.register
+    selector_events.BaseSelectorEventLoop._make_self_pipe -> selector_events.BaseSelectorEventLoop._add_reader
+  --> /usr/lib64/python3.5/asyncio/unix_events.py
+    selector_events.BaseSelectorEventLoop._make_self_pipe -> unix_events._UnixSelectorEventLoop._socketpair
+    selector_events.BaseSelectorEventLoop._make_socket_transport -> selector_events._SelectorSocketTransport.__init__
+  --> /usr/lib64/python3.5/asyncio/base_events.py
+    selector_events.BaseSelectorEventLoop._process_events -> base_events.BaseEventLoop._add_callback
+  --> /usr/lib64/python3.5/asyncio/unix_events.py
+    selector_events.BaseSelectorEventLoop._read_from_self -> unix_events._UnixSelectorEventLoop._process_self_data
+  --> /usr/lib64/python3.5/asyncio/base_events.py
+    selector_events.BaseSelectorEventLoop._remove_reader -> base_events.BaseEventLoop.is_closed
+  --> /usr/lib64/python3.5/asyncio/events.py
+    selector_events.BaseSelectorEventLoop._remove_reader -> events.Handle.cancel
+  --> /usr/lib64/python3.5/selectors.py
+    selector_events.BaseSelectorEventLoop._remove_reader -> selectors.BaseSelector.get_key
+    selector_events.BaseSelectorEventLoop._remove_reader -> selectors.EpollSelector.unregister
+  --> /usr/lib64/python3.5/asyncio/base_events.py
+    selector_events.BaseSelectorEventLoop._remove_writer -> base_events.BaseEventLoop.is_closed
+  --> /usr/lib64/python3.5/selectors.py
+    selector_events.BaseSelectorEventLoop._remove_writer -> selectors.BaseSelector.get_key
+    selector_events.BaseSelectorEventLoop._start_serving -> selector_events.BaseSelectorEventLoop._add_reader
+  --> /usr/lib64/python3.5/asyncio/base_events.py
+    selector_events._SelectorSocketTransport.__init__ -> base_events.BaseEventLoop.call_soon
+    selector_events._SelectorSocketTransport.__init__ -> selector_events._SelectorTransport.__init__
+    selector_events._SelectorSocketTransport.__init__ -> selector_events._set_nodelay
+    selector_events._SelectorSocketTransport._read_ready -> base_events.BaseEventLoop.get_debug
+    selector_events._SelectorSocketTransport._read_ready -> selector_events._SelectorTransport.close
+  --> /usr/lib64/python3.5/asyncio/streams.py
+    selector_events._SelectorSocketTransport._read_ready -> streams.StreamReaderProtocol.data_received
+  --> /usr/lib64/python3.5/site-packages/websockets/protocol.py
+    selector_events._SelectorSocketTransport._read_ready -> protocol.WebSocketCommonProtocol.eof_received
+  --> /usr/lib64/python3.5/asyncio/base_events.py
+    selector_events._SelectorSocketTransport.pause_reading -> base_events.BaseEventLoop.get_debug
+    selector_events._SelectorSocketTransport.pause_reading -> selector_events.BaseSelectorEventLoop._remove_reader
+    selector_events._SelectorSocketTransport.resume_reading -> base_events.BaseEventLoop.get_debug
+    selector_events._SelectorSocketTransport.resume_reading -> selector_events.BaseSelectorEventLoop._add_reader
+    selector_events._SelectorTransport.__init__ -> base_events.Server._attach
+  --> /usr/lib64/python3.5/asyncio/transports.py
+    selector_events._SelectorTransport.__init__ -> transports._FlowControlMixin.__init__
+  --> /usr/lib64/python3.5/weakref.py
+    selector_events._SelectorTransport.__init__ -> weakref.WeakValueDictionary.__setitem__
+  --> /usr/lib64/python3.5/asyncio/base_events.py
+    selector_events._SelectorTransport.__repr__ -> base_events.BaseEventLoop.is_closed
+    selector_events._SelectorTransport.__repr__ -> selector_events._SelectorTransport.get_write_buffer_size
+    selector_events._SelectorTransport.__repr__ -> selector_events._test_selector_event
+  --> /usr/lib64/python3.5/site-packages/websockets/protocol.py
+    selector_events._SelectorTransport._call_connection_lost -> protocol.WebSocketCommonProtocol.connection_lost
+  --> /usr/lib64/python3.5/asyncio/base_events.py
+    selector_events._SelectorTransport.close -> base_events.BaseEventLoop.call_soon
+    selector_events._SelectorTransport.close -> selector_events.BaseSelectorEventLoop._remove_reader
+    selector_events._SelectorTransport.close -> selector_events.BaseSelectorEventLoop._remove_writer
+  --> /usr/lib64/python3.5/socket.py
+    selector_events._set_nodelay -> socket.family
+    selector_events._set_nodelay -> socket.type
+  --> /usr/lib64/python3.5/selectors.py
+    selector_events._test_selector_event -> selectors.BaseSelector.get_key
+
+*** /usr/lib64/python3.5/asyncio/streams.py ***
+  --> /usr/lib64/python3.5/asyncio/selector_events.py
+    streams.StreamReader._maybe_resume_transport -> selector_events._SelectorSocketTransport.resume_reading
+  --> /usr/lib64/python3.5/asyncio/base_events.py
+    streams.StreamReader._wait_for_data -> base_events.BaseEventLoop.create_future
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    streams.StreamReader._wait_for_data -> futures.Future.__iter__
+  --> /usr/lib64/python3.5/asyncio/selector_events.py
+    streams.StreamReader._wait_for_data -> selector_events._SelectorSocketTransport.resume_reading
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    streams.StreamReader._wakeup_waiter -> futures.Future.cancelled
+    streams.StreamReader._wakeup_waiter -> futures.Future.set_result
+  --> /usr/lib64/python3.5/asyncio/selector_events.py
+    streams.StreamReader.feed_data -> selector_events._SelectorSocketTransport.pause_reading
+    streams.StreamReader.feed_data -> streams.StreamReader._wakeup_waiter
+    streams.StreamReader.feed_eof -> streams.StreamReader._wakeup_waiter
+    streams.StreamReader.readexactly -> streams.IncompleteReadError.__init__
+    streams.StreamReader.readexactly -> streams.StreamReader._maybe_resume_transport
+    streams.StreamReader.readexactly -> streams.StreamReader._wait_for_data
+    streams.StreamReader.readline -> streams.StreamReader.readuntil
+    streams.StreamReader.readuntil -> streams.StreamReader._maybe_resume_transport
+    streams.StreamReader.readuntil -> streams.StreamReader._wait_for_data
+    streams.StreamReaderProtocol.__init__ -> streams.FlowControlMixin.__init__
+  --> /usr/lib64/python3.5/asyncio/coroutines.py
+    streams.StreamReaderProtocol.connection_made -> coroutines.iscoroutine
+    streams.StreamReaderProtocol.connection_made -> streams.StreamReader.set_transport
+    streams.StreamReaderProtocol.connection_made -> streams.StreamWriter.__init__
+  --> /usr/lib64/python3.5/asyncio/transports.py
+    streams.StreamReaderProtocol.connection_made -> transports.BaseTransport.get_extra_info
+  --> /usr/lib64/python3.5/site-packages/websockets/protocol.py
+    streams.StreamReaderProtocol.connection_made -> protocol.WebSocketCommonProtocol.client_connected
+    streams.StreamReaderProtocol.data_received -> streams.StreamReader.feed_data
+    streams.StreamReaderProtocol.eof_received -> streams.StreamReader.feed_eof
+  --> /usr/lib64/python3.5/asyncio/selector_events.py
+    streams.StreamWriter.drain -> selector_events._SelectorTransport.is_closing
+    streams.StreamWriter.drain -> streams.FlowControlMixin._drain_helper
+    streams.StreamWriter.drain -> streams.StreamReader.exception
+    streams.StreamWriter.write -> selector_events._SelectorSocketTransport.write
+
+*** /usr/lib64/python3.5/asyncio/tasks.py ***
+    tasks.<setcomp> -> tasks.ensure_future
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    tasks.Task.__del__ -> futures.Future.__del__
+  --> /usr/lib64/python3.5/_weakrefset.py
+    tasks.Task.__init__ -> _weakrefset.WeakSet.add
+  --> /usr/lib64/python3.5/asyncio/base_events.py
+    tasks.Task.__init__ -> base_events.BaseEventLoop.call_soon
+  --> /usr/lib64/python3.5/asyncio/coroutines.py
+    tasks.Task.__init__ -> coroutines.iscoroutine
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    tasks.Task.__init__ -> futures.Future.__init__
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/images/layer_image.py
+    tasks.Task._step -> layer_image.LayerImage.send_tile_update
+    tasks.Task._step -> layer_image.LayerImage.update_data
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/server/compute/taskmanager.py
+    tasks.Task._step -> taskmanager.TaskManager.compute_debounce
+    tasks.Task._step -> taskmanager.TaskManager.schedule_compute
+  --> /usr/lib64/python3.5/asyncio/base_events.py
+    tasks.Task._step -> base_events.BaseEventLoop._create_server_getaddrinfo
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    tasks.Task._step -> futures.Future.__iter__
+    tasks.Task._step -> futures.Future.add_done_callback
+    tasks.Task._step -> futures.Future.cancel
+    tasks.Task._step -> futures.Future.done
+    tasks.Task._step -> futures.Future.set_exception
+    tasks.Task._step -> futures.Future.set_result
+  --> /usr/lib64/python3.5/asyncio/selector_events.py
+    tasks.Task._step -> selector_events.BaseSelectorEventLoop._accept_connection2
+    tasks.Task._step -> tasks._wrap_awaitable
+    tasks.Task._step -> tasks.sleep
+  --> /usr/lib64/python3.5/site-packages/websockets/protocol.py
+    tasks.Task._step -> protocol.WebSocketCommonProtocol.close_connection
+    tasks.Task._step -> protocol.WebSocketCommonProtocol.keepalive_ping
+    tasks.Task._step -> protocol.WebSocketCommonProtocol.transfer_data
+  --> /usr/lib64/python3.5/site-packages/websockets/server.py
+    tasks.Task._step -> server.WebSocketServerProtocol.handler
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    tasks.Task._wakeup -> futures.Future.result
+    tasks.Task._wakeup -> tasks.Task._step
+    tasks.Task.cancel -> futures.Future.cancel
+    tasks.Task.cancel -> futures.Future.done
+    tasks._GatheringFuture.__init__ -> futures.Future.__init__
+    tasks._done_callback -> futures.Future.cancelled
+    tasks._done_callback -> futures.Future.done
+    tasks._done_callback -> futures.Future.exception
+    tasks._done_callback -> futures.Future.result
+    tasks._done_callback -> futures.Future.set_result
+    tasks._on_completion -> futures.Future.done
+    tasks._on_completion -> futures.Future.set_result
+    tasks._release_waiter -> futures.Future.done
+    tasks._release_waiter -> futures.Future.set_result
+  --> /usr/lib64/python3.5/asyncio/base_events.py
+    tasks._wait -> base_events.BaseEventLoop.create_future
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    tasks._wait -> futures.Future.__iter__
+    tasks._wait -> futures.Future.add_done_callback
+    tasks._wait -> futures.Future.done
+    tasks._wait -> futures.Future.remove_done_callback
+  --> /usr/lib64/python3.5/site-packages/websockets/py35/server.py
+    tasks._wrap_awaitable -> server.__await__
+    tasks._wrap_awaitable -> server.__await_impl__
+  --> /usr/lib64/python3.5/asyncio/base_events.py
+    tasks.ensure_future -> base_events.BaseEventLoop.create_task
+  --> /usr/lib64/python3.5/asyncio/coroutines.py
+    tasks.ensure_future -> coroutines.iscoroutine
+  --> /usr/lib64/python3.5/asyncio/events.py
+    tasks.ensure_future -> events.get_event_loop
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    tasks.ensure_future -> futures.isfuture
+    tasks.ensure_future -> tasks.ensure_future
+  --> /usr/lib64/python3.5/inspect.py
+    tasks.ensure_future -> inspect.isawaitable
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    tasks.gather -> futures.Future.add_done_callback
+    tasks.gather -> futures.isfuture
+    tasks.gather -> tasks.<listcomp>
+    tasks.gather -> tasks._GatheringFuture.__init__
+    tasks.gather -> tasks.ensure_future
+  --> /usr/lib64/python3.5/asyncio/base_events.py
+    tasks.shield -> base_events.BaseEventLoop.create_future
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    tasks.shield -> futures.Future.add_done_callback
+    tasks.shield -> futures.Future.done
+    tasks.shield -> tasks.ensure_future
+  --> /usr/lib64/python3.5/asyncio/base_events.py
+    tasks.sleep -> base_events.BaseEventLoop.call_later
+    tasks.sleep -> base_events.BaseEventLoop.create_future
+  --> /usr/lib64/python3.5/asyncio/events.py
+    tasks.sleep -> events.TimerHandle.cancel
+    tasks.sleep -> events.get_event_loop
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    tasks.sleep -> futures.Future.__iter__
+  --> /usr/lib64/python3.5/asyncio/coroutines.py
+    tasks.wait -> coroutines.iscoroutine
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    tasks.wait -> futures.isfuture
+    tasks.wait -> tasks.<setcomp>
+    tasks.wait -> tasks._wait
+  --> /usr/lib64/python3.5/asyncio/base_events.py
+    tasks.wait_for -> base_events.BaseEventLoop.call_later
+    tasks.wait_for -> base_events.BaseEventLoop.create_future
+  --> /usr/lib64/python3.5/asyncio/events.py
+    tasks.wait_for -> events.TimerHandle.cancel
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    tasks.wait_for -> futures.Future.__iter__
+    tasks.wait_for -> futures.Future.add_done_callback
+    tasks.wait_for -> futures.Future.done
+    tasks.wait_for -> futures.Future.result
+    tasks.wait_for -> tasks.ensure_future
+
+*** /usr/lib64/python3.5/asyncio/transports.py ***
+    transports._FlowControlMixin.__init__ -> transports.BaseTransport.__init__
+    transports._FlowControlMixin.__init__ -> transports._FlowControlMixin._set_write_buffer_limits
+  --> /usr/lib64/python3.5/asyncio/selector_events.py
+    transports._FlowControlMixin._maybe_pause_protocol -> selector_events._SelectorTransport.get_write_buffer_size
+    transports._FlowControlMixin.set_write_buffer_limits -> transports._FlowControlMixin._maybe_pause_protocol
+    transports._FlowControlMixin.set_write_buffer_limits -> transports._FlowControlMixin._set_write_buffer_limits
+
+*** /usr/lib64/python3.5/asyncio/unix_events.py ***
+  --> /usr/lib64/python3.5/asyncio/events.py
+    unix_events._UnixDefaultEventLoopPolicy.__init__ -> events.BaseDefaultEventLoopPolicy.__init__
+    unix_events._UnixDefaultEventLoopPolicy.set_event_loop -> events.BaseDefaultEventLoopPolicy.set_event_loop
+  --> /usr/lib64/python3.5/asyncio/selector_events.py
+    unix_events._UnixSelectorEventLoop.__init__ -> selector_events.BaseSelectorEventLoop.__init__
+  --> /usr/lib64/python3.5/socket.py
+    unix_events._UnixSelectorEventLoop._socketpair -> socket.socketpair
+
+*** /usr/lib64/python3.5/base64.py ***
+    base64.b64decode -> base64._bytes_from_decode_data
+  --> /usr/lib64/python3.5/re.py
+    base64.b64decode -> re.match
+
+*** /usr/lib64/python3.5/codecs.py ***
+    codecs.BufferedIncrementalDecoder.__init__ -> codecs.IncrementalDecoder.__init__
+
+*** /usr/lib64/python3.5/concurrent/futures/_base.py ***
+  --> /usr/lib64/python3.5/threading.py
+    _base.Future.__init__ -> threading.Condition.__init__
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    _base.Future._invoke_callbacks -> futures._call_set_state
+  --> /usr/lib64/python3.5/threading.py
+    _base.Future.add_done_callback -> threading.Condition.__enter__
+    _base.Future.add_done_callback -> threading.Condition.__exit__
+    _base.Future.cancelled -> threading.Condition.__enter__
+    _base.Future.cancelled -> threading.Condition.__exit__
+    _base.Future.done -> threading.Condition.__enter__
+    _base.Future.done -> threading.Condition.__exit__
+    _base.Future.exception -> threading.Condition.__enter__
+    _base.Future.exception -> threading.Condition.__exit__
+    _base.Future.result -> _base.Future.__get_result
+    _base.Future.result -> threading.Condition.__enter__
+    _base.Future.result -> threading.Condition.__exit__
+    _base.Future.set_result -> _base.Future._invoke_callbacks
+    _base.Future.set_result -> threading.Condition.__enter__
+    _base.Future.set_result -> threading.Condition.__exit__
+    _base.Future.set_result -> threading.Condition.notify_all
+    _base.Future.set_running_or_notify_cancel -> threading.Condition.__enter__
+    _base.Future.set_running_or_notify_cancel -> threading.Condition.__exit__
+
+*** /usr/lib64/python3.5/concurrent/futures/thread.py ***
+  --> /usr/lib64/python3.5/queue.py
+    thread.ThreadPoolExecutor.__init__ -> queue.Queue.__init__
+  --> /usr/lib64/python3.5/threading.py
+    thread.ThreadPoolExecutor._adjust_thread_count -> threading.Thread.__init__
+    thread.ThreadPoolExecutor._adjust_thread_count -> threading.Thread.start
+    thread.ThreadPoolExecutor._adjust_thread_count -> threading.daemon
+  --> /usr/lib64/python3.5/weakref.py
+    thread.ThreadPoolExecutor._adjust_thread_count -> weakref.WeakKeyDictionary.__setitem__
+  --> /usr/lib64/python3.5/concurrent/futures/_base.py
+    thread.ThreadPoolExecutor.submit -> _base.Future.__init__
+    thread.ThreadPoolExecutor.submit -> thread.ThreadPoolExecutor._adjust_thread_count
+    thread.ThreadPoolExecutor.submit -> thread._WorkItem.__init__
+  --> /usr/lib64/python3.5/queue.py
+    thread.ThreadPoolExecutor.submit -> queue.Queue.put
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/server/compute/taskmanager.py
+    thread._WorkItem.run -> taskmanager.TaskManager.compute
+  --> /usr/lib64/python3.5/concurrent/futures/_base.py
+    thread._WorkItem.run -> _base.Future.set_result
+    thread._WorkItem.run -> _base.Future.set_running_or_notify_cancel
+  --> /usr/lib64/python3.5/socket.py
+    thread._WorkItem.run -> socket.getaddrinfo
+    thread._worker -> thread._WorkItem.run
+  --> /usr/lib64/python3.5/queue.py
+    thread._worker -> queue.Queue.get
+
+*** /usr/lib64/python3.5/email/utils.py ***
+    utils.format_datetime -> utils._format_timetuple_and_zone
+    utils.formatdate -> utils.format_datetime
+
+*** /usr/lib64/python3.5/encodings/__init__.py ***
+    __init__.search_function -> __init__.normalize_encoding
+  --> /usr/lib64/python3.5/encodings/idna.py
+    __init__.search_function -> idna.getregentry
+  --> <frozen importlib._bootstrap>
+    __init__.search_function -> <frozen importlib._find_and_load
+    __init__.search_function -> <frozen importlib._handle_fromlist
+
+*** /usr/lib64/python3.5/encodings/idna.py ***
+    idna.<module> -> idna.Codec
+    idna.<module> -> idna.IncrementalDecoder
+    idna.<module> -> idna.IncrementalEncoder
+    idna.<module> -> idna.StreamReader
+    idna.<module> -> idna.StreamWriter
+  --> /usr/lib64/python3.5/re.py
+    idna.<module> -> re.compile
+  --> <frozen importlib._bootstrap>
+    idna.<module> -> <frozen importlib._find_and_load
+    idna.<module> -> <frozen importlib._handle_fromlist
+  --> /usr/lib64/python3.5/codecs.py
+    idna.getregentry -> codecs.__new__
+
+*** /usr/lib64/python3.5/enum.py ***
+    enum.EnumMeta.__call__ -> enum.__new__
+
+*** /usr/lib64/python3.5/importlib/__init__.py ***
+  --> <frozen importlib._bootstrap>
+    __init__.import_module -> <frozen importlib._gcd_import
+
+*** /usr/lib64/python3.5/inspect.py ***
+  --> /usr/lib64/python3.5/abc.py
+    inspect.isawaitable -> abc.ABCMeta.__instancecheck__
+
+*** /usr/lib64/python3.5/linecache.py ***
+    linecache.getline -> linecache.getlines
+    linecache.getlines -> linecache.updatecache
+  --> /usr/lib64/python3.5/codecs.py
+    linecache.updatecache -> codecs.BufferedIncrementalDecoder.decode
+  --> /usr/lib64/python3.5/tokenize.py
+    linecache.updatecache -> tokenize.open
+
+*** /usr/lib64/python3.5/logging/__init__.py ***
+    __init__.FileHandler.emit -> __init__.StreamHandler.emit
+  --> /usr/lib/python3.5/site-packages/colorlog/colorlog.py
+    __init__.Formatter.format -> colorlog.ColoredRecord.__getattr__
+    __init__.Formatter.format -> __init__.Formatter.formatMessage
+    __init__.Formatter.format -> __init__.Formatter.usesTime
+    __init__.Formatter.format -> __init__.LogRecord.getMessage
+    __init__.Formatter.formatMessage -> __init__.PercentStyle.format
+    __init__.Formatter.usesTime -> __init__.PercentStyle.usesTime
+    __init__.Handler.format -> colorlog.ColoredFormatter.format
+    __init__.Handler.handle -> __init__.FileHandler.emit
+    __init__.Handler.handle -> __init__.Filterer.filter
+    __init__.Handler.handle -> __init__.Handler.acquire
+    __init__.Handler.handle -> __init__.Handler.release
+  --> /usr/lib64/python3.5/abc.py
+    __init__.LogRecord.__init__ -> abc.ABCMeta.__instancecheck__
+    __init__.LogRecord.__init__ -> __init__.getLevelName
+  --> /usr/lib64/python3.5/multiprocessing/process.py
+    __init__.LogRecord.__init__ -> process.current_process
+    __init__.LogRecord.__init__ -> process.name
+  --> /usr/lib64/python3.5/posixpath.py
+    __init__.LogRecord.__init__ -> posixpath.basename
+    __init__.LogRecord.__init__ -> posixpath.splitext
+  --> /usr/lib64/python3.5/threading.py
+    __init__.LogRecord.__init__ -> threading.current_thread
+    __init__.LogRecord.__init__ -> threading.name
+  --> /usr/lib64/python3.5/asyncio/selector_events.py
+    __init__.LogRecord.getMessage -> selector_events._SelectorTransport.__repr__
+  --> <string>
+    __init__.LogRecord.getMessage -> <string>.FrameData.__repr__
+    __init__.Logger.__init__ -> __init__.Filterer.__init__
+    __init__.Logger.__init__ -> __init__._checkLevel
+    __init__.Logger._log -> __init__.Logger.findCaller
+    __init__.Logger._log -> __init__.Logger.handle
+    __init__.Logger._log -> __init__.Logger.makeRecord
+    __init__.Logger.callHandlers -> __init__.Handler.handle
+    __init__.Logger.debug -> __init__.Logger._log
+    __init__.Logger.debug -> __init__.Logger.isEnabledFor
+    __init__.Logger.findCaller -> __init__.<lambda>
+  --> /usr/lib64/python3.5/posixpath.py
+    __init__.Logger.findCaller -> posixpath.normcase
+    __init__.Logger.handle -> __init__.Filterer.filter
+    __init__.Logger.handle -> __init__.Logger.callHandlers
+    __init__.Logger.info -> __init__.Logger._log
+    __init__.Logger.info -> __init__.Logger.isEnabledFor
+    __init__.Logger.isEnabledFor -> __init__.Logger.getEffectiveLevel
+    __init__.Logger.makeRecord -> __init__.LogRecord.__init__
+    __init__.Logger.warn -> __init__.Logger.warning
+    __init__.Logger.warning -> __init__.Logger._log
+    __init__.Logger.warning -> __init__.Logger.isEnabledFor
+    __init__.Manager._fixupParents -> __init__.PlaceHolder.append
+    __init__.Manager.getLogger -> __init__.Logger.__init__
+    __init__.Manager.getLogger -> __init__.Manager._fixupParents
+    __init__.Manager.getLogger -> __init__._acquireLock
+    __init__.Manager.getLogger -> __init__._releaseLock
+    __init__.StreamHandler.emit -> __init__.Handler.format
+    __init__.StreamHandler.emit -> __init__.StreamHandler.flush
+    __init__.StreamHandler.flush -> __init__.Handler.acquire
+    __init__.StreamHandler.flush -> __init__.Handler.release
+    __init__.getLogger -> __init__.Manager.getLogger
+
+*** /usr/lib64/python3.5/os.py ***
+    os._Environ.__getitem__ -> os.encode
+
+*** /usr/lib64/python3.5/posixpath.py ***
+    posixpath.abspath -> posixpath.isabs
+    posixpath.abspath -> posixpath.join
+    posixpath.abspath -> posixpath.normpath
+    posixpath.basename -> posixpath._get_sep
+    posixpath.dirname -> posixpath._get_sep
+    posixpath.isabs -> posixpath._get_sep
+    posixpath.join -> posixpath._get_sep
+  --> /usr/lib64/python3.5/genericpath.py
+    posixpath.splitext -> genericpath._splitext
+
+*** /usr/lib64/python3.5/queue.py ***
+    queue.Queue.__init__ -> queue.Queue._init
+  --> /usr/lib64/python3.5/threading.py
+    queue.Queue.__init__ -> threading.Condition.__init__
+    queue.Queue.get -> queue.Queue._get
+    queue.Queue.get -> queue.Queue._qsize
+    queue.Queue.get -> threading.Condition.__enter__
+    queue.Queue.get -> threading.Condition.__exit__
+    queue.Queue.get -> threading.Condition.notify
+    queue.Queue.get -> threading.Condition.wait
+    queue.Queue.put -> queue.Queue._put
+    queue.Queue.put -> threading.Condition.__enter__
+    queue.Queue.put -> threading.Condition.__exit__
+    queue.Queue.put -> threading.Condition.notify
+
+*** /usr/lib64/python3.5/random.py ***
+    random.Random.randint -> random.Random.randrange
+    random.Random.randrange -> random.Random._randbelow
+
+*** /usr/lib64/python3.5/re.py ***
+  --> /usr/lib64/python3.5/sre_compile.py
+    re._compile -> sre_compile.compile
+    re._compile -> sre_compile.isstring
+    re.compile -> re._compile
+    re.match -> re._compile
+
+*** /usr/lib64/python3.5/selectors.py ***
+    selectors.BaseSelector.get_key -> selectors._BaseSelectorImpl.get_map
+    selectors.BaseSelector.get_key -> selectors._SelectorMapping.__getitem__
+    selectors.EpollSelector.__init__ -> selectors._BaseSelectorImpl.__init__
+    selectors.EpollSelector.register -> selectors._BaseSelectorImpl.register
+    selectors.EpollSelector.select -> selectors._BaseSelectorImpl._key_from_fd
+    selectors.EpollSelector.unregister -> selectors._BaseSelectorImpl.unregister
+    selectors._BaseSelectorImpl.__init__ -> selectors._SelectorMapping.__init__
+    selectors._BaseSelectorImpl._fileobj_lookup -> selectors._fileobj_to_fd
+    selectors._BaseSelectorImpl.register -> selectors._BaseSelectorImpl._fileobj_lookup
+  --> <string>
+    selectors._BaseSelectorImpl.register -> <string>.__new__
+    selectors._BaseSelectorImpl.unregister -> selectors._BaseSelectorImpl._fileobj_lookup
+    selectors._SelectorMapping.__getitem__ -> selectors._BaseSelectorImpl._fileobj_lookup
+
+*** /usr/lib64/python3.5/site-packages/PIL/BmpImagePlugin.py ***
+    BmpImagePlugin.<module> -> BmpImagePlugin.BmpImageFile
+    BmpImagePlugin.<module> -> BmpImagePlugin.DibImageFile
+  --> /usr/lib64/python3.5/site-packages/PIL/Image.py
+    BmpImagePlugin.<module> -> Image.register_extension
+    BmpImagePlugin.<module> -> Image.register_mime
+    BmpImagePlugin.<module> -> Image.register_open
+    BmpImagePlugin.<module> -> Image.register_save
+  --> <frozen importlib._bootstrap>
+    BmpImagePlugin.<module> -> <frozen importlib._handle_fromlist
+
+*** /usr/lib64/python3.5/site-packages/PIL/GifImagePlugin.py ***
+    GifImagePlugin.<module> -> GifImagePlugin.GifImageFile
+  --> /usr/lib64/python3.5/site-packages/PIL/Image.py
+    GifImagePlugin.<module> -> Image.register_extension
+    GifImagePlugin.<module> -> Image.register_mime
+    GifImagePlugin.<module> -> Image.register_open
+    GifImagePlugin.<module> -> Image.register_save
+    GifImagePlugin.<module> -> Image.register_save_all
+  --> <frozen importlib._bootstrap>
+    GifImagePlugin.<module> -> <frozen importlib._handle_fromlist
+
+*** /usr/lib64/python3.5/site-packages/PIL/GimpGradientFile.py ***
+    GimpGradientFile.<module> -> GimpGradientFile.GimpGradientFile
+    GimpGradientFile.<module> -> GimpGradientFile.GradientFile
+  --> <frozen importlib._bootstrap>
+    GimpGradientFile.<module> -> <frozen importlib._handle_fromlist
+
+*** /usr/lib64/python3.5/site-packages/PIL/GimpPaletteFile.py ***
+    GimpPaletteFile.<module> -> GimpPaletteFile.GimpPaletteFile
+  --> <frozen importlib._bootstrap>
+    GimpPaletteFile.<module> -> <frozen importlib._handle_fromlist
+
+*** /usr/lib64/python3.5/site-packages/PIL/Image.py ***
+    Image.Image.__del__ -> Image.Image.__exit__
+    Image.Image._ensure_mutable -> Image.Image.load
+    Image.Image._new -> Image.Image.__init__
+    Image.Image.frombytes -> Image._getdecoder
+    Image.Image.resize -> Image.Image._new
+    Image.Image.resize -> Image.Image.load
+    Image.Image.resize -> Image.size
+  --> /usr/lib64/python3.5/posixpath.py
+    Image.Image.save -> posixpath.splitext
+    Image.Image.save -> Image.Image._ensure_mutable
+    Image.Image.save -> Image.preinit
+  --> /usr/lib64/python3.5/site-packages/PIL/PngImagePlugin.py
+    Image.Image.save -> PngImagePlugin._save
+  --> /usr/lib64/python3.5/site-packages/PIL/_util.py
+    Image.Image.save -> _util.isPath
+    Image.Image.tobytes -> Image.Image.load
+    Image.Image.tobytes -> Image._getencoder
+    Image.Image.tobytes -> Image.size
+    Image.fromarray -> Image.frombuffer
+    Image.frombuffer -> Image._check_size
+    Image.frombuffer -> Image.frombytes
+    Image.frombytes -> Image.Image.__del__
+    Image.frombytes -> Image.Image.frombytes
+    Image.frombytes -> Image._check_size
+    Image.frombytes -> Image.new
+    Image.new -> Image.Image.__init__
+    Image.new -> Image.Image._new
+    Image.new -> Image._check_size
+    Image.new -> _util.isStringType
+  --> <frozen importlib._bootstrap>
+    Image.preinit -> <frozen importlib._handle_fromlist
+    Image.register_extensions -> Image.register_extension
+
+*** /usr/lib64/python3.5/site-packages/PIL/ImageChops.py ***
+  --> <frozen importlib._bootstrap>
+    ImageChops.<module> -> <frozen importlib._handle_fromlist
+
+*** /usr/lib64/python3.5/site-packages/PIL/ImageColor.py ***
+  --> <frozen importlib._bootstrap>
+    ImageColor.<module> -> <frozen importlib._handle_fromlist
+
+*** /usr/lib64/python3.5/site-packages/PIL/ImageFile.py ***
+  --> /usr/lib64/python3.5/site-packages/PIL/Image.py
+    ImageFile._save -> Image.Image.load
+    ImageFile._save -> Image._getencoder
+    ImageFile._save -> Image.size
+    ImageFile._save -> ImageFile._tilesort
+  --> /usr/lib64/python3.5/site-packages/PIL/PngImagePlugin.py
+    ImageFile._save -> PngImagePlugin._idat.write
+
+*** /usr/lib64/python3.5/site-packages/PIL/ImagePalette.py ***
+    ImagePalette.<module> -> ImagePalette.ImagePalette
+  --> <frozen importlib._bootstrap>
+    ImagePalette.<module> -> <frozen importlib._handle_fromlist
+
+*** /usr/lib64/python3.5/site-packages/PIL/ImageSequence.py ***
+    ImageSequence.<module> -> ImageSequence.Iterator
+
+*** /usr/lib64/python3.5/site-packages/PIL/JpegImagePlugin.py ***
+  --> /usr/lib64/python3.5/site-packages/PIL/Image.py
+    JpegImagePlugin.<module> -> Image.register_extensions
+    JpegImagePlugin.<module> -> Image.register_mime
+    JpegImagePlugin.<module> -> Image.register_open
+    JpegImagePlugin.<module> -> Image.register_save
+    JpegImagePlugin.<module> -> JpegImagePlugin.JpegImageFile
+  --> <frozen importlib._bootstrap>
+    JpegImagePlugin.<module> -> <frozen importlib._find_and_load
+    JpegImagePlugin.<module> -> <frozen importlib._handle_fromlist
+
+*** /usr/lib64/python3.5/site-packages/PIL/PaletteFile.py ***
+    PaletteFile.<module> -> PaletteFile.PaletteFile
+  --> <frozen importlib._bootstrap>
+    PaletteFile.<module> -> <frozen importlib._handle_fromlist
+
+*** /usr/lib64/python3.5/site-packages/PIL/PngImagePlugin.py ***
+  --> /usr/lib64/python3.5/logging/__init__.py
+    PngImagePlugin.<module> -> __init__.getLogger
+  --> /usr/lib64/python3.5/re.py
+    PngImagePlugin.<module> -> re.compile
+  --> /usr/lib64/python3.5/site-packages/PIL/Image.py
+    PngImagePlugin.<module> -> Image.register_extensions
+    PngImagePlugin.<module> -> Image.register_mime
+    PngImagePlugin.<module> -> Image.register_open
+    PngImagePlugin.<module> -> Image.register_save
+    PngImagePlugin.<module> -> PngImagePlugin.ChunkStream
+    PngImagePlugin.<module> -> PngImagePlugin.PngImageFile
+    PngImagePlugin.<module> -> PngImagePlugin.PngInfo
+    PngImagePlugin.<module> -> PngImagePlugin.PngStream
+    PngImagePlugin.<module> -> PngImagePlugin._idat
+    PngImagePlugin.<module> -> PngImagePlugin.iTXt
+  --> <frozen importlib._bootstrap>
+    PngImagePlugin.<module> -> <frozen importlib._handle_fromlist
+    PngImagePlugin._idat.write -> PngImagePlugin.putchunk
+  --> /usr/lib64/python3.5/site-packages/PIL/Image.py
+    PngImagePlugin._save -> Image.size
+  --> /usr/lib64/python3.5/site-packages/PIL/ImageFile.py
+    PngImagePlugin._save -> ImageFile._save
+    PngImagePlugin._save -> PngImagePlugin._idat.__init__
+    PngImagePlugin._save -> PngImagePlugin.putchunk
+  --> /usr/lib64/python3.5/site-packages/PIL/_binary.py
+    PngImagePlugin._save -> _binary.o32be
+    PngImagePlugin.putchunk -> PngImagePlugin._crc32
+    PngImagePlugin.putchunk -> _binary.o32be
+
+*** /usr/lib64/python3.5/site-packages/PIL/PpmImagePlugin.py ***
+  --> /usr/lib64/python3.5/site-packages/PIL/Image.py
+    PpmImagePlugin.<module> -> Image.register_extensions
+    PpmImagePlugin.<module> -> Image.register_mime
+    PpmImagePlugin.<module> -> Image.register_open
+    PpmImagePlugin.<module> -> Image.register_save
+    PpmImagePlugin.<module> -> PpmImagePlugin.PpmImageFile
+  --> <frozen importlib._bootstrap>
+    PpmImagePlugin.<module> -> <frozen importlib._handle_fromlist
+
+*** /usr/lib64/python3.5/site-packages/PIL/TiffImagePlugin.py ***
+  --> /usr/lib64/python3.5/abc.py
+    TiffImagePlugin.<module> -> abc.__new__
+  --> /usr/lib64/python3.5/site-packages/PIL/Image.py
+    TiffImagePlugin.<module> -> Image.register_extensions
+    TiffImagePlugin.<module> -> Image.register_mime
+    TiffImagePlugin.<module> -> Image.register_open
+    TiffImagePlugin.<module> -> Image.register_save
+    TiffImagePlugin.<module> -> Image.register_save_all
+    TiffImagePlugin.<module> -> TiffImagePlugin.<dictcomp>
+    TiffImagePlugin.<module> -> TiffImagePlugin.AppendingTiffWriter
+    TiffImagePlugin.<module> -> TiffImagePlugin.IFDRational
+    TiffImagePlugin.<module> -> TiffImagePlugin.ImageFileDirectory_v1
+    TiffImagePlugin.<module> -> TiffImagePlugin.ImageFileDirectory_v2
+    TiffImagePlugin.<module> -> TiffImagePlugin.TiffImageFile
+  --> <frozen importlib._bootstrap>
+    TiffImagePlugin.<module> -> <frozen importlib._handle_fromlist
+    TiffImagePlugin.IFDRational -> TiffImagePlugin._delegate
+    TiffImagePlugin.ImageFileDirectory_v2 -> TiffImagePlugin._register_basic
+    TiffImagePlugin.ImageFileDirectory_v2 -> TiffImagePlugin._register_loader
+    TiffImagePlugin.ImageFileDirectory_v2 -> TiffImagePlugin._register_writer
+    TiffImagePlugin.ImageFileDirectory_v2 -> TiffImagePlugin.decorator
+    TiffImagePlugin._register_basic -> <frozen importlib._handle_fromlist
+    TiffImagePlugin.decorator -> <frozen importlib._handle_fromlist
+
+*** /usr/lib64/python3.5/site-packages/numpy/core/_dtype.py ***
+    _dtype.__str__ -> _dtype._name_get
+  --> /usr/lib64/python3.5/site-packages/numpy/core/numerictypes.py
+    _dtype._name_get -> numerictypes.issubdtype
+
+*** /usr/lib64/python3.5/site-packages/numpy/core/_methods.py ***
+    _methods._mean -> _methods._count_reduce_items
+  --> /usr/lib64/python3.5/site-packages/numpy/core/numeric.py
+    _methods._mean -> numeric.asanyarray
+
+*** /usr/lib64/python3.5/site-packages/numpy/core/fromnumeric.py ***
+    fromnumeric._wrapfunc -> fromnumeric._wrapit
+  --> /usr/lib64/python3.5/site-packages/numpy/core/numeric.py
+    fromnumeric._wrapit -> numeric.asarray
+  --> /usr/lib64/python3.5/site-packages/numpy/core/_methods.py
+    fromnumeric._wrapreduction -> _methods._all
+    fromnumeric._wrapreduction -> fromnumeric.<dictcomp>
+    fromnumeric.all -> fromnumeric._wrapreduction
+    fromnumeric.amax -> fromnumeric._wrapreduction
+    fromnumeric.amin -> fromnumeric._wrapreduction
+    fromnumeric.any -> fromnumeric._wrapreduction
+    fromnumeric.around -> fromnumeric._wrapfunc
+    fromnumeric.clip -> fromnumeric._wrapfunc
+    fromnumeric.mean -> _methods._mean
+    fromnumeric.round_ -> fromnumeric.around
+    fromnumeric.sum -> fromnumeric._wrapreduction
+    fromnumeric.take -> fromnumeric._wrapfunc
+
+*** /usr/lib64/python3.5/site-packages/numpy/core/numeric.py ***
+    numeric.errstate.__enter__ -> numeric.seterr
+    numeric.errstate.__exit__ -> numeric.seterr
+  --> /usr/lib64/python3.5/site-packages/numpy/core/fromnumeric.py
+    numeric.isclose -> fromnumeric.all
+    numeric.isclose -> numeric.asanyarray
+    numeric.isclose -> numeric.within_tol
+    numeric.moveaxis -> numeric.<listcomp>
+    numeric.moveaxis -> numeric.normalize_axis_tuple
+    numeric.normalize_axis_tuple -> numeric.<listcomp>
+    numeric.seterr -> numeric.geterr
+    numeric.within_tol -> numeric.errstate.__enter__
+    numeric.within_tol -> numeric.errstate.__exit__
+    numeric.within_tol -> numeric.errstate.__init__
+
+*** /usr/lib64/python3.5/site-packages/numpy/core/numerictypes.py ***
+    numerictypes.issubdtype -> numerictypes.issubclass_
+
+*** /usr/lib64/python3.5/site-packages/numpy/core/shape_base.py ***
+    shape_base.<listcomp> -> shape_base.atleast_2d
+    shape_base._warn_for_nonsequence -> shape_base._arrays_for_stack_dispatcher
+  --> /usr/lib64/python3.5/site-packages/numpy/core/numeric.py
+    shape_base.atleast_2d -> numeric.asanyarray
+    shape_base.atleast_3d -> numeric.asanyarray
+    shape_base.vstack -> shape_base.<listcomp>
+    shape_base.vstack -> shape_base._warn_for_nonsequence
+
+*** /usr/lib64/python3.5/site-packages/numpy/lib/function_base.py ***
+    function_base._quantile_unchecked -> function_base._ureduce
+  --> /usr/lib64/python3.5/site-packages/numpy/core/fromnumeric.py
+    function_base._quantile_ureduce_func -> fromnumeric.any
+    function_base._quantile_ureduce_func -> fromnumeric.take
+  --> /usr/lib64/python3.5/site-packages/numpy/core/numeric.py
+    function_base._quantile_ureduce_func -> numeric.asarray
+    function_base._quantile_ureduce_func -> numeric.moveaxis
+  --> /usr/lib64/python3.5/site-packages/numpy/core/numerictypes.py
+    function_base._quantile_ureduce_func -> numerictypes.issubdtype
+  --> /usr/lib64/python3.5/site-packages/numpy/core/numeric.py
+    function_base._ureduce -> numeric.asanyarray
+    function_base._ureduce -> function_base._quantile_ureduce_func
+    function_base.percentile -> function_base._quantile_is_valid
+    function_base.percentile -> function_base._quantile_unchecked
+
+*** /usr/lib64/python3.5/site-packages/numpy/lib/shape_base.py ***
+  --> /usr/lib64/python3.5/site-packages/numpy/core/shape_base.py
+    shape_base.<listcomp> -> shape_base.atleast_3d
+    shape_base.dstack -> shape_base._warn_for_nonsequence
+    shape_base.dstack -> shape_base.<listcomp>
+
+*** /usr/lib64/python3.5/site-packages/numpy/linalg/linalg.py ***
+    linalg._commonType -> linalg._realType
+    linalg._commonType -> linalg.isComplexType
+  --> /usr/lib64/python3.5/site-packages/numpy/core/numeric.py
+    linalg._makearray -> numeric.asarray
+    linalg.inv -> linalg._assertNdSquareness
+    linalg.inv -> linalg._assertRankAtLeast2
+    linalg.inv -> linalg._commonType
+    linalg.inv -> linalg._makearray
+    linalg.inv -> linalg.get_linalg_error_extobj
+    linalg.inv -> linalg.isComplexType
+    linalg.svd -> linalg._assertRankAtLeast2
+    linalg.svd -> linalg._commonType
+    linalg.svd -> linalg._makearray
+    linalg.svd -> linalg._realType
+    linalg.svd -> linalg.get_linalg_error_extobj
+    linalg.svd -> linalg.isComplexType
+
+*** /usr/lib64/python3.5/site-packages/numpy/testing/_private/utils.py ***
+  --> /usr/lib64/python3.5/site-packages/numpy/core/numeric.py
+    utils.assert_allclose -> numeric.asanyarray
+    utils.assert_allclose -> utils.assert_array_compare
+  --> /usr/lib64/python3.5/site-packages/numpy/core/_methods.py
+    utils.assert_array_compare -> _methods._all
+    utils.assert_array_compare -> utils.compare
+    utils.assert_array_compare -> utils.func_assert_same_pos
+    utils.assert_array_compare -> utils.isnumber
+  --> <frozen importlib._bootstrap>
+    utils.assert_array_compare -> <frozen importlib._handle_fromlist
+  --> /usr/lib64/python3.5/site-packages/numpy/core/numeric.py
+    utils.compare -> numeric.isclose
+  --> /usr/lib64/python3.5/site-packages/numpy/core/_methods.py
+    utils.func_assert_same_pos -> _methods._all
+    utils.func_assert_same_pos -> utils.<lambda>
+
+*** /usr/lib64/python3.5/site-packages/scipy/ndimage/_ni_support.py ***
+  --> /usr/lib64/python3.5/site-packages/numpy/core/_dtype.py
+    _ni_support._get_output -> _dtype._name_get
+
+*** /usr/lib64/python3.5/site-packages/scipy/ndimage/filters.py ***
+  --> /usr/lib64/python3.5/site-packages/numpy/core/numeric.py
+    filters.gaussian_filter -> numeric.asarray
+  --> /usr/lib64/python3.5/site-packages/scipy/ndimage/_ni_support.py
+    filters.gaussian_filter -> _ni_support._get_output
+    filters.gaussian_filter -> _ni_support._normalize_sequence
+    filters.gaussian_filter -> filters.<listcomp>
+
+*** /usr/lib64/python3.5/site-packages/torch/_jit_internal.py ***
+  --> /usr/lib64/python3.5/site-packages/torch/nn/functional.py
+    _jit_internal.fn -> functional._max_pool2d
+
+*** /usr/lib64/python3.5/site-packages/torch/_utils.py ***
+  --> /usr/lib64/python3.5/importlib/__init__.py
+    _utils._rebuild_tensor -> __init__.import_module
+    _utils._rebuild_tensor_v2 -> _utils._rebuild_tensor
+
+*** /usr/lib64/python3.5/site-packages/torch/autograd/grad_mode.py ***
+    grad_mode.no_grad.__exit__ -> grad_mode.set_grad_enabled.__init__
+
+*** /usr/lib64/python3.5/site-packages/torch/nn/functional.py ***
+    functional._max_pool2d -> functional.max_pool2d_with_indices
+    functional._output_size -> functional.<listcomp>
+    functional._output_size -> functional._check_size_scale_factor
+  --> /usr/lib64/python3.5/site-packages/torch/nn/modules/utils.py
+    functional._output_size -> utils._ntuple
+    functional._output_size -> utils.parse
+    functional.interpolate -> functional._output_size
+  --> <frozen importlib._bootstrap>
+    functional.interpolate -> <frozen importlib._handle_fromlist
+  --> /usr/lib64/python3.5/site-packages/torch/jit/__init__.py
+    functional.max_pool2d_with_indices -> __init__._unwrap_optional
+  --> /usr/lib64/python3.5/site-packages/torch/nn/_VF.py
+    functional.threshold -> _VF.VFModule.__getattr__
+
+*** /usr/lib64/python3.5/site-packages/torch/nn/modules/activation.py ***
+  --> /usr/lib64/python3.5/site-packages/torch/nn/functional.py
+    activation.forward -> functional.threshold
+
+*** /usr/lib64/python3.5/site-packages/torch/nn/modules/container.py ***
+  --> /usr/lib64/python3.5/site-packages/torch/nn/modules/module.py
+    container.Sequential.__init__ -> module.Module.__init__
+    container.Sequential.__init__ -> module.Module.add_module
+    container.Sequential.forward -> module.Module.__call__
+
+*** /usr/lib64/python3.5/site-packages/torch/nn/modules/conv.py ***
+  --> /usr/lib64/python3.5/site-packages/torch/nn/modules/module.py
+    conv.forward -> module.Module.__getattr__
+
+*** /usr/lib64/python3.5/site-packages/torch/nn/modules/module.py ***
+  --> /usr/lib64/python3.5/site-packages/torch/nn/modules/activation.py
+    module.Module.__call__ -> activation.forward
+  --> /usr/lib64/python3.5/site-packages/torch/nn/modules/container.py
+    module.Module.__call__ -> container.Sequential.forward
+  --> /usr/lib64/python3.5/site-packages/torch/nn/modules/conv.py
+    module.Module.__call__ -> conv.forward
+  --> /usr/lib64/python3.5/site-packages/torch/nn/modules/padding.py
+    module.Module.__call__ -> padding.forward
+  --> /usr/lib64/python3.5/site-packages/torch/nn/modules/pooling.py
+    module.Module.__call__ -> pooling.forward
+  --> /usr/lib64/python3.5/site-packages/torch/nn/modules/upsampling.py
+    module.Module.__call__ -> upsampling.forward
+    module.Module.__init__ -> module.Module.__setattr__
+    module.Module._apply -> module.Module._apply
+    module.Module._apply -> module.Module.children
+    module.Module._apply -> module.convert
+    module.Module._load_from_state_dict -> module.<dictcomp>
+    module.Module.add_module -> module.Module.__getattr__
+    module.Module.children -> module.Module.named_children
+    module.Module.eval -> module.Module.train
+    module.Module.load_state_dict -> module.load
+    module.Module.to -> module.Module._apply
+    module.Module.train -> module.Module.__setattr__
+    module.Module.train -> module.Module.children
+    module.Module.train -> module.Module.train
+    module.load -> module.Module._load_from_state_dict
+    module.load -> module.load
+
+*** /usr/lib64/python3.5/site-packages/torch/nn/modules/padding.py ***
+  --> /usr/lib64/python3.5/site-packages/torch/nn/functional.py
+    padding.forward -> functional.pad
+
+*** /usr/lib64/python3.5/site-packages/torch/nn/modules/pooling.py ***
+  --> /usr/lib64/python3.5/site-packages/torch/_jit_internal.py
+    pooling.forward -> _jit_internal.fn
+
+*** /usr/lib64/python3.5/site-packages/torch/nn/modules/upsampling.py ***
+  --> /usr/lib64/python3.5/site-packages/torch/nn/functional.py
+    upsampling.forward -> functional.interpolate
+  --> /usr/lib64/python3.5/warnings.py
+    upsampling.forward -> warnings.showwarning
+
+*** /usr/lib64/python3.5/site-packages/torch/nn/modules/utils.py ***
+  --> /usr/lib64/python3.5/abc.py
+    utils.parse -> abc.ABCMeta.__instancecheck__
+
+*** /usr/lib64/python3.5/site-packages/torch/serialization.py ***
+  --> /usr/lib64/python3.5/site-packages/torch/_utils.py
+    serialization._load -> _utils._rebuild_tensor_v2
+    serialization._load -> serialization._check_seekable
+    serialization._load -> serialization._should_read_directly
+    serialization._load -> serialization.legacy_load
+    serialization._load -> serialization.persistent_load
+  --> /usr/lib64/python3.5/zipfile.py
+    serialization._load -> zipfile.is_zipfile
+    serialization._should_read_directly -> serialization._is_compressed_file
+    serialization.default_restore_location -> serialization._cpu_deserialize
+  --> /usr/lib64/python3.5/tarfile.py
+    serialization.legacy_load -> tarfile.open
+    serialization.load -> serialization._load
+    serialization.persistent_load -> serialization.default_restore_location
+
+*** /usr/lib64/python3.5/site-packages/websockets/exceptions.py ***
+    exceptions.ConnectionClosed.__init__ -> exceptions.format_close
+
+*** /usr/lib64/python3.5/site-packages/websockets/extensions/permessage_deflate.py ***
+  --> <string>
+    permessage_deflate.PerMessageDeflate.decode -> <string>.FrameData._replace
+    permessage_deflate.PerMessageDeflate.encode -> <string>.FrameData._replace
+    permessage_deflate.ServerPerMessageDeflateFactory.process_request_params -> permessage_deflate.<genexpr>
+    permessage_deflate.ServerPerMessageDeflateFactory.process_request_params -> permessage_deflate.PerMessageDeflate.__init__
+    permessage_deflate.ServerPerMessageDeflateFactory.process_request_params -> permessage_deflate._build_parameters
+    permessage_deflate.ServerPerMessageDeflateFactory.process_request_params -> permessage_deflate._extract_parameters
+
+*** /usr/lib64/python3.5/site-packages/websockets/framing.py ***
+  --> /usr/lib64/python3.5/asyncio/streams.py
+    framing.Frame.write -> streams.StreamWriter.write
+  --> /usr/lib64/python3.5/site-packages/websockets/extensions/permessage_deflate.py
+    framing.Frame.write -> permessage_deflate.PerMessageDeflate.encode
+    framing.Frame.write -> framing.Frame.check
+  --> <string>
+    framing.__new__ -> <string>.__new__
+  --> /usr/lib64/python3.5/asyncio/streams.py
+    framing.read -> streams.StreamReader.readexactly
+  --> /usr/lib64/python3.5/site-packages/websockets/extensions/permessage_deflate.py
+    framing.read -> permessage_deflate.PerMessageDeflate.decode
+    framing.read -> framing.Frame.check
+    framing.read -> framing.__new__
+
+*** /usr/lib64/python3.5/site-packages/websockets/handshake.py ***
+  --> /usr/lib64/python3.5/site-packages/websockets/headers.py
+    handshake.<listcomp> -> headers.parse_connection
+    handshake.<listcomp> -> headers.parse_upgrade
+  --> /usr/lib64/python3.5/base64.py
+    handshake.accept -> base64.b64encode
+    handshake.build_response -> handshake.accept
+  --> /usr/lib64/python3.5/site-packages/websockets/http.py
+    handshake.build_response -> http.Headers.__setitem__
+  --> /usr/lib64/python3.5/base64.py
+    handshake.check_request -> base64.b64decode
+    handshake.check_request -> handshake.<genexpr>
+    handshake.check_request -> handshake.<listcomp>
+  --> /usr/lib64/python3.5/site-packages/websockets/http.py
+    handshake.check_request -> http.Headers.__getitem__
+    handshake.check_request -> http.Headers.get_all
+
+*** /usr/lib64/python3.5/site-packages/websockets/headers.py ***
+    headers.<genexpr> -> headers.build_extension
+    headers.build_extension -> headers.<listcomp>
+    headers.build_extension_list -> headers.<genexpr>
+    headers.parse_connection -> headers.parse_list
+    headers.parse_extension -> headers.parse_OWS
+    headers.parse_extension -> headers.parse_extension_param
+    headers.parse_extension -> headers.parse_token
+    headers.parse_extension -> headers.peek_ahead
+    headers.parse_extension_list -> headers.parse_list
+    headers.parse_extension_param -> headers.parse_OWS
+    headers.parse_extension_param -> headers.parse_token
+    headers.parse_extension_param -> headers.peek_ahead
+    headers.parse_list -> headers.parse_OWS
+    headers.parse_list -> headers.parse_extension
+    headers.parse_list -> headers.parse_protocol
+    headers.parse_list -> headers.parse_token
+    headers.parse_list -> headers.peek_ahead
+    headers.parse_upgrade -> headers.parse_list
+
+*** /usr/lib64/python3.5/site-packages/websockets/http.py ***
+  --> /usr/lib64/python3.5/_collections_abc.py
+    http.Headers.__init__ -> _collections_abc.MutableMapping.update
+    http.Headers.__str__ -> http.<genexpr>
+    http.read_headers -> http.Headers.__init__
+    http.read_headers -> http.Headers.__setitem__
+    http.read_headers -> http.read_line
+  --> /usr/lib64/python3.5/asyncio/streams.py
+    http.read_line -> streams.StreamReader.readline
+    http.read_request -> http.read_headers
+    http.read_request -> http.read_line
+
+*** /usr/lib64/python3.5/site-packages/websockets/protocol.py ***
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    protocol.WebSocketCommonProtocol.__init__ -> futures.Future.__init__
+  --> /usr/lib64/python3.5/asyncio/locks.py
+    protocol.WebSocketCommonProtocol.__init__ -> locks.Lock.__init__
+  --> /usr/lib64/python3.5/asyncio/streams.py
+    protocol.WebSocketCommonProtocol.__init__ -> streams.StreamReader.__init__
+    protocol.WebSocketCommonProtocol.__init__ -> streams.StreamReaderProtocol.__init__
+  --> /usr/lib64/python3.5/logging/__init__.py
+    protocol.WebSocketCommonProtocol.__init__ -> __init__.Logger.debug
+  --> /usr/lib64/python3.5/site-packages/websockets/exceptions.py
+    protocol.WebSocketCommonProtocol.abort_keepalive_pings -> exceptions.ConnectionClosed.__init__
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    protocol.WebSocketCommonProtocol.close_connection -> futures.Future.__iter__
+    protocol.WebSocketCommonProtocol.connection_lost -> futures.Future.set_result
+  --> /usr/lib64/python3.5/logging/__init__.py
+    protocol.WebSocketCommonProtocol.connection_lost -> __init__.Logger.debug
+    protocol.WebSocketCommonProtocol.connection_lost -> protocol.WebSocketCommonProtocol.abort_keepalive_pings
+  --> /usr/lib64/python3.5/asyncio/streams.py
+    protocol.WebSocketCommonProtocol.connection_made -> streams.StreamReaderProtocol.connection_made
+  --> /usr/lib64/python3.5/asyncio/transports.py
+    protocol.WebSocketCommonProtocol.connection_made -> transports._FlowControlMixin.set_write_buffer_limits
+  --> /usr/lib64/python3.5/logging/__init__.py
+    protocol.WebSocketCommonProtocol.connection_made -> __init__.Logger.debug
+  --> /usr/lib64/python3.5/asyncio/tasks.py
+    protocol.WebSocketCommonProtocol.connection_open -> tasks.ensure_future
+  --> /usr/lib64/python3.5/logging/__init__.py
+    protocol.WebSocketCommonProtocol.connection_open -> __init__.Logger.debug
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    protocol.WebSocketCommonProtocol.ensure_open -> futures.Future.done
+  --> /usr/lib64/python3.5/asyncio/streams.py
+    protocol.WebSocketCommonProtocol.eof_received -> streams.StreamReaderProtocol.eof_received
+  --> /usr/lib64/python3.5/logging/__init__.py
+    protocol.WebSocketCommonProtocol.eof_received -> __init__.Logger.debug
+  --> /usr/lib64/python3.5/asyncio/tasks.py
+    protocol.WebSocketCommonProtocol.fail_connection -> tasks.Task.cancel
+  --> /usr/lib64/python3.5/logging/__init__.py
+    protocol.WebSocketCommonProtocol.fail_connection -> __init__.Logger.debug
+  --> /usr/lib64/python3.5/types.py
+    protocol.WebSocketCommonProtocol.fail_connection -> types.DynamicClassAttribute.__get__
+  --> /usr/lib64/python3.5/asyncio/tasks.py
+    protocol.WebSocketCommonProtocol.keepalive_ping -> tasks.sleep
+    protocol.WebSocketCommonProtocol.keepalive_ping -> tasks.wait_for
+    protocol.WebSocketCommonProtocol.keepalive_ping -> protocol.WebSocketCommonProtocol.ping
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    protocol.WebSocketCommonProtocol.ping -> futures.Future.__init__
+  --> /usr/lib64/python3.5/asyncio/tasks.py
+    protocol.WebSocketCommonProtocol.ping -> tasks.shield
+    protocol.WebSocketCommonProtocol.ping -> protocol.WebSocketCommonProtocol.ensure_open
+    protocol.WebSocketCommonProtocol.ping -> protocol.WebSocketCommonProtocol.write_frame
+  --> /usr/lib64/python3.5/site-packages/websockets/framing.py
+    protocol.WebSocketCommonProtocol.pong -> framing.encode_data
+    protocol.WebSocketCommonProtocol.pong -> protocol.WebSocketCommonProtocol.ensure_open
+    protocol.WebSocketCommonProtocol.pong -> protocol.WebSocketCommonProtocol.write_frame
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    protocol.WebSocketCommonProtocol.read_data_frame -> futures.Future.set_result
+  --> /usr/lib64/python3.5/logging/__init__.py
+    protocol.WebSocketCommonProtocol.read_data_frame -> __init__.Logger.debug
+    protocol.WebSocketCommonProtocol.read_data_frame -> protocol.WebSocketCommonProtocol.pong
+    protocol.WebSocketCommonProtocol.read_data_frame -> protocol.WebSocketCommonProtocol.read_frame
+    protocol.WebSocketCommonProtocol.read_frame -> __init__.Logger.debug
+  --> /usr/lib64/python3.5/site-packages/websockets/framing.py
+    protocol.WebSocketCommonProtocol.read_frame -> framing.read
+    protocol.WebSocketCommonProtocol.read_message -> protocol.WebSocketCommonProtocol.read_data_frame
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    protocol.WebSocketCommonProtocol.recv -> futures.Future.__init__
+    protocol.WebSocketCommonProtocol.recv -> futures.Future.done
+  --> /usr/lib64/python3.5/asyncio/tasks.py
+    protocol.WebSocketCommonProtocol.recv -> tasks.wait
+    protocol.WebSocketCommonProtocol.send -> protocol.WebSocketCommonProtocol.ensure_open
+    protocol.WebSocketCommonProtocol.send -> protocol.WebSocketCommonProtocol.write_frame
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    protocol.WebSocketCommonProtocol.transfer_data -> futures.Future.set_result
+    protocol.WebSocketCommonProtocol.transfer_data -> protocol.WebSocketCommonProtocol.fail_connection
+    protocol.WebSocketCommonProtocol.transfer_data -> protocol.WebSocketCommonProtocol.read_message
+  --> /usr/lib64/python3.5/asyncio/locks.py
+    protocol.WebSocketCommonProtocol.write_frame -> locks._ContextManager.__enter__
+    protocol.WebSocketCommonProtocol.write_frame -> locks._ContextManager.__exit__
+    protocol.WebSocketCommonProtocol.write_frame -> locks._ContextManagerMixin.__iter__
+  --> /usr/lib64/python3.5/asyncio/streams.py
+    protocol.WebSocketCommonProtocol.write_frame -> streams.StreamWriter.drain
+    protocol.WebSocketCommonProtocol.write_frame -> streams.transport
+  --> /usr/lib64/python3.5/logging/__init__.py
+    protocol.WebSocketCommonProtocol.write_frame -> __init__.Logger.debug
+  --> /usr/lib64/python3.5/site-packages/websockets/framing.py
+    protocol.WebSocketCommonProtocol.write_frame -> framing.Frame.write
+    protocol.WebSocketCommonProtocol.write_frame -> framing.__new__
+    protocol.WebSocketCommonProtocol.write_frame -> protocol.WebSocketCommonProtocol.writer_is_closing
+  --> /usr/lib64/python3.5/asyncio/selector_events.py
+    protocol.WebSocketCommonProtocol.writer_is_closing -> selector_events._SelectorTransport.is_closing
+  --> /usr/lib64/python3.5/asyncio/streams.py
+    protocol.WebSocketCommonProtocol.writer_is_closing -> streams.transport
+
+*** /usr/lib64/python3.5/site-packages/websockets/py35/server.py ***
+  --> /usr/lib64/python3.5/asyncio/base_events.py
+    server.__await_impl__ -> base_events.BaseEventLoop.create_server
+  --> /usr/lib64/python3.5/site-packages/websockets/server.py
+    server.__await_impl__ -> server.WebSocketServer.wrap
+
+*** /usr/lib64/python3.5/site-packages/websockets/server.py ***
+    server.<lambda> -> server.WebSocketServerProtocol.__init__
+  --> /usr/lib64/python3.5/site-packages/websockets/headers.py
+    server.<listcomp> -> headers.parse_extension_list
+  --> /usr/lib64/python3.5/asyncio/events.py
+    server.Serve.__init__ -> events.get_event_loop
+  --> /usr/lib64/python3.5/site-packages/websockets/extensions/permessage_deflate.py
+    server.Serve.__init__ -> permessage_deflate.ServerPerMessageDeflateFactory.__init__
+    server.Serve.__init__ -> server.<genexpr>
+    server.Serve.__init__ -> server.WebSocketServer.__init__
+  --> /usr/lib64/python3.5/asyncio/futures.py
+    server.WebSocketServer.__init__ -> futures.Future.__init__
+  --> /usr/lib64/python3.5/site-packages/websockets/protocol.py
+    server.WebSocketServerProtocol.__init__ -> protocol.WebSocketCommonProtocol.__init__
+  --> /usr/lib64/python3.5/asyncio/tasks.py
+    server.WebSocketServerProtocol.connection_made -> tasks.ensure_future
+  --> /usr/lib64/python3.5/site-packages/websockets/protocol.py
+    server.WebSocketServerProtocol.connection_made -> protocol.WebSocketCommonProtocol.connection_made
+    server.WebSocketServerProtocol.connection_made -> server.WebSocketServer.register
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/server/Server.py
+    server.WebSocketServerProtocol.handler -> Server.Server.handle_message
+    server.WebSocketServerProtocol.handler -> server.WebSocketServerProtocol.handshake
+  --> /usr/lib64/python3.5/_collections_abc.py
+    server.WebSocketServerProtocol.handshake -> _collections_abc.MutableMapping.setdefault
+  --> /usr/lib64/python3.5/asyncio/coroutines.py
+    server.WebSocketServerProtocol.handshake -> coroutines.WebSocketServerProtocol.coro
+    server.WebSocketServerProtocol.handshake -> coroutines.iscoroutinefunction
+  --> /usr/lib64/python3.5/email/utils.py
+    server.WebSocketServerProtocol.handshake -> utils.formatdate
+  --> /usr/lib64/python3.5/site-packages/websockets/handshake.py
+    server.WebSocketServerProtocol.handshake -> handshake.build_response
+    server.WebSocketServerProtocol.handshake -> handshake.check_request
+  --> /usr/lib64/python3.5/site-packages/websockets/http.py
+    server.WebSocketServerProtocol.handshake -> http.Headers.__init__
+    server.WebSocketServerProtocol.handshake -> http.Headers.__setitem__
+  --> /usr/lib64/python3.5/site-packages/websockets/protocol.py
+    server.WebSocketServerProtocol.handshake -> protocol.WebSocketCommonProtocol.connection_open
+    server.WebSocketServerProtocol.handshake -> server.WebSocketServerProtocol.process_subprotocol
+    server.WebSocketServerProtocol.handshake -> server.WebSocketServerProtocol.read_http_request
+    server.WebSocketServerProtocol.handshake -> server.process_extensions
+    server.WebSocketServerProtocol.handshake -> server.process_origin
+  --> /usr/lib64/python3.5/site-packages/websockets/http.py
+    server.WebSocketServerProtocol.process_subprotocol -> http.Headers.get_all
+    server.WebSocketServerProtocol.read_http_request -> http.read_request
+  --> /usr/lib64/python3.5/site-packages/websockets/extensions/permessage_deflate.py
+    server.process_extensions -> permessage_deflate.ServerPerMessageDeflateFactory.process_request_params
+  --> /usr/lib64/python3.5/site-packages/websockets/headers.py
+    server.process_extensions -> headers.build_extension_list
+  --> /usr/lib64/python3.5/site-packages/websockets/http.py
+    server.process_extensions -> http.Headers.get_all
+    server.process_extensions -> server.<listcomp>
+  --> /usr/lib64/python3.5/_collections_abc.py
+    server.process_origin -> _collections_abc.Mapping.get
+  --> /usr/lib64/python3.5/asyncio/streams.py
+    server.write_http_response -> streams.StreamWriter.write
+  --> /usr/lib64/python3.5/site-packages/websockets/http.py
+    server.write_http_response -> http.Headers.__str__
+  --> /usr/lib64/python3.5/types.py
+    server.write_http_response -> types.DynamicClassAttribute.__get__
+
+*** /usr/lib64/python3.5/socket.py ***
+  --> /usr/lib64/python3.5/enum.py
+    socket._intenum_converter -> enum.EnumMeta.__call__
+    socket.family -> socket._intenum_converter
+  --> /usr/lib64/python3.5/encodings/__init__.py
+    socket.getaddrinfo -> __init__.search_function
+  --> /usr/lib64/python3.5/encodings/idna.py
+    socket.getaddrinfo -> idna.Codec.encode
+    socket.getaddrinfo -> socket._intenum_converter
+    socket.socket.accept -> socket.family
+    socket.socket.accept -> socket.socket.__init__
+    socket.socket.accept -> socket.type
+    socket.socketpair -> socket.socket.__init__
+    socket.type -> socket._intenum_converter
+
+*** /usr/lib64/python3.5/sre_compile.py ***
+    sre_compile._code -> sre_compile._compile
+    sre_compile._code -> sre_compile._compile_info
+    sre_compile._compile -> sre_compile._compile
+    sre_compile._compile -> sre_compile._compile_charset
+    sre_compile._compile -> sre_compile._simple
+  --> /usr/lib64/python3.5/sre_parse.py
+    sre_compile._compile -> sre_parse.SubPattern.__getitem__
+    sre_compile._compile_charset -> sre_compile._optimize_charset
+    sre_compile._compile_info -> sre_compile._compile_charset
+    sre_compile._compile_info -> sre_parse.SubPattern.getwidth
+    sre_compile._mk_bitmap -> sre_compile.<listcomp>
+    sre_compile._optimize_charset -> sre_compile._bytes_to_codes
+    sre_compile._optimize_charset -> sre_compile._mk_bitmap
+    sre_compile._simple -> sre_parse.SubPattern.__getitem__
+    sre_compile._simple -> sre_parse.SubPattern.getwidth
+    sre_compile.compile -> sre_compile._code
+    sre_compile.compile -> sre_compile.isstring
+    sre_compile.compile -> sre_parse.groups
+    sre_compile.compile -> sre_parse.parse
+
+*** /usr/lib64/python3.5/sre_parse.py ***
+    sre_parse.SubPattern.__getitem__ -> sre_parse.SubPattern.__init__
+    sre_parse.SubPattern.getwidth -> sre_parse.SubPattern.getwidth
+    sre_parse.Tokenizer.__init__ -> sre_parse.Tokenizer.__next
+    sre_parse.Tokenizer.get -> sre_parse.Tokenizer.__next
+    sre_parse.Tokenizer.match -> sre_parse.Tokenizer.__next
+    sre_parse._parse -> sre_parse.SubPattern.__getitem__
+    sre_parse._parse -> sre_parse.SubPattern.__init__
+    sre_parse._parse -> sre_parse.SubPattern.__len__
+    sre_parse._parse -> sre_parse.SubPattern.__setitem__
+    sre_parse._parse -> sre_parse.SubPattern.append
+    sre_parse._parse -> sre_parse.Tokenizer.get
+    sre_parse._parse -> sre_parse.Tokenizer.match
+    sre_parse._parse -> sre_parse.Tokenizer.tell
+    sre_parse._parse -> sre_parse._escape
+    sre_parse._parse_sub -> sre_parse.Tokenizer.match
+    sre_parse._parse_sub -> sre_parse.Tokenizer.tell
+    sre_parse._parse_sub -> sre_parse._parse
+    sre_parse.parse -> sre_parse.Pattern.__init__
+    sre_parse.parse -> sre_parse.Tokenizer.__init__
+    sre_parse.parse -> sre_parse._parse_sub
+    sre_parse.parse -> sre_parse.fix_flags
+
+*** /usr/lib64/python3.5/stringprep.py ***
+  --> <frozen importlib._bootstrap>
+    stringprep.<module> -> <frozen importlib._handle_fromlist
+
+*** /usr/lib64/python3.5/tarfile.py ***
+  --> /usr/lib64/python3.5/posixpath.py
+    tarfile.TarFile.__init__ -> posixpath.abspath
+    tarfile.TarFile.__init__ -> tarfile.TarFile.next
+    tarfile.TarFile.next -> tarfile.TarFile._check
+    tarfile.TarFile.next -> tarfile.fromtarfile
+    tarfile.frombuf -> tarfile.nti
+    tarfile.fromtarfile -> tarfile.frombuf
+    tarfile.nti -> tarfile.nts
+    tarfile.open -> tarfile.taropen
+    tarfile.taropen -> tarfile.TarFile.__init__
+
+*** /usr/lib64/python3.5/threading.py ***
+    threading.Condition.__init__ -> threading.RLock
+    threading.Condition.notify -> threading.Condition._is_owned
+    threading.Condition.notify_all -> threading.Condition.notify
+    threading.Condition.wait -> threading.Condition._acquire_restore
+    threading.Condition.wait -> threading.Condition._is_owned
+    threading.Condition.wait -> threading.Condition._release_save
+    threading.Event.__init__ -> threading.Condition.__init__
+    threading.Event.wait -> threading.Condition.__enter__
+    threading.Event.wait -> threading.Condition.__exit__
+    threading.Event.wait -> threading.Condition.wait
+  --> /usr/lib64/python3.5/_weakrefset.py
+    threading.Thread.__init__ -> _weakrefset.WeakSet.add
+    threading.Thread.__init__ -> threading.Event.__init__
+    threading.Thread.__init__ -> threading._newname
+    threading.Thread.__init__ -> threading.current_thread
+    threading.Thread.__init__ -> threading.daemon
+    threading.Thread._bootstrap_inner -> threading.Thread.run
+  --> /usr/lib64/python3.5/concurrent/futures/thread.py
+    threading.Thread.run -> thread._worker
+    threading.Thread.start -> threading.Event.is_set
+    threading.Thread.start -> threading.Event.wait
+    threading.daemon -> threading.Event.is_set
+
+*** /usr/lib64/python3.5/tokenize.py ***
+    tokenize.detect_encoding -> tokenize.find_cookie
+    tokenize.detect_encoding -> tokenize.read_or_stop
+  --> /usr/lib64/python3.5/codecs.py
+    tokenize.open -> codecs.BufferedIncrementalDecoder.__init__
+    tokenize.open -> tokenize.detect_encoding
+
+*** /usr/lib64/python3.5/trace.py ***
+  --> <string>
+    trace.Trace.runctx -> <string>.<module>
+
+*** /usr/lib64/python3.5/types.py ***
+  --> /usr/lib64/python3.5/enum.py
+    types.DynamicClassAttribute.__get__ -> enum.name
+    types.DynamicClassAttribute.__get__ -> enum.value
+
+*** /usr/lib64/python3.5/typing.py ***
+  --> /usr/lib64/python3.5/abc.py
+    typing.GenericMeta.__subclasscheck__ -> abc.ABCMeta.__subclasscheck__
+  --> /usr/lib64/python3.5/_collections_abc.py
+    typing.__extrahook__ -> _collections_abc.__subclasshook__
+  --> /usr/lib64/python3.5/abc.py
+    typing.__extrahook__ -> abc.ABCMeta.__subclasscheck__
+    typing._abc_negative_cache -> typing._gorg
+    typing._abc_negative_cache_version -> typing._gorg
+
+*** /usr/lib64/python3.5/warnings.py ***
+  --> /usr/lib64/python3.5/linecache.py
+    warnings.formatwarning -> linecache.getline
+    warnings.showwarning -> warnings.formatwarning
+
+*** /usr/lib64/python3.5/weakref.py ***
+    weakref.WeakValueDictionary.__init__ -> weakref.WeakValueDictionary.update
+    weakref.WeakValueDictionary.__setitem__ -> weakref.KeyedRef.__init__
+    weakref.WeakValueDictionary.__setitem__ -> weakref.__new__
+
+*** /usr/lib64/python3.5/zipfile.py ***
+    zipfile._check_zipfile -> zipfile._EndRecData
+    zipfile.is_zipfile -> zipfile._check_zipfile
+
+*** <frozen importlib._bootstrap> ***
+    <frozen importlib._ModuleLockManager.__enter__ -> <frozen importlib._ModuleLock.acquire
+    <frozen importlib._ModuleLockManager.__enter__ -> <frozen importlib._get_module_lock
+    <frozen importlib._ModuleLockManager.__exit__ -> <frozen importlib._ModuleLock.release
+  --> /usr/lib64/python3.5/encodings/idna.py
+    <frozen importlib._call_with_frames_removed -> idna.<module>
+  --> /usr/lib64/python3.5/site-packages/PIL/BmpImagePlugin.py
+    <frozen importlib._call_with_frames_removed -> BmpImagePlugin.<module>
+  --> /usr/lib64/python3.5/site-packages/PIL/GifImagePlugin.py
+    <frozen importlib._call_with_frames_removed -> GifImagePlugin.<module>
+  --> /usr/lib64/python3.5/site-packages/PIL/GimpGradientFile.py
+    <frozen importlib._call_with_frames_removed -> GimpGradientFile.<module>
+  --> /usr/lib64/python3.5/site-packages/PIL/GimpPaletteFile.py
+    <frozen importlib._call_with_frames_removed -> GimpPaletteFile.<module>
+  --> /usr/lib64/python3.5/site-packages/PIL/ImageChops.py
+    <frozen importlib._call_with_frames_removed -> ImageChops.<module>
+  --> /usr/lib64/python3.5/site-packages/PIL/ImageColor.py
+    <frozen importlib._call_with_frames_removed -> ImageColor.<module>
+  --> /usr/lib64/python3.5/site-packages/PIL/ImagePalette.py
+    <frozen importlib._call_with_frames_removed -> ImagePalette.<module>
+  --> /usr/lib64/python3.5/site-packages/PIL/ImageSequence.py
+    <frozen importlib._call_with_frames_removed -> ImageSequence.<module>
+  --> /usr/lib64/python3.5/site-packages/PIL/JpegImagePlugin.py
+    <frozen importlib._call_with_frames_removed -> JpegImagePlugin.<module>
+  --> /usr/lib64/python3.5/site-packages/PIL/JpegPresets.py
+    <frozen importlib._call_with_frames_removed -> JpegPresets.<module>
+  --> /usr/lib64/python3.5/site-packages/PIL/PaletteFile.py
+    <frozen importlib._call_with_frames_removed -> PaletteFile.<module>
+  --> /usr/lib64/python3.5/site-packages/PIL/PngImagePlugin.py
+    <frozen importlib._call_with_frames_removed -> PngImagePlugin.<module>
+  --> /usr/lib64/python3.5/site-packages/PIL/PpmImagePlugin.py
+    <frozen importlib._call_with_frames_removed -> PpmImagePlugin.<module>
+  --> /usr/lib64/python3.5/site-packages/PIL/TiffImagePlugin.py
+    <frozen importlib._call_with_frames_removed -> TiffImagePlugin.<module>
+  --> /usr/lib64/python3.5/stringprep.py
+    <frozen importlib._call_with_frames_removed -> stringprep.<module>
+    <frozen importlib._call_with_frames_removed -> <frozen importlib._find_and_load
+    <frozen importlib._find_and_load -> <frozen importlib._ModuleLockManager.__enter__
+    <frozen importlib._find_and_load -> <frozen importlib._ModuleLockManager.__exit__
+    <frozen importlib._find_and_load -> <frozen importlib._ModuleLockManager.__init__
+    <frozen importlib._find_and_load -> <frozen importlib._find_and_load_unlocked
+    <frozen importlib._find_and_load -> <frozen importlib.cb
+    <frozen importlib._find_and_load_unlocked -> <frozen importlib._find_spec
+    <frozen importlib._find_and_load_unlocked -> <frozen importlib._load_unlocked
+    <frozen importlib._find_spec -> <frozen importlib._ImportLockContext.__enter__
+    <frozen importlib._find_spec -> <frozen importlib._ImportLockContext.__exit__
+    <frozen importlib._find_spec -> <frozen importlib.find_spec
+  --> <frozen importlib._bootstrap_external>
+    <frozen importlib._find_spec -> <frozen importlib.find_spec
+    <frozen importlib._gcd_import -> <frozen importlib._lock_unlock_module
+    <frozen importlib._gcd_import -> <frozen importlib._sanity_check
+    <frozen importlib._gcd_import -> <frozen importlib.cb
+    <frozen importlib._get_module_lock -> <frozen importlib._ModuleLock.__init__
+    <frozen importlib._handle_fromlist -> <frozen importlib._call_with_frames_removed
+    <frozen importlib._init_module_attrs -> <frozen importlib.cached
+    <frozen importlib._init_module_attrs -> <frozen importlib.has_location
+    <frozen importlib._init_module_attrs -> <frozen importlib.parent
+    <frozen importlib._installed_safely.__exit__ -> <frozen importlib.<genexpr>
+    <frozen importlib._installed_safely.__exit__ -> <frozen importlib._verbose_message
+    <frozen importlib._load_unlocked -> <frozen importlib._installed_safely.__enter__
+    <frozen importlib._load_unlocked -> <frozen importlib._installed_safely.__exit__
+    <frozen importlib._load_unlocked -> <frozen importlib._installed_safely.__init__
+    <frozen importlib._load_unlocked -> <frozen importlib.module_from_spec
+    <frozen importlib._load_unlocked -> <frozen importlib.exec_module
+    <frozen importlib._lock_unlock_module -> <frozen importlib._ModuleLock.acquire
+    <frozen importlib._lock_unlock_module -> <frozen importlib._ModuleLock.release
+    <frozen importlib._lock_unlock_module -> <frozen importlib._get_module_lock
+    <frozen importlib.cached -> <frozen importlib._get_cached
+    <frozen importlib.module_from_spec -> <frozen importlib._init_module_attrs
+    <frozen importlib.module_from_spec -> <frozen importlib._new_module
+    <frozen importlib.module_from_spec -> <frozen importlib._LoaderBasics.create_module
+
+*** <frozen importlib._bootstrap_external> ***
+    <frozen importlib.FileFinder._get_spec -> <frozen importlib.FileLoader.__init__
+    <frozen importlib.FileFinder._get_spec -> <frozen importlib.spec_from_file_location
+    <frozen importlib.FileFinder.find_spec -> <frozen importlib.FileFinder._get_spec
+    <frozen importlib.FileFinder.find_spec -> <frozen importlib._path_isfile
+    <frozen importlib.FileFinder.find_spec -> <frozen importlib._path_join
+    <frozen importlib.FileFinder.find_spec -> <frozen importlib._path_stat
+    <frozen importlib.FileFinder.find_spec -> <frozen importlib._relax_case
+    <frozen importlib.FileFinder.find_spec -> <frozen importlib._verbose_message
+    <frozen importlib.SourceFileLoader.path_stats -> <frozen importlib._path_stat
+    <frozen importlib.SourceLoader.get_code -> <frozen importlib.FileLoader.get_data
+    <frozen importlib.SourceLoader.get_code -> <frozen importlib.SourceFileLoader.path_stats
+    <frozen importlib.SourceLoader.get_code -> <frozen importlib._check_name_wrapper
+    <frozen importlib.SourceLoader.get_code -> <frozen importlib._compile_bytecode
+    <frozen importlib.SourceLoader.get_code -> <frozen importlib._validate_bytecode_header
+    <frozen importlib.SourceLoader.get_code -> <frozen importlib._verbose_message
+    <frozen importlib.SourceLoader.get_code -> <frozen importlib.cache_from_source
+    <frozen importlib._check_name_wrapper -> <frozen importlib.get_filename
+    <frozen importlib._compile_bytecode -> <frozen importlib._verbose_message
+    <frozen importlib._get_cached -> <frozen importlib.cache_from_source
+    <frozen importlib._get_spec -> <frozen importlib.FileFinder.find_spec
+    <frozen importlib._get_spec -> <frozen importlib._path_importer_cache
+    <frozen importlib._path_is_mode_type -> <frozen importlib._path_stat
+    <frozen importlib._path_isfile -> <frozen importlib._path_is_mode_type
+    <frozen importlib._path_join -> <frozen importlib.<listcomp>
+    <frozen importlib._validate_bytecode_header -> <frozen importlib._r_long
+    <frozen importlib.cache_from_source -> <frozen importlib._path_join
+    <frozen importlib.cache_from_source -> <frozen importlib._path_split
+  --> <frozen importlib._bootstrap>
+    <frozen importlib.exec_module -> <frozen importlib._call_with_frames_removed
+    <frozen importlib.exec_module -> <frozen importlib.SourceLoader.get_code
+    <frozen importlib.find_spec -> <frozen importlib._get_spec
+    <frozen importlib.spec_from_file_location -> <frozen importlib.ModuleSpec.__init__
+
+*** <string> ***
+  --> /home/hybrid/Projects/celestiaprime/sync/sync/server/Server.py
+    <string>.<module> -> Server.Server.start
+    <string>.FrameData._replace -> <string>._make

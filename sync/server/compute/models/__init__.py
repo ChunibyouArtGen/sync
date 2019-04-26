@@ -1,4 +1,5 @@
 from .adaptive_st import AdaInModel
-from .NSTModel import NSTModel
+from .passthrough import PassthroughModel
+from .fast_nst import FastNSTModel
 
-__all__ = ["NSTModel", "AdaInModel"]
+__all__ = ["PassthroughModel", "AdaInModel", 'FastNSTModel']

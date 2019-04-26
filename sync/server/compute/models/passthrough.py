@@ -1,4 +1,4 @@
-class NSTModel:
+class PassthroughModel:
     def __init__(self):
         pass
 
