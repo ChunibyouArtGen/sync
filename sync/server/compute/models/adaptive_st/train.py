@@ -6,10 +6,12 @@ import torch.backends.cudnn as cudnn
 import torch.nn as nn
 import torch.utils.data as data
 from PIL import Image, ImageFile
-from sampler import InfiniteSamplerWrapper
+
 # from tensorboardX import SummaryWriter
 from torchvision import transforms
 from tqdm import tqdm
+
+from sampler import InfiniteSamplerWrapper
 
 from .net import Net, decoder, vgg
 

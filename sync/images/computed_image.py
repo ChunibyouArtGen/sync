@@ -24,8 +24,8 @@ class ComputedImage(LayerImage):
                 self.slots[slot] = source
             except:
                 logger.warn(
-                    "Input {}:{} is not a valid uuid, leaving as-is".format(
-                        slot, uuid))
+                    "Input {}:{} is not a valid uuid, leaving as-is".format(slot, uuid)
+                )
                 self.slots[slot] = uuid
 
     def get_param_list(self):
@@ -46,5 +46,5 @@ class ComputedImage(LayerImage):
         for slot, image in params["inputs"].items():
             if isinstance(params["inputs"][slot], Image):
                 params["inputs"][slot] = self.data_manager.reverse[image]
-        
+
         return params

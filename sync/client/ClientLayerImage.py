@@ -2,7 +2,6 @@ import asyncio
 import logging
 
 import numpy as np
-
 from skimage.io import imsave
 
 from ..images import LayerImage, register_image_class

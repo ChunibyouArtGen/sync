@@ -3,7 +3,6 @@ import os
 from os.path import basename, splitext
 
 import numpy as np
-
 import torch
 import torch.backends.cudnn as cudnn
 import torch.nn as nn
@@ -19,7 +18,6 @@ from .net import Net, decoder, vgg
 from .sampler import InfiniteSamplerWrapper
 
 # from tensorboardX import SummaryWriter
-
 
 
 logger = logging.getLogger(__name__)

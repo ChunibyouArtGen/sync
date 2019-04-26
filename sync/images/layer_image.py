@@ -84,6 +84,8 @@ class LayerImage(Image):
         self.data[x0:x, y0:y, :] = data
 
     async def update_data(self, new_data):
+        assert new_data.shape[-1] == 3
+
         logger.debug("Start diff for layer {}...".format(self.params["layer_name"]))
 
         tiles = get_changed_tiles(self.data, new_data, self.params)

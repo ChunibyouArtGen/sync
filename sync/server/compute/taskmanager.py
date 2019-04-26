@@ -3,14 +3,18 @@ import logging
 from concurrent.futures import Future, ThreadPoolExecutor
 
 from ..ServerComputedImage import ServerComputedImage
-from .models import AdaInModel, PassthroughModel, FastNST
- 
+from .models import AdaInModel, FastNSTModel, PassthroughModel
+
 logger = logging.getLogger(__name__)
 
 
 class TaskManager:
     def __init__(self, data_manager):
-        self.models = {"passthrough": PassthroughModel(), "adain": AdaInModel(),'fastnst': FastNST()} 
+        self.models = {
+            "passthrough": PassthroughModel(),
+            "adain": AdaInModel(),
+            "fastnst": FastNSTModel(),
+        }
         self.executor = ThreadPoolExecutor()
         self.data_manager = data_manager
         self.tasks = {}
@@ -21,14 +25,10 @@ class TaskManager:
         model_key = image.params["model_key"]
         logger.info("Computing with model {}...".format(model_key))
         logger.info(self.models[model_key])
+
         logger.info(
             "Content shape: {}, dtype:{}".format(
                 inputs["content"].shape, inputs["content"].dtype
-            )
-        )
-        logger.info(
-            "Style shape: {}, dtype:{}".format(
-                inputs["style"].shape, inputs["style"].dtype
             )
         )
         image_data = self.models[model_key].run(inputs)
@@ -36,7 +36,6 @@ class TaskManager:
             "Output shape: {}, dtype:{}".format(image_data.shape, image_data.dtype)
         )
 
-        logger.info("Done computing!")
         return image_data
         # image.update_data(image_data)
 
@@ -68,6 +67,8 @@ class TaskManager:
         except Exception as e:
             logger.exception(e)
             raise
+
+        logger.info("Got computed data, sending data to {}...".format(image))
 
         await asyncio.shield(image.update_data(data))
 

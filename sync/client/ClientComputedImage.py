@@ -1,8 +1,8 @@
 import logging
 
 import numpy as np
-
 from skimage.io import imsave
+
 from sync.images import ComputedImage, register_image_class
 
 from .utils import get_node_object
@@ -30,7 +30,7 @@ class ClientComputedImage(ComputedImage):
             image = np.flip(np.roll(image, 1, axis=-1), axis=-1)
 
             self.krita_node.setPixelData(image.tobytes(), y0, x0, w, w)
-            self.krita_node.setVisible(True)
+            # self.krita_node.setVisible(True)
 
             imsave("~/Pictures/celestia/output.png", self.data)
 

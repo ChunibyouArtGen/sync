@@ -1,8 +1,8 @@
 import random
 
 import numpy as np
-
 from skimage.io import imsave
+
 from sync.images import LayerImage, register_image_class
 
 

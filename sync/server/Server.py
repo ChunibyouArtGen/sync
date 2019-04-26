@@ -11,7 +11,7 @@ logger = logging.getLogger()
 
 
 class Server:
-    def __init__(self, log_level=logging.CRITICAL):
+    def __init__(self, log_level=logging.INFO):
         init_logging(level=log_level)
         self.data_manager = None
 
@@ -29,8 +29,8 @@ class Server:
                 await self.data_manager.channel.process_message(message)
         except:
             import sys
-            sys.exit()
 
+            sys.exit()
 
     def start(self, host="localhost", port=8765):
         start_server = websockets.serve(self.handle_message, host, port)
