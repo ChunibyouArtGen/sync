@@ -23,10 +23,15 @@ class ClientComputedImage(ComputedImage):
             x0, y0 = self.get_tile_coords(tile_key)
             w = self.params["w"]
             alpha = np.full(
-                (self.params["w"], self.params["w"], 1), 254, dtype=np.uint8
+                (w,w, 1), 254, dtype=np.uint8
             )
+            try:
+                image = np.concatenate((data, alpha), axis=-1).astype(np.uint8)
+            except Exception as e:
+                logger.exception(e)
+                logger.critical("type mismatch: data-{}, expected(alpha)-{}".format(data.shape,alpha.shape))
+                return 
 
-            image = np.concatenate((data, alpha), axis=-1).astype(np.uint8)
             image = np.flip(np.roll(image, 1, axis=-1), axis=-1)
 
             self.krita_node.setPixelData(image.tobytes(), y0, x0, w, w)
